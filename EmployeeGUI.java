@@ -7,6 +7,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+
 import javax.swing.JFrame;
 import javax.swing.JTextArea;
 import javax.swing.JPanel;
@@ -28,10 +30,12 @@ import javax.swing.JComboBox;
 
 public class EmployeeGUI extends JPanel{
 	
+	// Patient Information - store info when searched
+	//Patient patient;
+	
 	// Employee Information
-	//Employee emp;
-	private String user;
-	private String pw;
+	private String empUser; 
+	private String empPW;
 	
 	// Employee Label
 	JLabel employeeGUILabel;
@@ -42,16 +46,18 @@ public class EmployeeGUI extends JPanel{
 	JTextField userField, pwField;
 	JButton loginButton, cancelButton;
 	
+	// QUESTION: What does the cancel button (of the login panel) do?
+	
 	// Employee Window (Tabbed Pane)
-	// Calendar, Patient Information, Billing, Search
+	// 4 Tabs: Calendar, Patient Information, Billing, Search
 	JTabbedPane jtp; 
 	JPanel calTab, patientTab, billingTab, searchTab;
 	
 	// TAB 1: Calendar
-	
+	DatePickerPanel datePanel; 
 	
 	// TAB 2: Patient Information 
-	JLabel lNameLabel, fNameLabel, mNameLabel, ssidLabel, dobLabel, 
+	JLabel lNameLabel, fNameLabel, mNameLabel, ssnLabel, dobLabel, 
 		phoneLabel, streetLabel, cityLabel, stateLabel, zipLabel;
 	
 	/*
@@ -60,32 +66,39 @@ public class EmployeeGUI extends JPanel{
 	 * -ex: have a month, date, year field
 	 */
 	
-	JTextField lNameField, fNameField, mNameField, ssidField, dobField,
+	JTextField lNameField, fNameField, mNameField, ssnField, dobField,
 		phoneField, streetField, cityField, zipField;
 	JComboBox statesCB;
 	
+	
 	// TAB 3: Billing
+	String patientLName, patientSSN, billCode;
+	
+	
 	
 	
 	// TAB 4: Search
-	
+	JLabel lNameSearchLabel, ssnSearchLabel, searchDirectionLabel;
+	JTextField lNameSearchField, ssnSearchField;
+	JPanel searchPanel, lNameSearchPanel, ssnSearchPanel, searchButtonPanel;
+	JButton searchButton, selectButton;
+	JComboBox choosePatientCB;
 
 	
 	// Default Constructor
 	public EmployeeGUI() {
 		
-		// set up GUI
+		// set up EmployeeGUI JPanel
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		//setSize(1200,500);
 		setSize(1000, 500);
 		employeeGUILabel = new JLabel("Employee PIMS"); // may not use
 		
 		// initialize login panel variables
 		loginPanel = new JPanel(new GridLayout(0,2,5,5));
 		
-		userLabel = new JLabel("Username:");
-		pwLabel = new JLabel("Password");
+		userLabel = new JLabel("Username:", SwingConstants.RIGHT);
+		pwLabel = new JLabel("Password:", SwingConstants.RIGHT);
 		userField = new JTextField(20);
 		userField.setEditable(true);
 		pwField = new JTextField(20);
@@ -103,21 +116,20 @@ public class EmployeeGUI extends JPanel{
 		
 		// initialize JTabbedPane
 		jtp = new JTabbedPane();
-		calTab = new JPanel(new BorderLayout());
-		patientTab = new JPanel(new GridLayout(0,2,5,5));
+		calTab = new JPanel();
+		patientTab = new JPanel(new GridLayout(0, 2, 5, 5));
 		billingTab = new JPanel(new BorderLayout());
-		searchTab = new JPanel(new BorderLayout());
+		searchTab = new JPanel(new GridLayout(1, 0 ,5 ,5));
 		
 		// TAB 1: Calendar
-		/*
-		 * TO-DO : figure out calendar
-		 */
+		datePanel = new DatePickerPanel();
+		calTab.add(datePanel);
 		
 		// TAB 2: Patient Information
 		lNameLabel = new JLabel("Last Name");
 		fNameLabel = new JLabel("First Name");
 		mNameLabel = new JLabel("Middle Name");
-		ssidLabel = new JLabel("Social Security Number");
+		ssnLabel = new JLabel("Social Security Number");
 		dobLabel = new JLabel("Date of Birth");
 		phoneLabel = new JLabel("Telephone Number:");
 		streetLabel = new JLabel("Street");
@@ -131,8 +143,8 @@ public class EmployeeGUI extends JPanel{
 		fNameField.setEditable(true);
 		mNameField = new JTextField(20);
 		mNameField.setEditable(true);
-		ssidField = new JTextField(20);
-		ssidField.setEditable(true);
+		ssnField = new JTextField(20);
+		ssnField.setEditable(true);
 		dobField  = new JTextField(20);
 		dobField.setEditable(true);
 		phoneField = new JTextField(20);
@@ -144,7 +156,6 @@ public class EmployeeGUI extends JPanel{
 		zipField = new JTextField(20);
 		zipField.setEditable(true);
 		
-
 		String[] states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California", 
 					"Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida", 
 					"Georgia", "Hawaii", "Idaho", "Illinois", "Indiana", 
@@ -158,19 +169,16 @@ public class EmployeeGUI extends JPanel{
 					"Wyoming"};
 		statesCB = new JComboBox<String>(states);
 		
-		/*
-		 * NOTE: see how the combobox shows all the states
-		 */
 		
-		// add components to tab
+		// add components to tab 2
 		patientTab.add(lNameLabel);
 		patientTab.add(lNameField);
 		patientTab.add(fNameLabel);
 		patientTab.add(fNameField);
 		patientTab.add(mNameLabel);
 		patientTab.add(mNameField);
-		patientTab.add(ssidLabel);
-		patientTab.add(ssidField);
+		patientTab.add(ssnLabel);
+		patientTab.add(ssnField);
 		patientTab.add(dobLabel);
 		patientTab.add(dobField);
 		patientTab.add(phoneLabel);
@@ -184,6 +192,32 @@ public class EmployeeGUI extends JPanel{
 		patientTab.add(zipLabel);
 		patientTab.add(zipField);
 
+		// TAB 3: Billing
+		
+		
+		// TAB 4: Search
+		searchButton = new JButton("Search"); 
+		searchPanel = new JPanel(new GridLayout(1, 0,5 ,5));
+		lNameSearchPanel = new JPanel(new FlowLayout());
+		ssnSearchPanel = new JPanel(new FlowLayout());
+		searchButtonPanel = new JPanel();
+		searchDirectionLabel = new JLabel("Search for Patient using Last Name OR SSN");
+		lNameSearchLabel = new JLabel("Last Name:");
+		lNameSearchField = new JTextField(20);
+		ssnSearchLabel = new JLabel("SSN:");
+		ssnSearchField = new JTextField(20);
+		
+		// add components to Search tab
+		lNameSearchPanel.add(lNameLabel);
+		lNameSearchPanel.add(lNameField);
+		ssnSearchPanel.add(ssnLabel);
+		ssnSearchPanel.add(ssnField);
+		searchPanel.add(lNameSearchPanel);
+		searchPanel.add(ssnSearchPanel);
+		searchButtonPanel.add(searchButton);
+		searchTab.add(searchPanel);
+		searchTab.add(searchButtonPanel);
+		
 		
 		
 		// add panels to tabbed pane
@@ -194,16 +228,17 @@ public class EmployeeGUI extends JPanel{
 		
 		
 		// set up main panel
-		
-		//add(employeeGUILabel, BorderLayout.PAGE_START);
 		add(loginPanel, BorderLayout.CENTER);
-		//add(jtp, BorderLayout.CENTER);
 		validate();
-		
-		
 		
 		// various action listeners for buttons
 		loginButton.addActionListener (e -> checkLogin());
+		
+		
+		// Q: What does the cancel button (of the login panel) do?
+		
+		
+		searchButton.addActionListener(e -> searchPatient());
 		
 		/*searchButton.addActionListener (e -> search ((String)(searchCB.getSelectedItem()), searchTF.getText()));
 		expandButton.addActionListener (e -> expandAllNodes());
@@ -221,7 +256,7 @@ public class EmployeeGUI extends JPanel{
 	}// end constructor
 
 	/*
-	 * login()
+	 * checkLogin()
 	 * 
 	 * -checks username and password for employee
 	 * -returns true if credentials are correct
@@ -232,13 +267,17 @@ public class EmployeeGUI extends JPanel{
 		String title, toDisplay;
 		
 		title = "Login";
-		
 		toDisplay = "Login failed";
 		
+		// grab what user entered in Username and PW fields
+		empUser = userField.getText();
+		empPW = pwField.getText();
+		
 		// for now, as long as user and pw are not empty, one can log in	
-		if (!userField.getText().equals("") && !pwField.getText().equals("")){
+		if (!empUser.equals("") && !empPW.equals("")){
 			
 			/*
+			 * BACKEND insert validation in if statement above
 			 * need to validate user login
 			 */
 			
@@ -257,8 +296,70 @@ public class EmployeeGUI extends JPanel{
 		
 		JOptionPane.showMessageDialog(this, toDisplay, title, JOptionPane.ERROR_MESSAGE);
 		return false;
-	}
+	} // end checkLogin()
+	
+	/*
+	 * 
+	 */
+	private void searchPatient(){
+	
+		String lName, ssn;
+		lName = lNameSearchField.getText();
+		ssn = ssnSearchField.getText();
+		
+		JOptionPane.showMessageDialog(this, "Searcing for Last Name:" + lName + ", or SSN:" + ssn, 
+					"Searching...", JOptionPane.DEFAULT_OPTION);
 
+		
+		/*
+		 * BACKEND - grab patient information
+		 * -return array list or array of Patients with 
+		 * corresponding data
+		 */
+		ArrayList<String> patientsFound = new ArrayList<String>();
+		
+		// display whether patients found or not
+		JOptionPane.showMessageDialog(this, "Found Results for for Last Name:" + lName + ", or SSN:" + ssn, 
+					"Search Successful", JOptionPane.DEFAULT_OPTION);
+
+		
+		// create JComboBox for Patient Options to select from
+		// using patientsFound
+		choosePatientCB = new JComboBox<String>();
+		selectButton = new JButton("Select Patient");
+		selectButton.addActionListener(e-> fillPatientFoundData());
+		
+		
+	} // end searchPatient
+	
+	/*
+	 * 
+	 */
+	private void fillPatientFoundData(){
+		
+		JOptionPane.showMessageDialog(this, "Filling in Information for Patient Found", 
+					"Filling in Info", JOptionPane.DEFAULT_OPTION);
+
+		
+		/*
+		 * BACKEND - need specific patient object getters
+		 */
+		// Patient patientSearched;
+		
+		/*
+		 * To-Do:
+		 * 
+		 * -fill in all fields with patientSearched's information
+		 * -ex: first, middle, last name, billing info, etc
+		 * -populate fields across all tabs
+		 */
+		
+		
+	}// end fillPatientData()
+
+	/*
+	 * main for just employeeGUI
+	 */
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
@@ -277,4 +378,4 @@ public class EmployeeGUI extends JPanel{
 		mainGUI.setVisible(true);
 		
 	}// end main
-}
+}// end EmployeeGUI class
