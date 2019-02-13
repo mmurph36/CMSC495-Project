@@ -93,8 +93,8 @@ public class MainGUI extends JFrame{
 		revalidate();
 		repaint();
 		employeePanel = new EmployeeGUI();
-		this.add(backPanel, BorderLayout.NORTH);
-		this.add(employeePanel, BorderLayout.SOUTH);
+		this.add(backPanel, BorderLayout.PAGE_START);
+		this.add(employeePanel, BorderLayout.CENTER);
 		validate();
 	
 	}// end employeeMenu
@@ -113,9 +113,11 @@ public class MainGUI extends JFrame{
 		this.add(backPanel, BorderLayout.SOUTH);
 		
 		// UNCOMMENT BELOW to show PatientGUI when code added
-		//patientPanel = new patientGUI();
-		//this.add(patientPanel, BorderLayout.CENTER);
-
+		patientPanel = new PatientGUI();
+		this.add(backPanel, BorderLayout.PAGE_START);
+		this.add(patientPanel, BorderLayout.CENTER);
+		
+		
 		validate();
 	}// end patientMenu
 	

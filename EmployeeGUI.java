@@ -28,6 +28,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.JComboBox;
 
+@SuppressWarnings("serial")
 public class EmployeeGUI extends JPanel{
 	
 	// Patient Information - store info when searched
@@ -68,21 +69,22 @@ public class EmployeeGUI extends JPanel{
 	
 	JTextField lNameField, fNameField, mNameField, ssnField, dobField,
 		phoneField, streetField, cityField, zipField;
-	JComboBox statesCB;
+	JComboBox<String> statesCB;
 	
 	
 	// TAB 3: Billing
-	String patientLName, patientSSN, billCode;
+	JLabel lNameBillLabel, ssnBillLabel, billingCodeLabel, policyLabel, amtDueLabel;
+	JTextField lNameBillField, ssnBillField, amtDueField;
+	JComboBox<String> codeCB, policyCB;
 	
-	
-	
+	// ADD CALCULATE BUTTON
 	
 	// TAB 4: Search
 	JLabel lNameSearchLabel, ssnSearchLabel, searchDirectionLabel;
 	JTextField lNameSearchField, ssnSearchField;
 	JPanel searchPanel, lNameSearchPanel, ssnSearchPanel, searchButtonPanel;
 	JButton searchButton, selectButton;
-	JComboBox choosePatientCB;
+	JComboBox<String> choosePatientCB;
 
 	
 	// Default Constructor
@@ -91,7 +93,7 @@ public class EmployeeGUI extends JPanel{
 		// set up EmployeeGUI JPanel
 		setLayout(new BorderLayout());
 		setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-		setSize(1000, 500);
+		//setSize(1000, 500);
 		employeeGUILabel = new JLabel("Employee PIMS"); // may not use
 		
 		// initialize login panel variables
@@ -118,7 +120,7 @@ public class EmployeeGUI extends JPanel{
 		jtp = new JTabbedPane();
 		calTab = new JPanel();
 		patientTab = new JPanel(new GridLayout(0, 2, 5, 5));
-		billingTab = new JPanel(new BorderLayout());
+		billingTab = new JPanel(new GridLayout(0, 2, 5, 5));
 		searchTab = new JPanel(new GridLayout(1, 0 ,5 ,5));
 		
 		// TAB 1: Calendar
@@ -193,7 +195,36 @@ public class EmployeeGUI extends JPanel{
 		patientTab.add(zipField);
 
 		// TAB 3: Billing
+		lNameBillLabel = new JLabel("Patient Last Name:");
+		ssnBillLabel = new JLabel("SSN:");
+		billingCodeLabel = new JLabel("Billing Code:");
+		policyLabel = new JLabel("Policy:");
+		amtDueLabel = new JLabel("Amount Due");
+		lNameBillField= new JTextField(20);
+		ssnBillField= new JTextField(20);
+		amtDueField= new JTextField(20);
+		amtDueField.setEditable(false);
 		
+		
+		String[] billingCodeOptions = {"1110", "2110", "3110"};
+		String[] policyOptions = {"Yes", "No"};
+		codeCB = new JComboBox<String>(billingCodeOptions);
+		policyCB = new JComboBox<String>(policyOptions);
+		
+		// add contents to Billing tab
+		billingTab.add(lNameBillLabel);
+		billingTab.add(lNameBillField);
+		billingTab.add(ssnBillLabel);
+		billingTab.add(ssnBillField);
+		billingTab.add(billingCodeLabel);
+		billingTab.add(codeCB);
+		billingTab.add(policyLabel);
+		billingTab.add(policyCB);
+		billingTab.add(amtDueLabel);
+		billingTab.add(amtDueField);
+		
+		// ADD CALCULATE BUTTON
+
 		
 		// TAB 4: Search
 		searchButton = new JButton("Search"); 
@@ -286,7 +317,7 @@ public class EmployeeGUI extends JPanel{
 			revalidate();
 			repaint();
 			
-			setSize(1000,500);
+			//setSize(1000,500);
 			add(jtp, BorderLayout.CENTER);
 			validate();
 			
@@ -317,6 +348,7 @@ public class EmployeeGUI extends JPanel{
 		 * corresponding data
 		 */
 		ArrayList<String> patientsFound = new ArrayList<String>();
+		String[] patientOptions;
 		
 		// display whether patients found or not
 		JOptionPane.showMessageDialog(this, "Found Results for for Last Name:" + lName + ", or SSN:" + ssn, 
