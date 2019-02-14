@@ -32,7 +32,7 @@ public class system {
 			int SSN, int zip, String address, String p_number) {
 		
 		//check if the patient exists
-		if(patient_exists(SSN)) return false;
+		if(patient_exists(user_name, password)) return false;
 		
 		p_list.add(new patient(f_name, l_name, m_name, user_name, password, dob, age, SSN, zip, address, p_number));
 		return true;
@@ -48,20 +48,20 @@ public class system {
 		}
 	
 	//official way to check if the patient exists
-	public boolean patient_exists(int SSN) {
+	public boolean patient_exists(String user_name, String password) {
 		for(patient p : p_list) {
-			if(p.SSN == SSN) return true;
+			if(p.user_name.equals(user_name) && p.password.equals(password)) return true;
 		}
 		
 		return false;
 	}
 	
 	//get the patients details
-	public String patient_details(int SSN) {
-		if(patient_exists(SSN)) return "Patient does not exist within the database.";
+	public String patient_details(String user_name, String password) {
+		if(!patient_exists(user_name, password)) return "Patient does not exist within the database.";
 		
 		for(patient p : p_list) {
-			if(p.SSN == SSN) return p.toString();
+			if(p.user_name.equals(user_name) && p.password.equals(password)) return p.toString();
 		}
 		
 		return "";
