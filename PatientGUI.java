@@ -1,3 +1,14 @@
+/* Author: Ari Ohsie, minor edits by Esther Ho
+ * CMSC 495
+ * PIMS Project
+ * 
+ * File Name: EmployeeGUI.java
+ * 
+ * 
+ * 
+ * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
+ *  https://github.com/LGoodDatePicker/LGoodDatePicker
+ */
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
@@ -246,7 +257,7 @@ public class PatientGUI extends JPanel {
         createNewPatientPanel.add(cancelButton_cnp, createNewPatientConstraints);
 
 
-        // createNewPatientInfo panel
+     // createNewPatientInfo panel
 
         // create the patient info panel
 
@@ -634,7 +645,7 @@ public class PatientGUI extends JPanel {
         patientInfoPanelConstraints.gridx = 30;
         patientInfoPanelConstraints.anchor = GridBagConstraints.EAST;
 
-        patientInfoPanel.add(logoutButton_PI, patientInfoPanelConstraints);
+        //patientInfoPanel.add(logoutButton_PI, patientInfoPanelConstraints);
 
 
         // create calendar panel
@@ -703,7 +714,7 @@ public class PatientGUI extends JPanel {
         calendarConstraints.weighty = 1;
         calendarConstraints.anchor = GridBagConstraints.NORTHEAST;
 
-        calendarPanel.add(logoutButton_calendar, calendarConstraints);
+       // calendarPanel.add(logoutButton_calendar, calendarConstraints);
 
 
 
@@ -792,7 +803,7 @@ public class PatientGUI extends JPanel {
                         (null, "Password Must Have At Least 4 Characters");
             else if (!mainGUI.getSystem().patient_exists(usernameTextField_cnp.getText(), passwordTextField_cnp.getText())){
                 remove(createNewPatientPanel);
-                add(createNewPatientInfoPanel);
+                add(tabbedPane);
                 JOptionPane.showMessageDialog
                         (null, "Submission Successful");
                 repaint();
@@ -907,9 +918,11 @@ public class PatientGUI extends JPanel {
         });
 
         logoutButton_PI.addActionListener(e -> {
-            remove(tabbedPane);
+            
+        	remove(tabbedPane);
             remove(this);
-            mainGUI.add(mainGUI.getStartPanel());
+           /* mainGUI.add(mainGUI.getStartPanel()); */
+        	mainGUI.returnToLogin();
             JOptionPane.showMessageDialog
                     (null, "Logout Successful");
             repaint();

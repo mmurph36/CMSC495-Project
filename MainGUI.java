@@ -1,8 +1,24 @@
+/* Author: Esther Ho
+ * CMSC 495
+ * PIMS Project
+ * 
+ * File Name: MainGUI.java
+ * 
+ * 
+ * 
+ * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
+ *  https://github.com/LGoodDatePicker/LGoodDatePicker
+ */
+
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -30,9 +46,8 @@ import javax.swing.JComboBox;
 
 public class MainGUI extends JFrame{
 
-	system pimsSystem;
-	
-	public String guiTitle;
+	private system pimsSystem;
+	String guiTitle;
 	JPanel employeePanel, patientPanel;
 	
 	// "Start Panel" - login GUI variables
@@ -50,9 +65,10 @@ public class MainGUI extends JFrame{
 	// default constructor
 	public MainGUI() {
 		
-		pimsSystem = new system();
-		
 		guiTitle = "PIMS";
+		
+		// initialize system object
+		pimsSystem = new system();
 		
 		// sets up main GUI
 		setTitle(guiTitle);
@@ -67,6 +83,7 @@ public class MainGUI extends JFrame{
 		startPanel.add(loginChoicePanel, BorderLayout.CENTER);
 		
 		// Add start panel to JFrame
+		
 		add(startPanel,BorderLayout.CENTER);
 		
 		// Add back button to back panel
@@ -86,11 +103,17 @@ public class MainGUI extends JFrame{
 		
 	}// end constructor
 	
+	/*
+	 * getter for system object for Patient and Employee Panel
+	 */
 	public system getSystem(){
 		return pimsSystem;
 	}
 	
-	public JPanel getStartPanel(){
+	/*
+	 * getter for startPanel
+	 */
+	public Component getStartPanel() {
 		return startPanel;
 	}
 	
@@ -122,7 +145,7 @@ public class MainGUI extends JFrame{
 		
 		JOptionPane.showMessageDialog(this, "creates new PatientGUI panel", "PatientGUI to be created", JOptionPane.DEFAULT_OPTION);
 		
-		this.add(backPanel, BorderLayout.SOUTH);
+		//this.add(backPanel, BorderLayout.SOUTH);
 		
 		// UNCOMMENT BELOW to show PatientGUI when code added
 		patientPanel = new PatientGUI(this);
@@ -136,17 +159,18 @@ public class MainGUI extends JFrame{
 	/*
 	 * 
 	 */
-	private void returnToLogin(){
+	void returnToLogin(){
 		
-		JOptionPane.showMessageDialog(this, "Click Login Type Again", "Returning to Login", JOptionPane.DEFAULT_OPTION);
+		//JOptionPane.showMessageDialog(this, "Click Login Type Again", "Returning to Login", JOptionPane.DEFAULT_OPTION);
 		
 		getContentPane().removeAll();
 		revalidate();
 		repaint();
 
 		this.add(startPanel, BorderLayout.CENTER);
-		
-		validate();
+
+		revalidate();
+		repaint();
 	}// end patientMenu
 	
 	/*
@@ -158,4 +182,4 @@ public class MainGUI extends JFrame{
 		MainGUI testGUI = new MainGUI();
 		
 	}// end main
-}
+}// end MainGUI
