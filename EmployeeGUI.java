@@ -31,8 +31,10 @@ import javax.swing.JComboBox;
 @SuppressWarnings("serial")
 public class EmployeeGUI extends JPanel{
 	
+	MainGUI mainGUI; 
+	
 	// Patient Information - store info when searched
-	//Patient patient;
+	patient patient;
 	
 	// Employee Information
 	private String empUser; 
@@ -86,9 +88,15 @@ public class EmployeeGUI extends JPanel{
 	JButton searchButton, selectButton;
 	JComboBox<String> choosePatientCB;
 
+	// constructor
+	public EmployeeGUI(MainGUI main){
+		initialize(main);
+	}
 	
 	// Default Constructor
-	public EmployeeGUI() {
+	private void initialize(MainGUI main) {
+		
+		mainGUI = main;
 		
 		// set up EmployeeGUI JPanel
 		setLayout(new BorderLayout());
@@ -395,13 +403,14 @@ public class EmployeeGUI extends JPanel{
 	@SuppressWarnings("unused")
 	public static void main(String[] args) {
 
-		EmployeeGUI testGUI = new EmployeeGUI();
-		JFrame mainGUI = new JFrame();
+		MainGUI mainGUI = new MainGUI();
+
+		EmployeeGUI testGUI = new EmployeeGUI(mainGUI);
 		
 		mainGUI.setLayout(new GridLayout(1,0));
 		mainGUI.setSize(1000,600);
 		
-		mainGUI.add(testGUI);
+		//mainGUI.add(testGUI);
 		
 		mainGUI.validate();
 

@@ -30,6 +30,8 @@ import javax.swing.JComboBox;
 
 public class MainGUI extends JFrame{
 
+	system pimsSystem;
+	
 	public String guiTitle;
 	JPanel employeePanel, patientPanel;
 	
@@ -48,11 +50,13 @@ public class MainGUI extends JFrame{
 	// default constructor
 	public MainGUI() {
 		
+		pimsSystem = new system();
+		
 		guiTitle = "PIMS";
 		
 		// sets up main GUI
 		setTitle(guiTitle);
-		setLayout(new GridLayout(1,0));
+		setLayout(new BorderLayout());
 		setSize(1000,600);
 	
 		// set up start Panel
@@ -82,6 +86,14 @@ public class MainGUI extends JFrame{
 		
 	}// end constructor
 	
+	public system getSystem(){
+		return pimsSystem;
+	}
+	
+	public JPanel getStartPanel(){
+		return startPanel;
+	}
+	
 	/*
 	 * 
 	 */ 
@@ -92,7 +104,7 @@ public class MainGUI extends JFrame{
 		remove(startPanel);
 		revalidate();
 		repaint();
-		employeePanel = new EmployeeGUI();
+		employeePanel = new EmployeeGUI(this);
 		this.add(backPanel, BorderLayout.PAGE_START);
 		this.add(employeePanel, BorderLayout.CENTER);
 		validate();
@@ -113,7 +125,7 @@ public class MainGUI extends JFrame{
 		this.add(backPanel, BorderLayout.SOUTH);
 		
 		// UNCOMMENT BELOW to show PatientGUI when code added
-		patientPanel = new PatientGUI();
+		patientPanel = new PatientGUI(this);
 		this.add(backPanel, BorderLayout.PAGE_START);
 		this.add(patientPanel, BorderLayout.CENTER);
 		
