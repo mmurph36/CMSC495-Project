@@ -1,14 +1,3 @@
-/* Author: Ari Ohsie, minor edits by Esther Ho
- * CMSC 495
- * PIMS Project
- * 
- * File Name: EmployeeGUI.java
- * 
- * 
- * 
- * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
- *  https://github.com/LGoodDatePicker/LGoodDatePicker
- */
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
@@ -26,12 +15,12 @@ import java.time.LocalTime;
 public class PatientGUI extends JPanel {
 
 
-    public PatientGUI(MainGUI mainGUI) {
-        initialize(mainGUI);
+    public PatientGUI() {
+        initialize();
     }
 
 
-    private void initialize(MainGUI mainGUI) {
+    private void initialize() {
 
 
         setLayout(new BorderLayout());
@@ -60,38 +49,30 @@ public class PatientGUI extends JPanel {
 
         // set constraints for components and add
         // to the main panel
+
         mainPanelConstraints.gridx = 10;
         mainPanelConstraints.gridy = 10;
-        mainPanelConstraints.weighty = 1;
-        mainPanelConstraints.anchor = GridBagConstraints.NORTH;
-        mainPanelConstraints.insets = new Insets(60, 0, 0, 0);
+        mainPanelConstraints.weighty = 0.2;
+        mainPanelConstraints.anchor = GridBagConstraints.CENTER;
+        mainPanelConstraints.insets = new Insets(40, 0, 0, 0);
 
         mainPanel.add(chooseLabel, mainPanelConstraints);
 
 
-        mainPanelConstraints.weighty = 0;
+        mainPanelConstraints.gridy = 20;
+        mainPanelConstraints.weighty = 1;
         mainPanelConstraints.ipady = 10;
-        mainPanelConstraints.anchor = GridBagConstraints.WEST;
+        mainPanelConstraints.anchor = GridBagConstraints.NORTHWEST;
         mainPanelConstraints.insets = new Insets(30, 110, 0, 0);
 
         mainPanel.add(existingPatientButton, mainPanelConstraints);
 
 
         mainPanelConstraints.ipadx = 20;
-        mainPanelConstraints.anchor = GridBagConstraints.EAST;
+        mainPanelConstraints.anchor = GridBagConstraints.NORTHEAST;
         mainPanelConstraints.insets = new Insets(30, 0, 0, 110);
 
         mainPanel.add(newPatientButton, mainPanelConstraints);
-
-
-        mainPanelConstraints.gridy = 20;
-        mainPanelConstraints.weighty = 1;
-        mainPanelConstraints.ipadx = 45;
-        mainPanelConstraints.ipady = 5;
-        mainPanelConstraints.anchor = GridBagConstraints.NORTHEAST;
-        mainPanelConstraints.insets = new Insets(0, 0, 10, 0);
-
-        mainPanel.add(backButton, mainPanelConstraints);
 
 
         add(mainPanel);
@@ -257,7 +238,7 @@ public class PatientGUI extends JPanel {
         createNewPatientPanel.add(cancelButton_cnp, createNewPatientConstraints);
 
 
-     // createNewPatientInfo panel
+        // createNewPatientInfo panel
 
         // create the patient info panel
 
@@ -642,12 +623,6 @@ public class PatientGUI extends JPanel {
         patientInfoPanel.add(updateInfoButton, patientInfoPanelConstraints);
 
 
-        patientInfoPanelConstraints.gridx = 30;
-        patientInfoPanelConstraints.anchor = GridBagConstraints.EAST;
-
-        //patientInfoPanel.add(logoutButton_PI, patientInfoPanelConstraints);
-
-
         // create calendar panel
 
         JPanel calendarPanel = new JPanel(new GridBagLayout());
@@ -670,12 +645,10 @@ public class PatientGUI extends JPanel {
         // create buttons
 
         JButton requestAppointmentButton = new JButton("Request Appointment");
-        JButton logoutButton_calendar = new JButton("Log Out");
-
 
         // set the label font
 
-        chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+        chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 40));
 
 
         // set the constraints for each component and add
@@ -683,38 +656,33 @@ public class PatientGUI extends JPanel {
 
         calendarConstraints.gridx = 10;
         calendarConstraints.gridy = 10;
-        calendarConstraints.weighty = 1;
+        calendarConstraints.weighty = 0.2;
         calendarConstraints.anchor = GridBagConstraints.NORTH;
         calendarConstraints.insets = new Insets(20, 0, 0, 0);
 
         calendarPanel.add(chooseDateAndTimeLabel, calendarConstraints);
 
 
+        calendarConstraints.gridy = 20;
         calendarConstraints.weighty = 0;
-        calendarConstraints.anchor = GridBagConstraints.WEST;
-        calendarConstraints.insets = new Insets(0, 70, 0, 0);
+        calendarConstraints.anchor = GridBagConstraints.CENTER;
+        calendarConstraints.insets = new Insets(0, 0, 0, 100);
 
         calendarPanel.add(datePicker, calendarConstraints);
 
 
-        calendarConstraints.anchor = GridBagConstraints.EAST;
-        calendarConstraints.insets = new Insets(0, 0, 0, 75);
+        calendarConstraints.insets = new Insets(0, 170, 0, 0);
 
         calendarPanel.add(timePicker, calendarConstraints);
 
 
+        calendarConstraints.gridy = 30;
+        calendarConstraints.weighty = 1;
         calendarConstraints.ipady = 10;
-        calendarConstraints.anchor = GridBagConstraints.SOUTH;
-        calendarConstraints.insets = new Insets(0, 0, 60, 0);
+        calendarConstraints.anchor = GridBagConstraints.NORTH;
+        calendarConstraints.insets = new Insets(30, 0, 0, 0);
 
         calendarPanel.add(requestAppointmentButton, calendarConstraints);
-
-
-        calendarConstraints.gridy = 20;
-        calendarConstraints.weighty = 1;
-        calendarConstraints.anchor = GridBagConstraints.NORTHEAST;
-
-       // calendarPanel.add(logoutButton_calendar, calendarConstraints);
 
 
 
@@ -741,14 +709,6 @@ public class PatientGUI extends JPanel {
             revalidate();
         });
 
-        backButton.addActionListener(e -> {
-            remove(mainPanel);
-            remove(this);
-            mainGUI.add(mainGUI.getStartPanel());
-            repaint();
-            revalidate();
-        });
-
 
         loginButton.addActionListener(e -> {
             if (String.valueOf(usernameTextField.getText()).equals(""))
@@ -757,7 +717,7 @@ public class PatientGUI extends JPanel {
             else if (String.valueOf(passwordTextField.getText()).equals(""))
                 JOptionPane.showMessageDialog
                         (null, "Must Enter A Password");
-            else if (mainGUI.getSystem().patient_exists(usernameTextField.getText(), passwordTextField.getText())) {
+            else if (MainGUI.pimsSystem.patient_exists(usernameTextField.getText(), passwordTextField.getText())) {
                 remove(loginPanel);
                 add(tabbedPane);
                 JOptionPane.showMessageDialog
@@ -801,9 +761,9 @@ public class PatientGUI extends JPanel {
             else if (passwordTextField_cnp.getText().length() < 4)
                 JOptionPane.showMessageDialog
                         (null, "Password Must Have At Least 4 Characters");
-            else if (!mainGUI.getSystem().patient_exists(usernameTextField_cnp.getText(), passwordTextField_cnp.getText())){
+            else if (!MainGUI.pimsSystem.patient_exists(usernameTextField_cnp.getText(), passwordTextField_cnp.getText())){
                 remove(createNewPatientPanel);
-                add(tabbedPane);
+                add(createNewPatientInfoPanel);
                 JOptionPane.showMessageDialog
                         (null, "Submission Successful");
                 repaint();
@@ -852,7 +812,7 @@ public class PatientGUI extends JPanel {
             if (String.valueOf(zipCodeTextField).equals(""))
                 errorMessage += " Zip Code,";
             if (String.valueOf(errorMessage).equals("Must Enter")){
-                    if (!mainGUI.getSystem().add_patient(firstNameTextField.getText(),
+                    if (!MainGUI.pimsSystem.add_patient(firstNameTextField.getText(),
                         lastNameTextField.getText(), middleNameTextField.getText(),
                         usernameTextField_cnp.getText(), passwordTextField_cnp.getText(),
                         DOBTextField.getText(), 30, Integer.parseInt(SSNTextField.getText()),
@@ -861,7 +821,7 @@ public class PatientGUI extends JPanel {
                     JOptionPane.showMessageDialog
                             (null, "This Patient Is Already In System");
                     else {
-                        mainGUI.getSystem().add_patient(firstNameTextField.getText(),
+                        MainGUI.pimsSystem.add_patient(firstNameTextField.getText(),
                                 lastNameTextField.getText(), middleNameTextField.getText(),
                                 usernameTextField_cnp.getText(), passwordTextField_cnp.getText(),
                                 DOBTextField.getText(), 30, Integer.parseInt(SSNTextField.getText()),
@@ -915,28 +875,6 @@ public class PatientGUI extends JPanel {
         requestAppointmentButton.addActionListener(e -> {
             JOptionPane.showMessageDialog
                     (null, "Appointment Saved");
-        });
-
-        logoutButton_PI.addActionListener(e -> {
-            
-        	remove(tabbedPane);
-            remove(this);
-           /* mainGUI.add(mainGUI.getStartPanel()); */
-        	mainGUI.returnToLogin();
-            JOptionPane.showMessageDialog
-                    (null, "Logout Successful");
-            repaint();
-            revalidate();
-        });
-
-        logoutButton_calendar.addActionListener(e -> {
-            remove(tabbedPane);
-            remove(this);
-            mainGUI.add(mainGUI.getStartPanel());
-            JOptionPane.showMessageDialog
-                    (null, "Logout Successful");
-            repaint();
-            revalidate();
         });
     }
 
