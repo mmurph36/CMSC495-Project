@@ -68,15 +68,11 @@ public class system {
 
 	//get the patients details
 	public patient patient_details(String user_name, String password) {
-
 		for (patient p : p_list) {
-
 			if (p.user_name.equals(user_name) && p.password.equals(password)) return p;
-
 		}
-
+		
 		return null;
 	}
-
 
 }
