@@ -1,23 +1,13 @@
-/* Author: Esther Ho
-
+/* Author: Esther Ho & Ari Ohsie
  * CMSC 495
-
  * PIMS Project
-
  * 
-
  * File Name: MainGUI.java
-
  * 
-
  * 
-
  * 
-
  * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
-
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
-
  */
 
 
@@ -31,8 +21,6 @@ import javax.swing.JPanel;
 import javax.swing.JButton;
 
 import javax.swing.JLabel;
-
-import javax.swing.JOptionPane;
 
 import javax.swing.SwingConstants;
 
@@ -163,8 +151,6 @@ public class MainGUI extends JFrame{
 
         // Add start panel to JFrame
 
-
-
         add(startPanel,BorderLayout.CENTER);
 
 
@@ -211,11 +197,7 @@ public class MainGUI extends JFrame{
 	
 
 	/*
-
-
-
 	 * getter for startPanel
-
 	 */
 
     public Component getStartPanel() {
@@ -227,18 +209,10 @@ public class MainGUI extends JFrame{
 	
 
 	/*
-
 	 * 
-
 	 */
 
     private void employeeMenu(){
-
-
-
-        JOptionPane.showMessageDialog(this, "Employee Login selected", "Loading Employee Menu", JOptionPane.DEFAULT_OPTION);
-
-
 
         remove(startPanel);
 
@@ -261,9 +235,7 @@ public class MainGUI extends JFrame{
 	
 
 	/*
-
 	 * 
-
 	 */
 
     private void patientMenu(){
@@ -276,17 +248,6 @@ public class MainGUI extends JFrame{
 
         repaint();
 
-
-
-        JOptionPane.showMessageDialog(this, "creates new PatientGUI panel", "PatientGUI to be created", JOptionPane.DEFAULT_OPTION);
-
-
-
-        //this.add(backPanel, BorderLayout.SOUTH);
-
-
-
-        // UNCOMMENT BELOW to show PatientGUI when code added
 
         patientPanel = new PatientGUI();
 
@@ -306,18 +267,10 @@ public class MainGUI extends JFrame{
 	
 
 	/*
-
 	 * 
-
 	 */
 
     void returnToLogin(){
-
-
-
-        //JOptionPane.showMessageDialog(this, "Click Login Type Again", "Returning to Login", JOptionPane.DEFAULT_OPTION);
-
-
 
         getContentPane().removeAll();
 
@@ -340,9 +293,7 @@ public class MainGUI extends JFrame{
 	
 
 	/*
-
 	 * MAIN to run entire project
-
 	 */
 
     @SuppressWarnings("unused")
