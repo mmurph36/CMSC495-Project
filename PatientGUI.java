@@ -1,3 +1,14 @@
+/* Author: Ari Ohsie & Esther Ho
+ * CMSC 495
+ * PIMS Project
+ *
+ * File Name: PatientGUI.java
+ *
+ *
+ *
+ * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
+ *  https://github.com/LGoodDatePicker/LGoodDatePicker
+ */
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
@@ -14,6 +25,7 @@ import java.time.LocalTime;
 
 public class PatientGUI extends JPanel {
 
+	String patientGUItitle = "Patient PIMS"; 
 
     public PatientGUI() {
         initialize();
@@ -91,7 +103,7 @@ public class PatientGUI extends JPanel {
         JLabel passwordLabel = new JLabel("Password:");
 
         JTextField usernameTextField = new JTextField(12);
-        JTextField passwordTextField = new JTextField(12);
+        JPasswordField passwordField = new JPasswordField(12);
 
         JButton loginButton = new JButton("Login");
         JButton cancelButton = new JButton("Cancel");
@@ -134,7 +146,7 @@ public class PatientGUI extends JPanel {
         loginConstraints.gridwidth = 10;
         loginConstraints.insets = new Insets(12, 0, 0, 10);
 
-        loginPanel.add(passwordTextField, loginConstraints);
+        loginPanel.add(passwordField, loginConstraints);
 
 
         loginConstraints.gridx = 10;
@@ -714,10 +726,10 @@ public class PatientGUI extends JPanel {
             if (String.valueOf(usernameTextField.getText()).equals(""))
                 JOptionPane.showMessageDialog
                         (null, "Must Enter A Username");
-            else if (String.valueOf(passwordTextField.getText()).equals(""))
+            else if (String.valueOf(passwordField.getPassword()).equals(""))
                 JOptionPane.showMessageDialog
                         (null, "Must Enter A Password");
-            else if (MainGUI.pimsSystem.patient_exists(usernameTextField.getText(), passwordTextField.getText())) {
+            else if (MainGUI.pimsSystem.patient_exists(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))) {
                 remove(loginPanel);
                 add(tabbedPane);
                 JOptionPane.showMessageDialog
@@ -728,7 +740,7 @@ public class PatientGUI extends JPanel {
                 // reset username and password fields
 
                 usernameTextField.setText("");
-                passwordTextField.setText("");
+                passwordField.setText("");
             }
             else
                 JOptionPane.showMessageDialog

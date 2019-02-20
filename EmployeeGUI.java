@@ -1,23 +1,13 @@
 /* Author: Esther Ho & Ari Ohsie
-
  * CMSC 495
-
  * PIMS Project
-
  *
-
  * File Name: EmployeeGUI.java
-
  *
-
  *
-
  *
-
  * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
-
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
-
  */
 
 
@@ -35,7 +25,7 @@ import java.util.ArrayList;
 import javax.swing.JFrame;
 
 import javax.swing.JPanel;
-
+import javax.swing.JPasswordField;
 import javax.swing.JButton;
 
 import javax.swing.JTabbedPane;
@@ -76,7 +66,7 @@ public class EmployeeGUI extends JPanel{
 
     // mainGUI
 
-    MainGUI mainGUI;
+   // MainGUI mainGUI;
 
 
 
@@ -94,15 +84,7 @@ public class EmployeeGUI extends JPanel{
 
     // Patient Information - store info when searched
 
-    patient patient;
-
-
-
-    // Employee Information
-
-    private String empUser;
-
-    private String empPW;
+    private patient patient; // for search 
 
 
 
@@ -118,34 +100,10 @@ public class EmployeeGUI extends JPanel{
 
     JLabel logInLabel, usernameLabel, passwordLabel;
 
-    JTextField usernameTextField, passwordTextField;
+    JTextField usernameTextField;
+    JPasswordField passwordField;
 
     JButton loginButton, cancelButton;
-
-
-
-    // Create new employee panel
-
-    JPanel createNewEmpPanel;
-
-    JLabel createNewEmpLabel;
-
-    JLabel usernameLabel_cne;
-
-    JLabel passwordLabel_cne;
-
-
-
-    JTextField usernameTextField_cne;
-
-    JTextField passwordTextField_cne;
-
-
-
-    JButton submitButton;
-
-    JButton cancelButton_cne;
-
 
 
     // Employee Window (Tabbed Pane)
@@ -154,7 +112,7 @@ public class EmployeeGUI extends JPanel{
 
     JTabbedPane tabbedPane;
 
-    JPanel patientTab, billingTab, searchTab;
+    JPanel billingTab, searchTab;
 
 
 
@@ -163,33 +121,34 @@ public class EmployeeGUI extends JPanel{
     JPanel calTab;
 
     JLabel chooseDateAndTimeLabel;
+    
+    JTextField currentAppointmentTextField;
 
     DatePicker datePicker;
 
     TimePicker timePicker;
 
-    JButton requestAppointmentButton, logoutButton_calendar;
+    JButton requestAppointmentButton, deleteAppointmentButton, logoutButton_calendar;
 
 
 
     // TAB 2: Patient Information
+    
+    JPanel patientTab;
 
     JLabel lNameLabel, fNameLabel, mNameLabel, ssnLabel, dobLabel,
 
     phoneLabel, streetLabel, cityLabel, stateLabel, zipLabel;
 
-    JButton submitNewInfoButton = new JButton("Submit Information");
+    //JButton submitNewInfoButton;
+  
 
 
 
 	/*
-
 	 * note:
-
 	 * -consider how to restrict how user can enter this in.
-
 	 * -ex: have a month, date, year field
-
 	 */
 
 
@@ -247,20 +206,12 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * initialize()
-
 	 *
-
 	 * - sets up EmployeeGUI panel
-
 	 */
 
     private void initialize() {
-
-
-
-
 
 
 
@@ -270,7 +221,7 @@ public class EmployeeGUI extends JPanel{
 
         //setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
 
-        employeeGUItitle = "Employee PIMS"; // may not use
+       // employeeGUItitle = "Employee PIMS"; // may not use
 
         //mainGUI.setTitle(employeeGUItitle);
 
@@ -390,8 +341,8 @@ public class EmployeeGUI extends JPanel{
 
         usernameTextField = new JTextField(12);
 
-        passwordTextField = new JTextField(12);
-
+        passwordField = new JPasswordField(12);
+   
 
 
         loginButton = new JButton("Login");
@@ -470,7 +421,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        loginPanel.add(passwordTextField, loginConstraints);
+        loginPanel.add(passwordField, loginConstraints);
 
 
 
@@ -512,164 +463,6 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        // ** Create new Employee Panel **
-
-        createNewEmpPanel = new JPanel(new GridBagLayout());
-
-
-
-        GridBagConstraints createNewEmpConstraints = new GridBagConstraints();
-
-
-
-        createNewEmpLabel = new JLabel("New Employee");
-
-        usernameLabel_cne = new JLabel("Username:");
-
-        passwordLabel_cne = new JLabel("Password:");
-
-
-
-        usernameTextField_cne = new JTextField(12);
-
-        passwordTextField_cne = new JTextField(12);
-
-
-
-        submitButton = new JButton("Submit");
-
-        cancelButton_cne = new JButton("Cancel");
-
-
-
-        createNewEmpLabel.setFont
-
-                (new Font("Serif", Font.PLAIN, 40));
-
-
-
-        createNewEmpConstraints.gridx = 10;
-
-        createNewEmpConstraints.gridy = 0;
-
-        createNewEmpConstraints.weighty = 0.2;
-
-        createNewEmpConstraints.gridwidth = 20;
-
-        createNewEmpConstraints.anchor = GridBagConstraints.NORTH;
-
-        createNewEmpConstraints.insets = new Insets(50, 10, 0, 30);
-
-
-
-        createNewEmpPanel.add(createNewEmpLabel, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridy = 10;
-
-        createNewEmpConstraints.weighty = 0;
-
-        createNewEmpConstraints.gridwidth = 10;
-
-        createNewEmpConstraints.anchor = GridBagConstraints.CENTER;
-
-        createNewEmpConstraints.insets = new Insets(40, 0, 0, 10);
-
-
-
-        createNewEmpPanel.add(usernameLabel_cne, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridy = 20;
-
-        createNewEmpConstraints.gridwidth = 10;
-
-        createNewEmpConstraints.insets = new Insets(10, 0, 0, 10);
-
-
-
-        createNewEmpPanel.add(passwordLabel_cne, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridx = 20;
-
-        createNewEmpConstraints.gridy = 10;
-
-        createNewEmpConstraints.gridwidth = 20;
-
-        createNewEmpConstraints.insets = new Insets(40, 0, 0, 10);
-
-
-
-        createNewEmpPanel.add(usernameTextField_cne, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridy = 20;
-
-        createNewEmpConstraints.gridwidth = 10;
-
-        createNewEmpConstraints.insets = new Insets(12, 0, 0, 10);
-
-
-
-        createNewEmpPanel.add(passwordTextField_cne, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridx = 10;
-
-        createNewEmpConstraints.gridy = 30;
-
-        createNewEmpConstraints.weighty = 1;
-
-        createNewEmpConstraints.ipadx = 15;
-
-        createNewEmpConstraints.ipady = 5;
-
-        createNewEmpConstraints.gridwidth = 20;
-
-        createNewEmpConstraints.anchor = GridBagConstraints.NORTHWEST;
-
-        createNewEmpConstraints.insets = new Insets(30, 10, 0, 0);
-
-
-
-        createNewEmpPanel.add(submitButton, createNewEmpConstraints);
-
-
-
-
-
-        createNewEmpConstraints.gridx = 20;
-
-        createNewEmpConstraints.ipadx = 10;
-
-        createNewEmpConstraints.gridwidth = 10;
-
-        createNewEmpConstraints.insets = new Insets(30, 45, 0, 0);
-
-
-
-        createNewEmpPanel.add(cancelButton_cne, createNewEmpConstraints);
-
-
-
-
-
         // ** initialize JTabbedPane **
 
         tabbedPane = new JTabbedPane();
@@ -696,10 +489,14 @@ public class EmployeeGUI extends JPanel{
 
         timePicker = createTimePicker();
 
+        /* NEW text field*/
+        currentAppointmentTextField = new JTextField(20);
+        currentAppointmentTextField.setEditable(false);
+        	
         requestAppointmentButton = new JButton("Request Appointment");
-
-        logoutButton_calendar = new JButton("Log Out");
-
+        
+        /* NEW BUTTON*/
+        deleteAppointmentButton = new JButton ("Delete Appointment");
 
 
         chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 25));
@@ -769,20 +566,9 @@ public class EmployeeGUI extends JPanel{
         calTab.add(requestAppointmentButton, calendarConstraints);
 
 
+        /* ADD deleteAppointmentButton & currentAppointmentTextField */
 
-
-
-        calendarConstraints.gridy = 20;
-
-        calendarConstraints.weighty = 1;
-
-        calendarConstraints.anchor = GridBagConstraints.NORTHEAST;
-
-
-
-        // calTab.add(logoutButton_calendar, calendarConstraints);
-
-
+        
 
         // TAB 2: Patient Information
 
@@ -879,9 +665,9 @@ public class EmployeeGUI extends JPanel{
         // create buttons
 
         JButton updateInfoButton = new JButton("Update Information");
-
-        JButton logoutButton_PI = new JButton("Log Out");
-
+        
+        /* NEW BUTTON */
+        JButton submitNewInfoButton = new JButton ("Create New Patient File with current information");
 
 
 
@@ -1150,21 +936,12 @@ public class EmployeeGUI extends JPanel{
 
         patientTab.add(updateInfoButton, patientTabConstraints);
 
-
-
-
-
-        patientTabConstraints.gridx = 30;
-
-        patientTabConstraints.anchor = GridBagConstraints.EAST;
-
-
-
-        //patientTab.add(logoutButton_PI, patientTabConstraints);
-
-
-
-
+        /*
+         * 
+         *  ADD submitNewInfoButton here. Need formatting help
+         */
+        // patientTab.add(submitNewInfoButton, patientTabConstraints);
+        
 
         // TAB 3: Billing
 
@@ -1236,8 +1013,6 @@ public class EmployeeGUI extends JPanel{
 
         billingTabConstraints.weightx = 0.2;
 
-        //billingTabConstraints.weighty = 0.4;
-
         billingTabConstraints.anchor = GridBagConstraints.WEST;
 
         billingTabConstraints.insets = new Insets(0, 20, 0, 0);
@@ -1258,11 +1033,6 @@ public class EmployeeGUI extends JPanel{
 
         billingTabConstraints.gridx = 20;
         billingTabConstraints.weightx = 1;
-
-        //billingTabConstraints.anchor = GridBagConstraints.EAST;
-
-        //billingTabConstraints.insets = new Insets(0, 0, 0, 40);
-
 
 
         billingTab.add(lNameBillField, billingTabConstraints);
@@ -1331,8 +1101,6 @@ public class EmployeeGUI extends JPanel{
 
         // TAB 4: Search
 
-
-
         searchTab = new JPanel(new GridBagLayout());
 
         GridBagConstraints searchTabConstraints = new GridBagConstraints();
@@ -1340,14 +1108,6 @@ public class EmployeeGUI extends JPanel{
 
 
         searchButton = new JButton("Search");
-
-        //searchPanel = new JPanel(new GridLayout(1, 0,5 ,5));
-
-        //lNameSearchPanel = new JPanel(new FlowLayout());
-
-        //ssnSearchPanel = new JPanel(new FlowLayout());
-
-        //searchButtonPanel = new JPanel();
 
         searchDirectionLabel = new JLabel("Search for Patient using Last Name OR SSN");
 
@@ -1359,10 +1119,9 @@ public class EmployeeGUI extends JPanel{
 
         ssnSearchField = new JTextField(12);
 
-
-
         searchDirectionLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 
+        
         // add components to Search tab
 
         searchTabConstraints.gridx = 10;
@@ -1377,8 +1136,6 @@ public class EmployeeGUI extends JPanel{
         searchTabConstraints.gridx = 10;
 
         searchTabConstraints.gridy = 20;
-
-        //searchTabConstraints.weighty = 0;
 
         searchTabConstraints.anchor = GridBagConstraints.CENTER;
 
@@ -1413,16 +1170,6 @@ public class EmployeeGUI extends JPanel{
         searchTab.add(ssnSearchField, searchTabConstraints);
 
 
-
-        //searchTab.add(lNameSearchPanel, searchTabConstraints);
-
-
-
-        //searchTab.add(ssnSearchPanel, searchTabConstraints);
-
-
-
-
         searchTabConstraints.gridy = 40;
         searchTabConstraints.weighty = 1;
         searchTabConstraints.ipadx = 30;
@@ -1430,19 +1177,6 @@ public class EmployeeGUI extends JPanel{
         searchTabConstraints.insets = new Insets(0, 0, 0, 0);
 
         searchTab.add(searchButton, searchTabConstraints);
-
-
-
-        //searchTab.add(searchPanel, searchTabConstraints);
-
-
-
-        //searchTab.add(searchButtonPanel, searchTabConstraints);
-
-
-
-
-
 
 
         // add panels to tabbed pane
@@ -1454,8 +1188,6 @@ public class EmployeeGUI extends JPanel{
         tabbedPane.add("Billing", billingTab);
 
         tabbedPane.add("Search", searchTab);
-
-
 
 
 
@@ -1482,21 +1214,18 @@ public class EmployeeGUI extends JPanel{
 
 
 
-
-        // Q: What does the cancel button (of the login panel) do?
-
-
-
-
-
-        searchButton.addActionListener(e -> searchPatient());
+       
 
 
 
         // create ActionListeners for all the buttons
 
+        searchButton.addActionListener(e -> searchPatient());
 
 
+        /* REMOVE - not allowing addition of new employees, so no need for 
+         * existing/new employee buttons 
+         *  
         existingEmployeeButton.addActionListener(e -> {
 
             remove(mainPanel);
@@ -1507,10 +1236,12 @@ public class EmployeeGUI extends JPanel{
 
             revalidate();
 
-        });
+        }); */ 
 
 
 
+        /* REMOVE - not allowing addition of new employees right? 
+         * 
         newEmployeeButton.addActionListener(e -> {
 
             remove(mainPanel);
@@ -1521,7 +1252,7 @@ public class EmployeeGUI extends JPanel{
 
             revalidate();
 
-        });
+        }); */ 
 
 
 
@@ -1537,13 +1268,13 @@ public class EmployeeGUI extends JPanel{
 
                         (null, "Must Enter A Username");
 
-            else if (String.valueOf(passwordTextField.getText()).equals(""))
+            else if (String.valueOf(passwordField.getPassword()).equals(""))
 
                 JOptionPane.showMessageDialog
 
                         (null, "Must Enter A Password");
 
-            else if (MainGUI.pimsSystem.doctor_exists(usernameTextField.getText(), passwordTextField.getText())) {
+            else if (MainGUI.pimsSystem.doctor_exists(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))) {
 
                 remove(loginPanel);
 
@@ -1565,7 +1296,7 @@ public class EmployeeGUI extends JPanel{
 
                 usernameTextField.setText("");
 
-                passwordTextField.setText("");
+                passwordField.setText("");
 
             }
 
@@ -1579,273 +1310,86 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        cancelButton.addActionListener(e -> {
-
-            remove(loginPanel);
-
-            add(mainPanel);
-
-            repaint();
-
-            revalidate();
-
-
-
-            // reset username and password fields
-
-
-
-            usernameTextField_cne.setText("");
-
-            passwordTextField_cne.setText("");
-
-        });
-
-
-
-
-
-        submitButton.addActionListener(e -> {
-
-            if (String.valueOf(usernameTextField_cne.getText()).equals(""))
-
-                JOptionPane.showMessageDialog
-
-                        (null, "Must Enter A Username");
-
-            else if (String.valueOf(passwordTextField_cne.getText()).equals(""))
-
-                JOptionPane.showMessageDialog
-
-                        (null, "Must Enter A Password");
-
-            else if (usernameTextField_cne.getText().length() < 4)
-
-                JOptionPane.showMessageDialog
-
-                        (null, "Username Must Have At Least 4 Characters");
-
-            else if (passwordTextField_cne.getText().length() < 4)
-
-                JOptionPane.showMessageDialog
-
-                        (null, "Password Must Have At Least 4 Characters");
-
-            /*else if (!mainGUI.getSystem().patient_exists(usernameTextField_cne.getText(), passwordTextField_cne.getText())){
-
-                remove(createNewEmpPanel);
-
-                add(createNewPatientInfoPanel);
-
-                JOptionPane.showMessageDialog
-
-                        (null, "Submission Successful");
-
-                repaint();
-
-                revalidate();
-
-            } */
-
-
-
-            else
-
-                JOptionPane.showMessageDialog
-
-                        (null, "The Username and Password are Already Taken");
-
-
-
-        });
-
-
-
-
-
-        cancelButton_cne.addActionListener(e -> {
-
-            remove(createNewEmpPanel);
-
-            add(mainPanel);
-
-            repaint();
-
-            revalidate();
-
-
-
-            // reset username and password fields
-
-
-
-            usernameTextField_cne.setText("");
-
-            passwordTextField_cne.setText("");
-
-        });
-
-
-
-
-
         // submits a new patient info into the system
 
 /*
-
         submitNewInfoButton.addActionListener(e -> {
-
             //UIManager.put("OptionPane.minimumSize",new Dimension(500,300));
-
             String errorMessage = "Must Enter";
-
             if (String.valueOf(firstNameTextField.getText()).equals(""))
-
                 errorMessage += " First Name,";
-
             if (String.valueOf(lastNameTextField.getText()).equals(""))
-
                 errorMessage += " Last Name,";
-
             if (String.valueOf(middleNameTextField.getText()).equals(""))
-
                 errorMessage += " Middle Name,";
-
             if (String.valueOf(SSNTextField.getText()).equals(""))
-
                 errorMessage += " Social Security #,";
-
             if (String.valueOf(DOBTextField.getText()).equals(""))
-
                 errorMessage += " Date of Birth,";
-
             if (String.valueOf(phoneNumberTextField.getText()).equals(""))
-
                 errorMessage += " Phone Number,";
-
             if (String.valueOf(streetTextField).equals(""))
-
                 errorMessage += " Street,";
-
             if (String.valueOf(cityTextField).equals(""))
-
                 errorMessage += " City,";
-
             if (String.valueOf(zipCodeTextField).equals(""))
-
                 errorMessage += " Zip Code,";
-
             if (String.valueOf(errorMessage).equals("Must Enter")){
-
                     if (!mainGUI.getSystem().add_patient(firstNameTextField.getText(),
-
                         lastNameTextField.getText(), middleNameTextField.getText(),
-
                         usernameTextField_cne.getText(), passwordTextField_cne.getText(),
-
                         DOBTextField.getText(), 30, Integer.parseInt(SSNTextField.getText()),
-
                         Integer.parseInt(zipCodeTextField.getText()), streetTextField.getText(),
-
                         phoneNumberTextField.getText()))
-
                     JOptionPane.showMessageDialog
-
                             (null, "This Patient Is Already In System");
-
                     else {
-
                         mainGUI.getSystem().add_patient(firstNameTextField.getText(),
-
                                 lastNameTextField.getText(), middleNameTextField.getText(),
-
                                 usernameTextField_cne.getText(), passwordTextField_cne.getText(),
-
                                 DOBTextField.getText(), 30, Integer.parseInt(SSNTextField.getText()),
-
                                 Integer.parseInt(zipCodeTextField.getText()), streetTextField.getText(),
-
                                 phoneNumberTextField.getText());
-
-
-
                         // set the patient info panel in the tabbed pane to
-
                         // to info from the create new info patient panel
-
-
-
                         firstNameTextField_TBP.setText(firstNameTextField.getText());
-
                         middleNameTextField_TBP.setText(middleNameTextField.getText());
-
                         lastNameTextField_TBP.setText(lastNameTextField.getText());
-
                         SSNTextField_TBP.setText(SSNTextField.getText());
-
                         DOBTextField_TBP.setText(DOBTextField.getText());
-
                         phoneNumberTextField_TBP.setText(phoneNumberTextField.getText());
-
                         streetTextField_TBP.setText(streetTextField.getText());
-
                         cityTextField_TBP.setText(cityTextField.getText());
-
                         zipCodeTextField_TBP.setText(zipCodeTextField.getText());
-
                         stateComboBox_TBP.setSelectedItem(stateComboBox.getSelectedItem());
-
                         remove(createNewPatientInfoPanel);
-
                         add(tabbedPane);
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Submission Successful");
-
                         repaint();
-
                         revalidate();
-
                     }
-
             } else {
-
                 JOptionPane.showMessageDialog(null, errorMessage);
-
             }
-
         }); */
 
 
 
 /*
-
         cancelButton_cnip.addActionListener(e -> {
-
             remove(createNewPatientInfoPanel);
-
             add(mainPanel);
-
             repaint();
-
             revalidate();
-
-
-
             // reset username and password fields
-
-
-
             usernameTextField_cne.setText("");
-
             passwordTextField_cne.setText("");
-
         }); */
 
 
 
-
+        // Action Listeners for Patient Info Tab/Panel
 
         updateInfoButton.addActionListener(e -> {
 
@@ -1866,69 +1410,15 @@ public class EmployeeGUI extends JPanel{
         });
 
 
-
-        logoutButton_PI.addActionListener(e -> {
-
-
-
-            remove(tabbedPane);
-
-            remove(this);
-
-            revalidate();
-
-            repaint();
-
-            mainGUI.add(mainGUI.getStartPanel());
-
-            //mainGUI.returnToLogin();
-
-            JOptionPane.showMessageDialog
-
-                    (null, "Logout Successful");
-
-
-
-            validate();
-
-        });
-
-
-
-        logoutButton_calendar.addActionListener(e -> {
-
-            remove(tabbedPane);
-
-            remove(this);
-
-            revalidate();
-
-            repaint();
-
-
-
-            mainGUI.add(mainGUI.getStartPanel());
-
-            JOptionPane.showMessageDialog
-
-                    (null, "Logout Successful");
-
-            validate();
-
-
-
-        });
+        
 
     }// end constructor
 
 
 
 	/*
-
 	 * backToStart()
-
 	 * - returns user back to start or choose login screen
-
 	 */
 
     private void backToStart(){
@@ -1943,9 +1433,9 @@ public class EmployeeGUI extends JPanel{
 
         revalidate();
 
-        mainGUI.add(mainGUI.getStartPanel());
+        //mainGUI.add(mainGUI.getStartPanel());
 
-        mainGUI.setTitle(mainGUI.guiTitle);
+        //mainGUI.setTitle(mainGUI.guiTitle);
 
 
 
@@ -1956,105 +1446,50 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * checkLogin()
-
 	 *
-
 	 * -checks username and password for employee
-
 	 * -returns true if credentials are correct
-
 	 * -false if not, and error message will display
-
 	 */
 
 	/*
-
 	private boolean checkLogin(){
-
-
-
 		String title, toDisplay;
-
-
-
 		title = "Login";
-
 		toDisplay = "Login failed";
-
-
-
 		// grab what user entered in Username and PW fields
-
 		empUser = usernameTextField.getText();
-
 		empPW = passwordTextField.getText();
-
-
-
 		// for now, as long as user and pw are not empty, one can log in
-
 		if (!empUser.equals("") && !empPW.equals("")){
-
-
-
 			/*
-
 			 * BACKEND insert validation in if statement above
-
 			 * need to validate user login
-
 			 */
 
 
 
 			/*
-
-
-
 			toDisplay = "Login successful";
-
 			remove(loginPanel);
-
 			revalidate();
-
 			repaint();
-
-
-
 			//setSize(1000,500);
-
 			add(tabbedPane, BorderLayout.CENTER);
-
 			validate();
-
-
-
 			JOptionPane.showMessageDialog(this, toDisplay, title, JOptionPane.DEFAULT_OPTION);
-
 			return true;
-
 		}
-
-
-
 		JOptionPane.showMessageDialog(this, toDisplay, title, JOptionPane.ERROR_MESSAGE);
-
 		return false;
-
 	} // end checkLogin()
-
-
-
 	*/
 
 
 
 	/*
-
 	 *
-
 	 */
 
     private void searchPatient(){
@@ -2078,13 +1513,9 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * BACKEND - grab patient information
-
 		 * -return array list or array of Patients with
-
 		 * corresponding data
-
 		 */
 
         ArrayList<String> patientsFound = new ArrayList<String>();
@@ -2122,9 +1553,7 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 *
-
 	 */
 
     private void fillPatientFoundData(){
@@ -2140,9 +1569,7 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * BACKEND - need specific patient object getters
-
 		 */
 
         // Patient patientSearched;
@@ -2150,17 +1577,11 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * To-Do:
-
 		 *
-
 		 * -fill in all fields with patientSearched's information
-
 		 * -ex: first, middle, last name, billing info, etc
-
 		 * -populate fields across all tabs
-
 		 */
 
 
@@ -2174,11 +1595,8 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * DatePicker related methods & private classes
-
 	 *
-
 	 */
 
 
@@ -2354,17 +1772,13 @@ public class EmployeeGUI extends JPanel{
 
 
     /*
-
      * END of DatePicker related methods & private classes
-
      */
 
 
 
 	/*
-
 	 * main for just employeeGUI
-
 	 */
 
     @SuppressWarnings("unused")
