@@ -255,7 +255,7 @@ public class system {
 
     //delete date from the date list
 
-    public boolean delete_date(patient patient) {
+    public boolean patient_delete_date(patient patient) {
 
         if (!lookupDateMap.containsKey(patient)) return false;
 
@@ -268,6 +268,21 @@ public class system {
         return true;
     }
 
+
+    public boolean staff_delete_date(String date, String time) {
+
+        String date_time = date + "  " + time;
+
+        if (!date_list.containsKey(date)) return false;
+
+        patient patient = date_list.get(date_time);
+
+        date_list.remove(date_time);
+
+        lookupDateMap.remove(patient);
+
+        return true;
+    }
 
 
 
