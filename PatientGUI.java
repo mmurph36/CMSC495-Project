@@ -1284,9 +1284,11 @@ public class PatientGUI extends JPanel {
                     (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
 
             if (patient != null) {
-                MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
-                JOptionPane.showMessageDialog
+                if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient))
+                    JOptionPane.showMessageDialog
                         (null, "Appointment Saved");
+                else JOptionPane.showMessageDialog
+                        (null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
             } else JOptionPane.showMessageDialog(null, "Error");
 
         });
