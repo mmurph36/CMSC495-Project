@@ -110,9 +110,9 @@ public class EmployeeGUI extends JPanel{
 
     JPanel calTab;
 
-    JLabel chooseDateAndTimeLabel;
+    JLabel chooseDateAndTimeLabel, currentAppointmentLabel, cal_patientFirstLabel, cal_patientLastLabel;
     
-    JTextField currentAppointmentTextField;
+    JTextField currentAppointmentTextField, cal_patientFirstTextField, cal_patientLastTextField;
 
     DatePicker datePicker;
 
@@ -128,7 +128,7 @@ public class EmployeeGUI extends JPanel{
 
     JLabel lNameLabel, fNameLabel, mNameLabel, ssnLabel, dobLabel,
 
-    phoneLabel, streetLabel, cityLabel, stateLabel, zipLabel;
+    phoneLabel, streetLabel, cityLabel, stateLabel, zipLabel, patient_userLabel, patient_pwLabel;
 
     //JButton submitNewInfoButton;
   
@@ -145,7 +145,7 @@ public class EmployeeGUI extends JPanel{
 
     JTextField lNameField, fNameField, mNameField, ssnField, dobField,
 
-    phoneField, streetField, cityField, zipField;
+    phoneField, streetField, cityField, zipField, patient_userField, patient_pwField;
 
     JComboBox<String> statesCB;
 
@@ -379,16 +379,22 @@ public class EmployeeGUI extends JPanel{
 
 
         chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
-
-
+        /* NEW Labels */
+        currentAppointmentLabel = new JLabel("Current Appointment:");
+        cal_patientFirstLabel = new JLabel("Patient First Name");
+        cal_patientLastLabel = new JLabel("Patient Last Name");
 
         datePicker = createDatePicker();
 
         timePicker = createTimePicker();
 
-        /* NEW text field*/
+        /* NEW text fields*/
         currentAppointmentTextField = new JTextField(20);
         currentAppointmentTextField.setEditable(false);
+        cal_patientFirstTextField = new JTextField(20);
+        cal_patientFirstTextField.setEditable(false);
+        cal_patientLastTextField = new JTextField(20);
+        cal_patientLastTextField.setEditable(false);
         	
         requestAppointmentButton = new JButton("Request Appointment");
         
@@ -463,7 +469,7 @@ public class EmployeeGUI extends JPanel{
         calTab.add(requestAppointmentButton, calendarConstraints);
 
 
-        /* ADD deleteAppointmentButton & currentAppointmentTextField */
+        /* ADD new labels, fields, button */
 
         
 
@@ -503,7 +509,10 @@ public class EmployeeGUI extends JPanel{
 
         JLabel zipCodeLabel_TBP = new JLabel("Zip Code:");
 
+        /* NEW JLabels */
+        JLabel patient_userLabel = new JLabel ("Username");
 
+        JLabel patient_pwLabel = new JLabel ("Password");
 
         // create text fields
 
@@ -527,7 +536,10 @@ public class EmployeeGUI extends JPanel{
 
         JTextField zipCodeTextField_TBP = new JTextField(12);
 
+        /* NEW JTextField */
+        JTextField patient_userField = new JTextField(12);
 
+        JTextField patient_pwField = new JTextField(12);
 
         // create combo box
 
@@ -835,7 +847,7 @@ public class EmployeeGUI extends JPanel{
 
         /*
          * 
-         *  ADD submitNewInfoButton here. Need formatting help
+         *  ADD new labels, fields, and buttons. Need formatting help
          */
         // patientTab.add(submitNewInfoButton, patientTabConstraints);
         
