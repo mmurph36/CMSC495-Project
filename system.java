@@ -9,7 +9,7 @@ public class system {
 	static ArrayList<patient> p_list;
 	static ArrayList<staff> d_list;
 	static HashMap<String, person> date_list;
-	
+
 	// added constructor by eh
 	public system(){
 		p_list = new ArrayList<patient>();
@@ -45,6 +45,7 @@ public class system {
 }
 	
 	public static void main(String[] args) {
+
 		system test = new system();
 	}
 
@@ -112,7 +113,22 @@ public class system {
 
 
 	// added by EH
-	// search for patient
+    // for staff end: may not have access to a patient's username & password 
+	public boolean patient_exists(String last_name, String first_name, String DOB, int ssn){
+		
+		for (patient p : p_list) {
+
+	        if (p.l_name.equals(last_name) && p.f_name.equals(first_name) && p.dob.equals(DOB) && p.SSN ==ssn) return true;
+
+	    }
+		
+		return false;
+	}
+
+
+	// added by EH
+	// search for patient - from Employee Menu 
+	// returns all patients with First & Last name
 	public ArrayList<patient> search_patient(String last_name, String first_name){
 		
 		ArrayList<patient> patients_found = new ArrayList<patient>();
@@ -123,7 +139,7 @@ public class system {
 			}
 		return patients_found;
 	}
-
+	
 	//add date to the date list
 	public boolean add_date(String s1, String s2, person p) {
 		String s = s1 + " " + s2;
@@ -143,4 +159,5 @@ public class system {
 		
 		return true;
 	}
+
 }
