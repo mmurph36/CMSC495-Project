@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author Kamran Lotfian
@@ -7,11 +8,13 @@ import java.util.ArrayList;
 public class system {
 	static ArrayList<patient> p_list;
 	static ArrayList<staff> d_list;
-
+	static HashMap<String, person> date_list;
+	
 	// added constructor by eh
 	public system(){
 		p_list = new ArrayList<patient>();
 		d_list = new ArrayList<staff>();
+		date_list = new HashMap<String, person>();
 
 
         p_list.add(new patient("Amuro", "Ray","N/A","whitedevil","password","11/04/0063",7979,5555, "address", "Baltimore", "Maryland", "205-345-3452"));
@@ -42,25 +45,6 @@ public class system {
 }
 	
 	public static void main(String[] args) {
-		/*
-		p_list = new ArrayList<patient>();
-		d_list = new ArrayList<doctor>();
-
-		//sample patient object within the patient list
-		p_list.add(new patient("Amuro", "Ray","N/A","whitedevil","password","11/4/0063",29,7979,5555, "address", "205-345-3452"));
-		p_list.add(new patient("Char", "Aznable","N/A","redcomet","password","11/17/0059",33,5959,7777, "address", "205-346-3562"));
-		p_list.add(new patient("Haman", "Karn","N/A","qubeley","password","1/10/0081",22,8989,8888, "address", "235-645-3294"));
-		p_list.add(new patient("Judau", "Ashta","N/A","zz","password","9/10/0073",15,1432,9999, "address", "205-345-3452"));
-		p_list.add(new patient("Kamille", "Bidan","N/A","zeta","password","11/11/0069",18,9376,6666, "address", "205-345-3452"));
-
-		//sample doctor object within the doctor list
-		// NOTE: EH changed doctors to add dob to doctors
-		d_list.add(new doctor("Joseph", "Joestar", "N/A", "JJ", "password", "1/11/0011", 1111, 1, 80));
-		d_list.add(new doctor("Jotaro", "Kujo", "N/A", "JK", "password", "2/22/0022", 2222, 1, 30));
-		d_list.add(new doctor("Josuke", "Higashikata", "N/A", "JH", "password", "3/3/0033", 3333, 1, 16));
-		d_list.add(new doctor("Giorno", "Giovanna", "N/A", "GG", "password", "4/4/0044", 4444, 1, 15));
-		d_list.add(new doctor("Jolyne", "Cujoh", "N/A", "JC", "password", "5/5/0055", 5555, 1, 19));*/
-		
 		system test = new system();
 	}
 
@@ -140,4 +124,23 @@ public class system {
 		return patients_found;
 	}
 
+	//add date to the date list
+	public boolean add_date(String s1, String s2, person p) {
+		String s = s1 + " " + s2;
+
+		if(date_list.containsKey(s)) return false;
+		date_list.put(s, p);
+		
+		return true;
+	}
+	
+	//delete date from the date list
+	public boolean delete_date(String s1, String s2) {
+		String s = s1 + " " + s2;
+		
+		if(!date_list.containsKey(s1)) return false;
+		date_list.remove(s);
+		
+		return true;
+	}
 }
