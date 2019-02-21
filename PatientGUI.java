@@ -654,7 +654,7 @@ public class PatientGUI extends JPanel {
 
         JButton requestAppointmentButton = new JButton("Request Appointment");
         JButton cancelAppointmentButton = new JButton("Cancel Appointment");
-        JButton lookUpAppointmentButton = new JButton("Look Up");
+        JButton lookUpAppointmentButton = new JButton("Look Up Appointment");
 
         // create text field
 
@@ -713,15 +713,15 @@ public class PatientGUI extends JPanel {
         calendarPanel.add(lookUpAppointmentLabel, calendarConstraints);
 
 
-        calendarConstraints.ipady = 5;
+        calendarConstraints.ipady = 10;
         calendarConstraints.weighty = 1;
         calendarConstraints.gridy = 50;
         calendarConstraints.insets = new Insets(0, 0, 0, 195);
 
         calendarPanel.add(lookUpAppointmentButton, calendarConstraints);
 
-
-        calendarConstraints.insets = new Insets(4, 105, 0, 0);
+        calendarConstraints.ipady = 5;
+        calendarConstraints.insets = new Insets(5, 180, 0, 0);
 
         calendarPanel.add(lookUpAppointmentTextField, calendarConstraints);
 
@@ -1278,9 +1278,48 @@ public class PatientGUI extends JPanel {
                 JOptionPane.showMessageDialog(null, "Error");
         });
 
+
         requestAppointmentButton.addActionListener(e -> {
-            JOptionPane.showMessageDialog
-                    (null, "Appointment Saved");
+            patient = MainGUI.pimsSystem.patient_details
+                    (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
+
+            if (patient != null) {
+                MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
+                JOptionPane.showMessageDialog
+                        (null, "Appointment Saved");
+            } else JOptionPane.showMessageDialog(null, "Error");
+
+        });
+
+
+        lookUpAppointmentButton.addActionListener(e -> {
+            patient = MainGUI.pimsSystem.patient_details
+                    (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
+
+            String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
+
+            if (String.valueOf(appointment).equals(""))
+                JOptionPane.showMessageDialog
+                        (null, "You Don't Have An Appointment Scheduled At This Time");
+            else lookUpAppointmentTextField.setText(appointment);
+        });
+
+
+        cancelAppointmentButton.addActionListener(e -> {
+            patient = MainGUI.pimsSystem.patient_details
+                    (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
+
+            if (String.valueOf(lookUpAppointmentTextField.getText()).equals(""))
+                JOptionPane.showMessageDialog(null, "Must Lookup Appointment First");
+            else {
+                if (!MainGUI.pimsSystem.patient_delete_date(patient))
+                    JOptionPane.showMessageDialog
+                            (null, "You Have No Appointment Scheduled At This Time");
+                else {
+                    JOptionPane.showMessageDialog(null, "Appointment Deleted");
+                    lookUpAppointmentTextField.setText("");
+                }
+            }
         });
     }
 
@@ -1394,38 +1433,5 @@ public class PatientGUI extends JPanel {
         timeSettings.setVetoPolicy(new VetoTimes());
 
         return timePicker;
-    }
-
-
-    // class to disallow choosing Saturdays and Sundays
-
-    private class VetoWeekends implements DateVetoPolicy {
-
-        @Override
-        public boolean isDateAllowed(LocalDate localDate) {
-            if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY ||
-                    localDate.getDayOfWeek() == DayOfWeek.SUNDAY ||
-                    localDate.isBefore(LocalDate.now()))
-                return false;
-            return true;
-        }
-    }
-
-
-    // Class to disallow choosing times before 9am
-    // and after 5pm
-
-    private class VetoTimes implements TimeVetoPolicy {
-
-        @Override
-        public boolean isTimeAllowed(LocalTime time) {
-
-            // Only allow times from 9a to 5p, inclusive.
-
-            return PickerUtilities.isLocalTimeInRange(
-
-                    time, LocalTime.of(9, 0), LocalTime.of(16, 30), true);
-
-        }
     }
 }
