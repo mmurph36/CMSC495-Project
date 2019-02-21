@@ -255,11 +255,11 @@ public class system {
 
     //delete date from the date list
 
-    public boolean delete_date(String date_time, patient patient) {
+    public boolean delete_date(patient patient) {
 
+        if (!lookupDateMap.containsKey(patient)) return false;
 
-        if (!date_list.containsKey(date_time)) return false;
-        else if (!lookupDateMap.containsKey(patient)) return false;
+        String date_time = lookupDateMap.get(patient);
 
         date_list.remove(date_time);
 
