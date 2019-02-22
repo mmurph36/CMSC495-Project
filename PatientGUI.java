@@ -1329,6 +1329,9 @@ public class PatientGUI extends JPanel {
                 patient.city = cityTextField_TBP.getText();
                 patient.state = String.valueOf(stateComboBox_TBP.getSelectedItem());
                 patient.zip = Integer.parseInt(zipCodeTextField_TBP.getText());
+                patient.user_name = patient_userField_TBP.getText();
+                patient.password = patient_pwField_TBP.getText();
+                
             } else if (!String.valueOf(errorMessage).equals("Must Enter"))
                 JOptionPane.showMessageDialog(null, errorMessage);
              else if (patient == null)

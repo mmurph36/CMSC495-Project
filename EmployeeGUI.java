@@ -3089,6 +3089,10 @@ public class EmployeeGUI extends JPanel{
                 patient.state = String.valueOf(stateComboBox_TBP.getSelectedItem());
 
                 patient.zip = Integer.parseInt(zipCodeTextField_TBP.getText());
+                
+                patient.user_name = patient_userField.getText();
+                
+                patient.password = patient_pwField.getText();
 
             } else if (!String.valueOf(errorMessage).equals("Must Enter"))
 
