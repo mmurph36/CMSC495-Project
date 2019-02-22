@@ -48,18 +48,26 @@ public class MainGUI extends JFrame{
     JLabel welcomeLabel2 = new JLabel("Patient Information Management System", SwingConstants.CENTER);
     JLabel chooseEmployeeOrPatientLabel =
             new JLabel("Choose Employee or Patient", SwingConstants.CENTER);
+    
+    /* NEW JLabel To Distinguish Employee & Patient menu 
+     *  - to be displayed in Left or Center on top, in the same line where the backToLoginButton is 
+     */
+    JLabel employeeMenuLabel = new JLabel("PIMS - Employee Menu", SwingConstants.CENTER);
+    JLabel patientMenuLabel= new JLabel("PIMS - Patient Menu", SwingConstants.CENTER);
 
     JPanel welcomePanel = new JPanel(new GridBagLayout());
 
     JButton employeeButton = new JButton("Employee");
-
+    
     JButton patientButton = new JButton("Patient");
 
 
 
     // Back Button to go back to Login
 
-    JPanel backPanel = new JPanel(new GridBagLayout());
+    JPanel backPatientPanel = new JPanel(new GridBagLayout());
+    
+    JPanel backEmployeePanel = new JPanel(new GridBagLayout());
 
     JButton backToLoginButton = new JButton("Back to \"Welcome\" Page");
 
@@ -153,20 +161,30 @@ public class MainGUI extends JFrame{
 
         add(startPanel,BorderLayout.CENTER);
 
+        
+        patientMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        employeeMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 
-
-        // Add back button to back panel
+        // Add labels to back patient &  back employee panel
 
         GridBagConstraints backButtonConstraints = new GridBagConstraints();
 
         backButtonConstraints.weightx = 1;
+        backButtonConstraints.ipadx = 20;
         backButtonConstraints.ipady = 10;
-        backButtonConstraints.anchor = GridBagConstraints.NORTHEAST;
+        backButtonConstraints.anchor = GridBagConstraints.NORTHWEST;
         backButtonConstraints.insets = new Insets(10, 0, 0, 10);
 
-        backPanel.add(backToLoginButton, backButtonConstraints);
+        backPatientPanel.add(patientMenuLabel, backButtonConstraints);
+        backEmployeePanel.add(employeeMenuLabel, backButtonConstraints);
 
 
+        // Add back button to back patient & back employee panel
+
+        backButtonConstraints.anchor = GridBagConstraints.NORTHEAST;
+
+        backPatientPanel.add(backToLoginButton, backButtonConstraints);
+        backEmployeePanel.add(backToLoginButton, backButtonConstraints);
 
         validate();
 
@@ -222,7 +240,7 @@ public class MainGUI extends JFrame{
 
         employeePanel = new EmployeeGUI();
 
-        this.add(backPanel, BorderLayout.PAGE_START);
+        this.add(backEmployeePanel, BorderLayout.PAGE_START);
 
         this.add(employeePanel, BorderLayout.CENTER);
 
@@ -252,7 +270,7 @@ public class MainGUI extends JFrame{
         patientPanel = new PatientGUI();
 
 
-        this.add(backPanel, BorderLayout.PAGE_START);
+        this.add(backPatientPanel, BorderLayout.PAGE_START);
 
         this.add(patientPanel, BorderLayout.CENTER);
 
