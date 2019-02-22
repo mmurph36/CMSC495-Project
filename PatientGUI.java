@@ -2,15 +2,8 @@ import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
 import com.github.lgooddatepicker.components.TimePickerSettings;
-import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
-import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
-import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -660,12 +653,14 @@ public class PatientGUI extends JPanel {
 
         JTextField lookUpAppointmentTextField = new JTextField(15);
 
+        lookUpAppointmentTextField.setEditable(false);
+
+        lookUpAppointmentTextField.setBackground(Color.white);
+
         // set the label font
 
         chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 40));
         lookUpAppointmentLabel.setFont(new Font("Serif", Font.PLAIN, 25));
-
-
         // set the constraints for each component and add
         // them to the calendar panel
 
@@ -729,6 +724,8 @@ public class PatientGUI extends JPanel {
         // add patient and calendar panels to tabbed pane
 
         tabbedPane.add("Patient Information", patientInfoPanel);
+
+
         tabbedPane.add("Calendar", calendarPanel);
 
 
@@ -1398,14 +1395,14 @@ public class PatientGUI extends JPanel {
 
         DatePicker datePicker = new DatePicker(datePickerSettings);
 
-        // If today is Saturday or Sunday, this sets the default
+        // If tomorrow is Saturday or Sunday, this sets the default
         // to the following Monday
 
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
+        if (LocalDate.now().plusDays(1).getDayOfWeek() == DayOfWeek.SATURDAY) {
+            datePicker.setDate(LocalDate.now().plusDays(3));
+        } else if (LocalDate.now().plusDays(1).getDayOfWeek() == DayOfWeek.SUNDAY) {
             datePicker.setDate(LocalDate.now().plusDays(2));
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(1));
-        } else datePicker.setDate(LocalDate.now());
+        } else datePicker.setDate(LocalDate.now().plusDays(1));
 
         // Veto Policy to disallow weekends
 
