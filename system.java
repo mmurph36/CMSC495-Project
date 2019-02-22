@@ -59,9 +59,7 @@ public class system {
 
         // NOTE: staff constructors give a hard-coded DOB to staff for now. Staff needs only username & password for now. 
 
-        // First, Last, Middle (optional), username, password, DOB (MM/DD/YYYY), Last 4 SSN, Zip Code, Address, City, State (full name), Phone # (###-###-####) 
-
-
+        // First, Last, Middle (optional), username, password, ID, Access Level
         d_list.add(new staff("Joseph", "Joestar", "N/A", "JJ", "password", 1111, 1));
 
 
