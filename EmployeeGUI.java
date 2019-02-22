@@ -1,3 +1,4 @@
+package works;
 /* Author: Esther Ho & Ari Ohsie
  * CMSC 495
  * PIMS Project
@@ -13,7 +14,6 @@
 /*
  * TO-DO: as of 2/20 evening
  * 
-
  * 
  * Patient Info Tab:
  * -to add a new patient, need to have a way for patient to add username or password.
@@ -1125,7 +1125,7 @@ public class EmployeeGUI extends JPanel{
 
                         (null, "Must Enter A Password");
 
-            else if (MainGUI.pimsSystem.doctor_exists(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))) {
+            else if (MainGUI.pimsSystem.staff_exists(usernameTextField.getText(), String.valueOf(passwordField.getPassword()))) {
 
                 remove(loginPanel);
 

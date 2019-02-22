@@ -1,3 +1,4 @@
+package works;
 /* Author: Esther Ho & Ari Ohsie
  * CMSC 495
  * PIMS Project
@@ -49,10 +50,11 @@ public class MainGUI extends JFrame{
     JLabel chooseEmployeeOrPatientLabel =
             new JLabel("Choose Employee or Patient", SwingConstants.CENTER);
     
-    /* NEW JLabel To Distinguish Employee & Patient menu 
+    /* JLabel To Distinguish Employee & Patient menu 
      *  - to be displayed in Left or Center on top, in the same line where the backToLoginButton is 
      */
     JLabel employeeMenuLabel = new JLabel("PIMS - Employee Menu", SwingConstants.CENTER);
+    
     JLabel patientMenuLabel= new JLabel("PIMS - Patient Menu", SwingConstants.CENTER);
 
     JPanel welcomePanel = new JPanel(new GridBagLayout());
@@ -69,8 +71,9 @@ public class MainGUI extends JFrame{
     
     JPanel backEmployeePanel = new JPanel(new GridBagLayout());
 
-    JButton backToLoginButton = new JButton("Back to \"Welcome\" Page");
+    JButton backToLoginPatientButton = new JButton("Back to \"Welcome\" Page");
 
+    JButton backToLoginEmployeeButton = new JButton("Back to \"Welcome\" Page");
 
 
 
@@ -103,7 +106,7 @@ public class MainGUI extends JFrame{
 
 
 
-        // set up start Panel
+        // WELCOME PANEL
 
         welcomeLabel_1.setFont(new java.awt.Font(welcomeLabel_1.getFont().getFontName(), Font.PLAIN, 40));
         welcomeLabel2.setFont(new java.awt.Font(welcomeLabel2.getFont().getFontName(), Font.PLAIN, 40));
@@ -154,18 +157,18 @@ public class MainGUI extends JFrame{
 
         startPanel.add(welcomePanel, BorderLayout.CENTER);
 
-
-
-
         // Add start panel to JFrame
 
         add(startPanel,BorderLayout.CENTER);
+        
+        
 
+        // BACK PANELS
         
         patientMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
         employeeMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
 
-        // Add labels to back patient &  back employee panel
+        // Add label & back button to back patient panel & back employee panel
 
         GridBagConstraints backButtonConstraints = new GridBagConstraints();
 
@@ -176,15 +179,15 @@ public class MainGUI extends JFrame{
         backButtonConstraints.insets = new Insets(10, 0, 0, 10);
 
         backPatientPanel.add(patientMenuLabel, backButtonConstraints);
+
         backEmployeePanel.add(employeeMenuLabel, backButtonConstraints);
 
 
-        // Add back button to back patient & back employee panel
-
         backButtonConstraints.anchor = GridBagConstraints.NORTHEAST;
 
-        backPatientPanel.add(backToLoginButton, backButtonConstraints);
-        backEmployeePanel.add(backToLoginButton, backButtonConstraints);
+        backPatientPanel.add(backToLoginPatientButton, backButtonConstraints);
+
+        backEmployeePanel.add(backToLoginEmployeeButton, backButtonConstraints);
 
         validate();
 
@@ -206,8 +209,9 @@ public class MainGUI extends JFrame{
 
         patientButton.addActionListener (e -> patientMenu());
 
-        backToLoginButton.addActionListener (e -> returnToLogin());
-
+        backToLoginPatientButton.addActionListener (e -> returnToLogin());
+        
+        backToLoginEmployeeButton.addActionListener (e -> returnToLogin());
 
 
     }// end constructor
@@ -273,9 +277,6 @@ public class MainGUI extends JFrame{
         this.add(backPatientPanel, BorderLayout.PAGE_START);
 
         this.add(patientPanel, BorderLayout.CENTER);
-
-
-
 
 
         validate();
