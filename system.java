@@ -5,11 +5,8 @@ import java.util.HashMap;
 
 
 /**
-
  * @author Kamran Lotfian
-
  *	Main Class that houses all the functionality of the backend that will be called by the GUI
-
  */
 
 public class system {
@@ -35,41 +32,49 @@ public class system {
 
         lookupDateMap = new HashMap<>();
 
+        // First, Last, Middle (optional), username, password, DOB (MM/DD/YYYY), Last 4 SSN, Zip Code, Address, City, State (full name), Phone # (###-###-####) 
 
-        p_list.add(new patient("Amuro", "Ray", "N/A", "whitedevil", "password", "11/04/0063", 7979, 5555, "address", "Baltimore", "Maryland", "205-345-3452"));
-
-
-        p_list.add(new patient("Char", "Aznable", "N/A", "redcomet", "password", "11/17/0059", 5959, 7777, "address", "Washington D.C.", "N/A", "205-346-3562"));
+        p_list.add(new patient("Amuro", "Ray", "N/A", "whitedevil", "password", "11/04/0063", 7979, 55555, "address", "Baltimore", "Maryland", "205-345-3452"));
 
 
-        p_list.add(new patient("Haman", "Karn", "N/A", "qubeley", "password", "1/10/0081", 8989, 8888, "address", "Austin", "Texas", "235-645-3294"));
+        p_list.add(new patient("Char", "Aznable", "N/A", "redcomet", "password", "11/17/0059", 5959, 77777, "address", "Washington", "District of Columbia", "205-346-3562"));
 
 
-        p_list.add(new patient("Judau", "Ashta", "N/A", "zz", "password", "9/10/0073", 1432, 9999, "address", "Boston", "Massachusetts", "205-345-3452"));
+        p_list.add(new patient("Haman", "Karn", "N/A", "qubeley", "password", "01/10/0081", 8989, 88888, "address", "Austin", "Texas", "235-645-3294"));
 
 
-        p_list.add(new patient("Kamille", "Bidan", "N/A", "zeta", "password", "11/11/0069", 9376, 6666, "address", "Harrison", "Pennsylvania", "205-345-3452"));
+        p_list.add(new patient("Judau", "Ashta", "N/A", "zz", "password", "09/10/0073", 1432, 99999, "address", "Boston", "Massachusetts", "205-345-3452"));
+
+
+        p_list.add(new patient("Kamille", "Bidan", "N/A", "zeta", "password", "11/11/0069", 9376, 66666, "address", "Harrison", "Pennsylvania", "205-345-3452"));
+        
+        // patients with same first and last name 
+        p_list.add(new patient("John", "Doe", "N/A", "alpha", "password", "11/11/1991", 1221, 11111, "address", "Seattle", "Washington", "202-232-3563"));
+
+        p_list.add(new patient("John", "Doe", "N/A", "beta", "password", "01/22/2011", 1451, 22222, "address", "New York", "New York", "901-766-9087"));
 
 
         //sample staff object within the staff list
 
 
-        // NOTE: EH changed doctors to add dob to doctors
+        // NOTE: staff constructors give a hard-coded DOB to staff for now. Staff needs only username & password for now. 
+
+        // First, Last, Middle (optional), username, password, DOB (MM/DD/YYYY), Last 4 SSN, Zip Code, Address, City, State (full name), Phone # (###-###-####) 
 
 
-        d_list.add(new staff("Joseph", "Joestar", "N/A", "JJ", "password", "1111", 1));
+        d_list.add(new staff("Joseph", "Joestar", "N/A", "JJ", "password", 1111, 1));
 
 
-        d_list.add(new staff("Jotaro", "Kujo", "N/A", "JK", "password", "2222", 1));
+        d_list.add(new staff("Jotaro", "Kujo", "N/A", "JK", "password", 2222, 1));
 
 
-        d_list.add(new staff("Josuke", "Higashikata", "N/A", "JH", "password", "3333", 1));
+        d_list.add(new staff("Josuke", "Higashikata", "N/A", "JH", "password", 3333, 1));
 
 
-        d_list.add(new staff("Giorno", "Giovanna", "N/A", "GG", "password", "4444", 1));
+        d_list.add(new staff("Giorno", "Giovanna", "N/A", "GG", "password", 4444, 1));
 
 
-        d_list.add(new staff("Jolyne", "Cujoh", "N/A", "JC", "password", "5555", 1));
+        d_list.add(new staff("Jolyne", "Cujoh", "N/A", "JC", "password", 5555, 1));
 
     }
 
