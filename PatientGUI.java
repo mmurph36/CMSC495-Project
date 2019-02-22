@@ -270,6 +270,7 @@ public class PatientGUI extends JPanel {
         JTextField zipCodeTextField = new JTextField(12);
 
 
+
         String[] states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
 
                 "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
@@ -426,7 +427,7 @@ public class PatientGUI extends JPanel {
 
         createNewPatientInfoPanel.add(zipCodeTextField, createNewPatientInfoPanelConstraints);
 
-
+        
         createNewPatientInfoPanelConstraints.gridx = 20;
         createNewPatientInfoPanelConstraints.ipady = 10;
         createNewPatientInfoPanelConstraints.anchor = GridBagConstraints.WEST;
@@ -466,6 +467,9 @@ public class PatientGUI extends JPanel {
         JLabel cityLabel_TBP = new JLabel("City:");
         JLabel stateLabel_TBP = new JLabel("State:");
         JLabel zipCodeLabel_TBP = new JLabel("Zip Code:");
+        /* NEW JLabels */
+        JLabel patient_userLabel_TBP = new JLabel ("Username:");
+        JLabel patient_pwLabel_TBP= new JLabel ("Password:");
 
         // create text fields
 
@@ -478,6 +482,9 @@ public class PatientGUI extends JPanel {
         JTextField addressTextField_TBP = new JTextField(12);
         JTextField cityTextField_TBP = new JTextField(12);
         JTextField zipCodeTextField_TBP = new JTextField(12);
+        /* NEW JTextField */
+        JTextField patient_userField_TBP = new JTextField(12);
+        JTextField patient_pwField_TBP = new JTextField(12);
 
         // create combo box
 
@@ -614,6 +621,47 @@ public class PatientGUI extends JPanel {
         patientInfoPanel.add(zipCodeTextField_TBP, patientInfoPanelConstraints);
 
 
+        /* ADDED - username & password labels and fields  */
+        
+        patientInfoPanelConstraints.gridy = 20;
+
+        patientInfoPanelConstraints.gridx = 20;
+        
+        patientInfoPanelConstraints.weightx = 1;
+
+        patientInfoPanelConstraints.weighty = 0.4;
+        
+        patientInfoPanelConstraints.anchor = GridBagConstraints.WEST;
+        
+        patientInfoPanelConstraints.insets = new Insets(0, 20, 0, 0);
+        
+        patientInfoPanel.add(patient_userLabel_TBP, patientInfoPanelConstraints);
+        
+        
+        
+        patientInfoPanelConstraints.gridy = 30;
+        
+        patientInfoPanel.add(patient_pwLabel_TBP, patientInfoPanelConstraints);
+        
+        
+        
+        patientInfoPanelConstraints.gridy = 20;
+
+        patientInfoPanelConstraints.gridx = 20;
+        
+        patientInfoPanelConstraints.anchor = GridBagConstraints.EAST;
+        
+        patientInfoPanelConstraints.insets = new Insets(0, 0, 0, 60);
+        
+        patientInfoPanel.add(patient_userField_TBP, patientInfoPanelConstraints);
+        
+        
+        
+        patientInfoPanelConstraints.gridy = 30;
+        
+        patientInfoPanel.add(patient_pwField_TBP, patientInfoPanelConstraints);
+        
+        patientInfoPanelConstraints.gridy = 80;
         patientInfoPanelConstraints.gridx = 20;
         patientInfoPanelConstraints.ipady = 10;
         patientInfoPanelConstraints.anchor = GridBagConstraints.CENTER;
@@ -778,6 +826,8 @@ public class PatientGUI extends JPanel {
                     cityTextField_TBP.setText(patient.city);
                     stateComboBox_TBP.setSelectedItem(patient.state);
                     zipCodeTextField_TBP.setText(String.valueOf(patient.zip));
+                    patient_userField_TBP.setText(patient.user_name);
+                    patient_pwField_TBP.setText(patient.password);
                 } else
                     JOptionPane.showMessageDialog(null, "Error");
 
@@ -1045,6 +1095,8 @@ public class PatientGUI extends JPanel {
                     cityTextField_TBP.setText(cityTextField.getText());
                     zipCodeTextField_TBP.setText(zipCodeTextField.getText());
                     stateComboBox_TBP.setSelectedItem(stateComboBox.getSelectedItem());
+                    patient_userField_TBP.setText(usernameTextField_cnp.getText());
+                    patient_pwField_TBP.setText(String.valueOf(passwordField_cnp.getPassword()));
                     remove(createNewPatientInfoPanel);
                     add(tabbedPane);
                     JOptionPane.showMessageDialog
@@ -1109,6 +1161,14 @@ public class PatientGUI extends JPanel {
             }
             if (String.valueOf(zipCodeTextField).equals("")) {
                 errorMessage += " Zip Code,";
+                emptyFields = false;
+            }
+            if (String.valueOf(patient_userField_TBP).equals("")) {
+                errorMessage += " Username,";
+                emptyFields = false;
+            }
+            if (String.valueOf(patient_pwField_TBP).equals("")) {
+                errorMessage += " password,";
                 emptyFields = false;
             }
 

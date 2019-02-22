@@ -1,51 +1,29 @@
 
 
 /* Author: Esther Ho & Ari Ohsie
-
  * CMSC 495
-
  * PIMS Project
-
  *
-
  * File Name: EmployeeGUI.java
-
  *
-
  *
-
  *
-
  * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
-
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
-
  */
 
 
 
 /*
-
  * TO-DO: as of 2/20 evening
-
  * 
-
-
-
  * 
-
  * Patient Info Tab:
-
  * -to add a new patient, need to have a way for patient to add username or password.
-
  * -need a way for patient to update user/pw for both Employee or Patient side?
-
  * 
-
  * Search Tab:
-
  * -check if SSN field is a number. 
-
  */
 
 
@@ -279,13 +257,9 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * note:
-
 	 * -consider how to restrict how user can enter this in.
-
 	 * -ex: have a month, date, year field
-
 	 */
 
 
@@ -399,13 +373,9 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * initialize()
-
 	 *
-
 	 * - sets up EmployeeGUI panel
-
 	 */
 
 
@@ -951,11 +921,11 @@ public class EmployeeGUI extends JPanel{
 
         /* NEW JLabels */
 
-        JLabel patient_userLabel = new JLabel ("Username");
+        JLabel patient_userLabel = new JLabel ("Username:");
 
 
 
-        JLabel patient_pwLabel = new JLabel ("Password");
+        JLabel patient_pwLabel = new JLabel ("Password:");
 
 
 
@@ -1077,13 +1047,13 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        JButton updateInfoButton = new JButton("Update Information");
+        JButton updateInfoButton = new JButton("Update Existing Patient");
 
         
 
         /* NEW BUTTON */
 
-        JButton submitNewInfoButton = new JButton ("Create New Patient File with current information");
+        JButton submitNewInfoButton = new JButton ("Create New Patient File");
 
 
 
@@ -1578,9 +1548,6 @@ public class EmployeeGUI extends JPanel{
 
 
 
-
-
-
         patientTabConstraints.gridy = 80;
 
 
@@ -1592,18 +1559,53 @@ public class EmployeeGUI extends JPanel{
         patientTab.add(zipCodeTextField_TBP, patientTabConstraints);
 
 
-
-
-
-
-
-
-
-
+        
+        /* ADDED - username & password labels and fields  */
+        
+        patientTabConstraints.gridy = 20;
 
         patientTabConstraints.gridx = 20;
+        
+        patientTabConstraints.weightx = 1;
 
+        patientTabConstraints.weighty = 0.4;
+        
+        patientTabConstraints.anchor = GridBagConstraints.WEST;
+        
+        patientTabConstraints.insets = new Insets(0, 20, 0, 0);
+        
+        patientTab.add(patient_userLabel, patientTabConstraints);
+        
+        
+        
+        patientTabConstraints.gridy = 30;
+        
+        patientTab.add(patient_pwLabel, patientTabConstraints);
+        
+        
+        
+        patientTabConstraints.gridy = 20;
 
+        patientTabConstraints.gridx = 20;
+        
+        patientTabConstraints.anchor = GridBagConstraints.EAST;
+        
+        patientTabConstraints.insets = new Insets(0, 0, 0, 60);
+        
+        patientTab.add(patient_userField, patientTabConstraints);
+        
+        
+        
+        patientTabConstraints.gridy = 30;
+        
+        patientTab.add(patient_pwField, patientTabConstraints);
+        
+        
+        /* ADJUSTED -"update existing patient" and "create new patient file" buttons */
+
+        patientTabConstraints.gridx = 20;
+        
+        patientTabConstraints.gridy = 70;
 
         patientTabConstraints.ipady = 10;
 
@@ -1612,28 +1614,19 @@ public class EmployeeGUI extends JPanel{
         patientTabConstraints.anchor = GridBagConstraints.CENTER;
 
 
-
-
-
-
-
         patientTab.add(updateInfoButton, patientTabConstraints);
 
+        
+        
+        
+        patientTabConstraints.gridy = 80;
 
-
-        /*
-
-         * 
-
-         *  ADD new labels, fields, and buttons. Need formatting help
-
-         */
-
-        // patientTab.add(submitNewInfoButton, patientTabConstraints);
-
-
-
-
+       
+        patientTab.add(submitNewInfoButton, patientTabConstraints);
+        
+        
+        
+        
 
         // TAB 3: Billing
 
@@ -2145,7 +2138,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        // ACTION LISTENERS 
+        // ALL ACTION LISTENERS 
 
 
 
@@ -2333,6 +2326,21 @@ public class EmployeeGUI extends JPanel{
 
             }
 
+            if (String.valueOf(patient_userField).equals("")) {
+
+                errorMessage += " Username,";
+
+                emptyFields = false;
+
+            }
+            
+            if (String.valueOf(patient_pwField).equals("")) {
+
+                errorMessage += " password,";
+
+                emptyFields = false;
+
+            }
 
 
 
@@ -2652,35 +2660,20 @@ public class EmployeeGUI extends JPanel{
                 	
 
                 	/*
-
                     firstNameTextField_TBP.setText(firstNameTextField_TBP.getText());
-
                     middleNameTextField_TBP.setText(middleName);
-
                     lastNameTextField_TBP.setText(lastNameTextField_TBP.getText());
-
                     SSNTextField_TBP.setText(SSNTextField_TBP.getText());
-
                     DOBTextField_TBP.setText(DOBTextField_TBP.getText());
-
                     phoneNumberTextField_TBP.setText(phoneNumberTextField_TBP.getText());
-
                     addressTextField_TBP.setText(addressTextField_TBP.getText());
-
                     cityTextField_TBP.setText(cityTextField_TBP.getText());
-
                     zipCodeTextField_TBP.setText(zipCodeTextField_TBP.getText());
-
                     stateComboBox_TBP.setSelectedItem(stateComboBox_TBP.getSelectedItem());
-
                     //remove(createNewPatientInfoPanel);
-
                    // add(tabbedPane);
-
                     * 
-
                     * 
-
                     */
 
                     JOptionPane.showMessageDialog
@@ -3138,9 +3131,7 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 *
-
 	 */
 
 
@@ -3194,13 +3185,9 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * BACKEND - grab patient information
-
 		 * -return array list or array of Patients with
-
 		 * corresponding data
-
 		 */
 
 
@@ -3278,9 +3265,7 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 *
-
 	 */
 
 
@@ -3310,9 +3295,7 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * BACKEND - need specific patient object getters
-
 		 */
 
 
@@ -3326,17 +3309,11 @@ public class EmployeeGUI extends JPanel{
 
 
 		/*
-
 		 * To-Do:
-
 		 *
-
 		 * -fill in all fields with patientSearched's information
-
 		 * -ex: first, middle, last name, billing info, etc
-
 		 * -populate fields across all tabs
-
 		 */
 
 
@@ -3480,11 +3457,8 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * DatePicker related methods & private classes
-
 	 *
-
 	 */
 
 
@@ -3834,9 +3808,7 @@ public class EmployeeGUI extends JPanel{
 
 
     /*
-
      * END of DatePicker related methods & private classes
-
      */
 
 
@@ -3846,9 +3818,7 @@ public class EmployeeGUI extends JPanel{
 
 
 	/*
-
 	 * main for just employeeGUI
-
 	 */
 
 
@@ -3930,4 +3900,3 @@ public class EmployeeGUI extends JPanel{
 
 
 }// end EmployeeGUI class
-

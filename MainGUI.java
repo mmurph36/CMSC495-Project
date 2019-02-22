@@ -1,23 +1,13 @@
 /* Author: Esther Ho & Ari Ohsie
-
  * CMSC 495
-
  * PIMS Project
-
  *
-
  * File Name: MainGUI.java
-
  *
-
  *
-
  *
-
  * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
-
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
-
  */
 
 
@@ -101,9 +91,7 @@ public class MainGUI extends JFrame{
 
 
     /* NEW JLabel To Distinguish Employee & Patient menu
-
      *  - to be displayed in Left or Center on top, in the same line where the backToLoginButton is
-
      */
 
 
@@ -141,13 +129,6 @@ public class MainGUI extends JFrame{
 
 
     JPanel backEmployeePanel = new JPanel(new GridBagLayout());
-
-
-
-    //JButton backToLoginButton = new JButton("Back to \"Welcome\" Page");
-
-
-
 
 
 
@@ -415,9 +396,7 @@ public class MainGUI extends JFrame{
 
 
 	/*
-
 	 * getter for startPanel
-
 	 */
 
 
@@ -439,9 +418,7 @@ public class MainGUI extends JFrame{
 
 
 	/*
-
 	 *
-
 	 */
 
 
@@ -463,7 +440,7 @@ public class MainGUI extends JFrame{
 
 
         employeePanel = new EmployeeGUI();
-
+        //employeePanel = new EmployeeGUI_notworking_newideas();
 
 
         this.add(backEmployeePanel, BorderLayout.PAGE_START);
@@ -491,9 +468,7 @@ public class MainGUI extends JFrame{
 
 
 	/*
-
 	 *
-
 	 */
 
 
@@ -555,9 +530,7 @@ public class MainGUI extends JFrame{
 
 
 	/*
-
 	 *
-
 	 */
 
 
@@ -607,9 +580,7 @@ public class MainGUI extends JFrame{
 
 
 	/*
-
 	 * MAIN to run entire project
-
 	 */
 
 
