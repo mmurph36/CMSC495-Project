@@ -1,4 +1,3 @@
-package works;
 /* Author: Esther Ho & Ari Ohsie
  * CMSC 495
  * PIMS Project
