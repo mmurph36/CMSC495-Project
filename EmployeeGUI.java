@@ -47,135 +47,75 @@ public class EmployeeGUI extends JPanel{
     // EmployeeGUI title
     String employeeGUItitle;
 
-    // Login panel variables
+    /* Login panel  */
     JPanel loginPanel;
+    GridBagConstraints loginConstraints;
     JLabel logInLabel, usernameLabel, passwordLabel;
     JTextField usernameTextField;
     JPasswordField passwordField;
     JButton loginButton;
 
-    // Employee Window (Tabbed Pane)
+    /* Employee Window (Tabbed Pane) */
 
     // 4 Tabs: Calendar, Patient Information, Billing, Search
 
     JTabbedPane tabbedPane;
     JPanel billingTab, searchTab;
 
-    // TAB 1: Calendar
-
-
-
+    /* TAB 1: Calendar */
+    
     JPanel calTab;
-
-
-
     JLabel chooseDateAndTimeLabel, currentAppointmentLabel,
             cal_patientSSNLabel, cal_patientLastLabel, lookUpAppointmentLabel,
             currentPatientLabel;
-
-
-
     JTextField currentAppointmentTextField, cal_SSNTextField,
             cal_patientLastTextField, lookUpAppointmentTextField,
             currentPatientTextField;
-
-
-
     DatePicker datePicker;
-
-
-
     TimePicker timePicker;
-
-
-
     JButton requestAppointmentButton, cancelAppointmentButton, lookUpAppointmentButton;
 
-
-
-
-
-
-
-    // TAB 2: Patient Information
-
-
-
+    /* TAB 2: Patient Information */
+    
     JPanel patientTab;
+    GridBagConstraints patientTabConstraints;
+    JLabel lastNameLabel_PInfo, firstNameLabel_PInfo, middleNameLabel_PInfo, 
+    	ssnLabel_PInfo, dobLabel_PInfo, phoneNumberLabel_PInfo, 
+    	streetLabel_PInfo, cityLabel_PInfo, stateLabel_PInfo, zipCodeLabel_PInfo, 
+    	userLabel_PInfo, pwLabel_PInfo;
+    JTextField lastNameTextField_PInfo, firstNameTextField_PInfo, middleNameTextField_PInfo, 
+    	ssnTextField_PInfo, dobTextField_PInfo, phoneNumberTextField_PInfo, 
+    	addressTextField_PInfo, cityTextField_PInfo, zipCodeTextField_PInfo, 
+    	userField_PInfo, pwField_PInfo;
 
 
 
-    JLabel lNameLabel, fNameLabel, mNameLabel, ssnLabel, dobLabel,
+    JComboBox<String> stateComboBox_PInfo;
 
+    static String[] states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
+            "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
+            "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
+            "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
+            "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
+            "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
+            "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
+            "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
+            "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
+            "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
+            "Wyoming"};
 
+    JButton updateInfoButton_PInfo, submitNewInfoButton_PInfo;
 
-    phoneLabel, streetLabel, cityLabel, stateLabel, zipLabel, patient_userLabel, patient_pwLabel;
-
-
-
-    //JButton submitNewInfoButton;
-
-  
-
-
-
-
-
-
-
-	/*
-	 * note:
-	 * -consider how to restrict how user can enter this in.
-	 * -ex: have a month, date, year field
-	 */
-
-
-
-
-
-
-
-    JTextField lNameField, fNameField, mNameField, ssnField, dobField,
-
-
-
-    phoneField, streetField, cityField, zipField, patient_userField, patient_pwField;
-
-
-
-    JComboBox<String> statesCB;
-
-
-
-
-
-
-
-
-
-
-
-    // TAB 3: Billing
-
-
+    
+    /* TAB 3: Billing */
 
     JLabel patientBillingLabel, lNameBillLabel, ssnBillLabel, billingCodeLabel, policyLabel, amtDueLabel;
-
-
-
+    
     JTextField lNameBillField, ssnBillField, amtDueField;
-
-
 
     JComboBox<String> codeCB, policyCB;
 
-
-
-
-
-
-
-    // ADD CALCULATE BUTTON
+    JButton calculateButton_Billing; // NEW & TO-ADD
 
 
 
@@ -183,117 +123,34 @@ public class EmployeeGUI extends JPanel{
 
 
 
-    // TAB 4: Search
-
-
-
-    JLabel lNameSearchLabel, ssnSearchLabel, searchDirectionLabel;
-
-
-
-    JTextField lNameSearchField, ssnSearchField;
-
-
-
+    /* TAB 4: Search */
+    
+    JLabel lNameSearchLabel, fNameSearchLabel, searchDirectionLabel;
+    JTextField lNameSearchField, fNameSearchField;
     JPanel searchPanel, lNameSearchPanel, ssnSearchPanel, searchButtonPanel;
-
-
-
     JButton searchButton, selectPatientFoundButton;
-
-
-
     JComboBox<String> choosePatientCB;
 
-
-
-
-
-
-
-
-
-
-
+    
     // Constructor
-
-
-
     public EmployeeGUI(){
 
-
-
-
-
-
-
         initialize();
-
-
-
     }
-
-
-
-
-
-
 
 	/*
 	 * initialize()
 	 *
 	 * - sets up EmployeeGUI panel
 	 */
-
-
-
     private void initialize() {
 
-
-
-
-
-
-
-        // set up EmployeeGUI JPanel
-
-
-
+        /* set up EmployeeGUI JPanel */
         setLayout(new BorderLayout());
 
-
-
-        //setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-
-
-
-        // employeeGUItitle = "Employee PIMS"; // may not use
-
-
-
-        //mainGUI.setTitle(employeeGUItitle);
-
-
-
-
-
-        // ** set up Login Panel **
-
-
-
-
-
-
-
+        /* set up Login Panel */
         loginPanel = new JPanel(new GridBagLayout());
-
-
-
-
-
-
-
-        GridBagConstraints loginConstraints = new GridBagConstraints();
+        loginConstraints = new GridBagConstraints();
 
 
 
@@ -714,322 +571,64 @@ public class EmployeeGUI extends JPanel{
 
 
         patientTab = new JPanel(new GridBagLayout());
-
-
-
-
-
-
-
-        GridBagConstraints patientTabConstraints = new GridBagConstraints();
-
-
-
-
-
-
-
-
-
-
-
-        // create labels
-
-
-
-
-
-
-
-        JLabel firstNameLabel_TBP = new JLabel("First Name:");
-
-
-
-        JLabel middleNameLabel_TBP = new JLabel("Middle Name:");
-
-
-
-        JLabel lastNameLabel_TBP = new JLabel("Last Name:");
-
-
-
-        JLabel SSNLabel_TBP = new JLabel("Social Security #:");
-
-
-
-        JLabel DOBLabel_TBP = new JLabel("Date of Birth:");
-
-
-
-        JLabel phoneNumberLabel_TBP = new JLabel("Phone Number:");
-
-
-
-        JLabel streetLabel_TBP = new JLabel("Street:");
-
-
-
-        JLabel cityLabel_TBP = new JLabel("City:");
-
-
-
-        JLabel stateLabel_TBP = new JLabel("State:");
-
-
-
-        JLabel zipCodeLabel_TBP = new JLabel("Zip Code:");
-
-
-
-        /* NEW JLabels */
-
-        JLabel patient_userLabel = new JLabel ("Username:");
-
-
-
-        JLabel patient_pwLabel = new JLabel ("Password:");
-
-
-
-        // create text fields
-
-
-
-
-
-
-
-        JTextField firstNameTextField_TBP = new JTextField(12);
-
-
-
-        JTextField middleNameTextField_TBP = new JTextField(12);
-
-
-
-        JTextField lastNameTextField_TBP = new JTextField(12);
-
-
-
-        JTextField SSNTextField_TBP = new JTextField(12);
-
-
-
-        JTextField DOBTextField_TBP = new JTextField(12);
-
-
-
-        JTextField phoneNumberTextField_TBP = new JTextField(12);
-
-
-
-        JTextField addressTextField_TBP = new JTextField(12);
-
-
-
-        JTextField cityTextField_TBP = new JTextField(12);
-
-
-
-        JTextField zipCodeTextField_TBP = new JTextField(12);
-
-
-
-        /* NEW JTextField */
-
-        JTextField patient_userField = new JTextField(12);
-
-
-
-        JTextField patient_pwField = new JTextField(12);
-
-
-
-        // create combo box
-
-
-
-        String[] states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
-
-
-
-                "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
-
-
-
-                "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
-
-
-
-                "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
-
-
-
-                "Maryland", "Massachusetts", "Michigan", "Minnesota", "Mississippi",
-
-
-
-                "Missouri", "Montana", "Nebraska", "Nevada", "New Hampshire",
-
-
-
-                "New Jersey", "New Mexico", "New York", "North Carolina", "North Dakota",
-
-
-
-                "Ohio", "Oklahoma", "Oregon", "Pennsylvania", "Rhode Island",
-
-
-
-                "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
-
-
-
-                "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
-
-
-
-                "Wyoming"};
-
-
-
-
-
-
-
-        JComboBox<String> stateComboBox_TBP = new JComboBox<>(states);
-
-
-
-
-
-
-
-        // create buttons
-
-
-
-        JButton updateInfoButton = new JButton("Update Existing Patient");
+        patientTabConstraints = new GridBagConstraints();
 
         
+        // create labels
+        firstNameLabel_PInfo = new JLabel("First Name:");
+        middleNameLabel_PInfo = new JLabel("Middle Name:");
+        lastNameLabel_PInfo = new JLabel("Last Name:");
+        ssnLabel_PInfo = new JLabel("Social Security #:");
+        dobLabel_PInfo = new JLabel("Date of Birth:");
+        phoneNumberLabel_PInfo = new JLabel("Phone Number:");
+        streetLabel_PInfo = new JLabel("Street:");
+        cityLabel_PInfo = new JLabel("City:");
+        stateLabel_PInfo = new JLabel("State:");
+        zipCodeLabel_PInfo = new JLabel("Zip Code:");
+        userLabel_PInfo = new JLabel ("Username:");
+        pwLabel_PInfo = new JLabel ("Password:");
 
-        /* NEW BUTTON */
+        // create text fields
+        firstNameTextField_PInfo = new JTextField(12);
+        middleNameTextField_PInfo = new JTextField(12);
+        lastNameTextField_PInfo = new JTextField(12);
+        ssnTextField_PInfo = new JTextField(12);
+        dobTextField_PInfo = new JTextField(12);
+        phoneNumberTextField_PInfo = new JTextField(12);
+        addressTextField_PInfo = new JTextField(12);
+        cityTextField_PInfo = new JTextField(12);
+        zipCodeTextField_PInfo = new JTextField(12);
+        userField_PInfo = new JTextField(12);
+        pwField_PInfo = new JTextField(12);
 
-        JButton submitNewInfoButton = new JButton ("Create New Patient File");
+        // combo box
+        stateComboBox_PInfo = new JComboBox<>(states);
 
-
-
-
-
-
-
+        // create buttons
+        updateInfoButton_PInfo = new JButton("Update Existing Patient");
+        submitNewInfoButton_PInfo = new JButton ("Create New Patient File");
 
 
         // set the constraints for each component and add
-
-
-
         // them to the patient info panel
-
-
-
-
-
-
-
+        
         patientTabConstraints.gridx = 10;
-
-
-
         patientTabConstraints.gridy = 10;
-
-
-
         patientTabConstraints.weightx = 1;
-
-
-
         patientTabConstraints.weighty = 0.4;
-
-
-
         patientTabConstraints.anchor = GridBagConstraints.WEST;
-
-
-
         patientTabConstraints.insets = new Insets(0, 20, 0, 0);
-
-
-
-
-
-
-
-        patientTab.add(lastNameLabel_TBP, patientTabConstraints);
-
-
-
-
-
-
-
-
-
-
+        patientTab.add(lastNameLabel_PInfo, patientTabConstraints);
 
         patientTabConstraints.gridx = 20;
-
-
-
-
-
-
-
-        patientTab.add(firstNameLabel_TBP, patientTabConstraints);
-
-
-
-
-
-
-
-
-
-
+        patientTab.add(firstNameLabel_PInfo, patientTabConstraints);
 
         patientTabConstraints.gridx = 30;
-
-
-
-
-
-
-
-        patientTab.add(middleNameLabel_TBP, patientTabConstraints);
-
-
-
-
-
-
-
-
-
-
-
+        patientTab.add(middleNameLabel_PInfo, patientTabConstraints);
+        
         patientTabConstraints.gridx = 10;
-
-
-
         patientTabConstraints.gridy = 20;
-
-
-
-
-
-
-
-        patientTab.add(SSNLabel_TBP, patientTabConstraints);
+        patientTab.add(ssnLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1049,7 +648,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(DOBLabel_TBP, patientTabConstraints);
+        patientTab.add(dobLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1077,7 +676,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(phoneNumberLabel_TBP, patientTabConstraints);
+        patientTab.add(phoneNumberLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1105,7 +704,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(streetLabel_TBP, patientTabConstraints);
+        patientTab.add(streetLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1137,7 +736,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(cityLabel_TBP, patientTabConstraints);
+        patientTab.add(cityLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1157,7 +756,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(stateLabel_TBP, patientTabConstraints);
+        patientTab.add(stateLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1177,7 +776,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(zipCodeLabel_TBP, patientTabConstraints);
+        patientTab.add(zipCodeLabel_PInfo, patientTabConstraints);
 
 
 
@@ -1205,7 +804,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(lastNameTextField_TBP, patientTabConstraints);
+        patientTab.add(lastNameTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1229,7 +828,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(firstNameTextField_TBP, patientTabConstraints);
+        patientTab.add(firstNameTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1249,7 +848,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(middleNameTextField_TBP, patientTabConstraints);
+        patientTab.add(middleNameTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1277,7 +876,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(SSNTextField_TBP, patientTabConstraints);
+        patientTab.add(ssnTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1297,7 +896,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(DOBTextField_TBP, patientTabConstraints);
+        patientTab.add(dobTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1325,7 +924,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(phoneNumberTextField_TBP, patientTabConstraints);
+        patientTab.add(phoneNumberTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1353,7 +952,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(addressTextField_TBP, patientTabConstraints);
+        patientTab.add(addressTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1381,7 +980,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(cityTextField_TBP, patientTabConstraints);
+        patientTab.add(cityTextField_PInfo, patientTabConstraints);
 
 
 
@@ -1401,7 +1000,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(stateComboBox_TBP, patientTabConstraints);
+        patientTab.add(stateComboBox_PInfo, patientTabConstraints);
 
 
 
@@ -1418,7 +1017,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientTab.add(zipCodeTextField_TBP, patientTabConstraints);
+        patientTab.add(zipCodeTextField_PInfo, patientTabConstraints);
 
 
         
@@ -1436,13 +1035,13 @@ public class EmployeeGUI extends JPanel{
         
         patientTabConstraints.insets = new Insets(0, 20, 0, 0);
         
-        patientTab.add(patient_userLabel, patientTabConstraints);
+        patientTab.add(userLabel_PInfo, patientTabConstraints);
         
         
         
         patientTabConstraints.gridy = 30;
         
-        patientTab.add(patient_pwLabel, patientTabConstraints);
+        patientTab.add(pwLabel_PInfo, patientTabConstraints);
         
         
         
@@ -1454,13 +1053,13 @@ public class EmployeeGUI extends JPanel{
         
         patientTabConstraints.insets = new Insets(0, 0, 0, 60);
         
-        patientTab.add(patient_userField, patientTabConstraints);
+        patientTab.add(userField_PInfo, patientTabConstraints);
         
         
         
         patientTabConstraints.gridy = 30;
         
-        patientTab.add(patient_pwField, patientTabConstraints);
+        patientTab.add(pwField_PInfo, patientTabConstraints);
         
         
         /* ADJUSTED -"update existing patient" and "create new patient file" buttons */
@@ -1476,7 +1075,7 @@ public class EmployeeGUI extends JPanel{
         patientTabConstraints.anchor = GridBagConstraints.CENTER;
 
 
-        patientTab.add(updateInfoButton, patientTabConstraints);
+        patientTab.add(updateInfoButton_PInfo, patientTabConstraints);
 
         
         
@@ -1484,7 +1083,7 @@ public class EmployeeGUI extends JPanel{
         patientTabConstraints.gridy = 80;
 
        
-        patientTab.add(submitNewInfoButton, patientTabConstraints);
+        patientTab.add(submitNewInfoButton_PInfo, patientTabConstraints);
         
         
         
@@ -1822,7 +1421,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        searchDirectionLabel = new JLabel("Search for Patient using Last Name OR SSN");
+        searchDirectionLabel = new JLabel("Search for Patient using Last Name & First Name");
 
 
 
@@ -1834,11 +1433,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        ssnSearchLabel = new JLabel("Social Security #:");
+        fNameSearchLabel = new JLabel("First Name:");
 
 
 
-        ssnSearchField = new JTextField(12);
+        fNameSearchField = new JTextField(12);
 
 
 
@@ -1922,7 +1521,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        searchTab.add(ssnSearchLabel, searchTabConstraints);
+        searchTab.add(fNameSearchLabel, searchTabConstraints);
 
 
 
@@ -1938,7 +1537,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        searchTab.add(ssnSearchField, searchTabConstraints);
+        searchTab.add(fNameSearchField, searchTabConstraints);
 
 
 
@@ -2201,7 +1800,7 @@ public class EmployeeGUI extends JPanel{
 
         // submits a new patient info into the system
 
-        submitNewInfoButton.addActionListener(e -> {
+        submitNewInfoButton_PInfo.addActionListener(e -> {
 
 
 
@@ -2215,7 +1814,7 @@ public class EmployeeGUI extends JPanel{
 
             String errorMessage = "Must Enter";
 
-            if (String.valueOf(firstNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(firstNameTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " First Name,";
 
@@ -2223,7 +1822,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(lastNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(lastNameTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Last Name,";
 
@@ -2231,7 +1830,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(SSNTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(ssnTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Social Security #,";
 
@@ -2239,7 +1838,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(DOBTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(dobTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Date of Birth,";
 
@@ -2247,7 +1846,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(phoneNumberTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(phoneNumberTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Phone Number,";
 
@@ -2255,7 +1854,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(addressTextField_TBP).equals("")) {
+            if (String.valueOf(addressTextField_PInfo).equals("")) {
 
                 errorMessage += " Street,";
 
@@ -2263,7 +1862,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(cityTextField_TBP).equals("")) {
+            if (String.valueOf(cityTextField_PInfo).equals("")) {
 
                 errorMessage += " City,";
 
@@ -2271,7 +1870,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(zipCodeTextField_TBP).equals("")) {
+            if (String.valueOf(zipCodeTextField_PInfo).equals("")) {
 
                 errorMessage += " Zip Code,";
 
@@ -2279,7 +1878,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(patient_userField).equals("")) {
+            if (String.valueOf(userField_PInfo).equals("")) {
 
                 errorMessage += " Username,";
 
@@ -2287,7 +1886,7 @@ public class EmployeeGUI extends JPanel{
 
             }
             
-            if (String.valueOf(patient_pwField).equals("")) {
+            if (String.valueOf(pwField_PInfo).equals("")) {
 
                 errorMessage += " password,";
 
@@ -2308,11 +1907,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (String.valueOf(middleNameTextField_TBP.getText()).equals(""))
+            if (String.valueOf(middleNameTextField_PInfo.getText()).equals(""))
 
                 middleName = "N/A";
 
-            else middleName = middleNameTextField_TBP.getText();
+            else middleName = middleNameTextField_PInfo.getText();
 
 
 
@@ -2320,11 +1919,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (lastNameTextField_TBP.getText().length() > 0) {
+            if (lastNameTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < lastNameTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < lastNameTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(lastNameTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(lastNameTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2346,11 +1945,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (firstNameTextField_TBP.getText().length() > 0) {
+            if (firstNameTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < firstNameTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < firstNameTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(firstNameTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(firstNameTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2372,13 +1971,13 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (middleNameTextField_TBP.getText().length() > 0 &&
+            if (middleNameTextField_PInfo.getText().length() > 0 &&
 
-                    !String.valueOf(middleNameTextField_TBP.getText()).equals("N/A")) {
+                    !String.valueOf(middleNameTextField_PInfo.getText()).equals("N/A")) {
 
-                for (int i = 0; i < middleNameTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < middleNameTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(middleNameTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(middleNameTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2400,7 +1999,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (SSNTextField_TBP.getText().length() > 0 && SSNTextField_TBP.getText().length() != 4) {
+            if (ssnTextField_PInfo.getText().length() > 0 && ssnTextField_PInfo.getText().length() != 4) {
 
                 JOptionPane.showMessageDialog
 
@@ -2408,11 +2007,11 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (SSNTextField_TBP.getText().length() == 4) {
+            } else if (ssnTextField_PInfo.getText().length() == 4) {
 
                 for (int i = 0; i < 4; i++) {
 
-                    if (!Character.isDigit(SSNTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isDigit(ssnTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2434,7 +2033,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (DOBTextField_TBP.getText().length() > 0 && DOBTextField_TBP.getText().length() != 10) {
+            if (dobTextField_PInfo.getText().length() > 0 && dobTextField_PInfo.getText().length() != 10) {
 
                 JOptionPane.showMessageDialog
 
@@ -2442,9 +2041,9 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (DOBTextField_TBP.getText().length() == 10) {
+            } else if (dobTextField_PInfo.getText().length() == 10) {
 
-                if (!DOBparser(DOBTextField_TBP.getText())) {
+                if (!DOBparser(dobTextField_PInfo.getText())) {
 
                     JOptionPane.showMessageDialog
 
@@ -2462,7 +2061,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (phoneNumberTextField_TBP.getText().length() > 0 && phoneNumberTextField_TBP.getText().length() != 12) {
+            if (phoneNumberTextField_PInfo.getText().length() > 0 && phoneNumberTextField_PInfo.getText().length() != 12) {
 
                 JOptionPane.showMessageDialog
 
@@ -2470,9 +2069,9 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (phoneNumberTextField_TBP.getText().length() == 12) {
+            } else if (phoneNumberTextField_PInfo.getText().length() == 12) {
 
-                if (!phoneNumberParser(phoneNumberTextField_TBP.getText())) {
+                if (!phoneNumberParser(phoneNumberTextField_PInfo.getText())) {
 
                     JOptionPane.showMessageDialog
 
@@ -2490,13 +2089,13 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (addressTextField_TBP.getText().length() > 0) {
+            if (addressTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < addressTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < addressTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(addressTextField_TBP.getText().charAt(i)) &&
+                    if (!Character.isLetter(addressTextField_PInfo.getText().charAt(i)) &&
 
-                            !Character.isDigit(addressTextField_TBP.getText().charAt(i))) {
+                            !Character.isDigit(addressTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2516,11 +2115,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (cityTextField_TBP.getText().length() > 0) {
+            if (cityTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 1; i < cityTextField_TBP.getText().length(); i++) {
+                for (int i = 1; i < cityTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(cityTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(cityTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2542,7 +2141,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (zipCodeTextField_TBP.getText().length() > 0 && zipCodeTextField_TBP.getText().length() != 5) {
+            if (zipCodeTextField_PInfo.getText().length() > 0 && zipCodeTextField_PInfo.getText().length() != 5) {
 
                 JOptionPane.showMessageDialog
 
@@ -2550,11 +2149,11 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (zipCodeTextField_TBP.getText().length() == 5) {
+            } else if (zipCodeTextField_PInfo.getText().length() == 5) {
 
                 for (int i = 0; i < 5; i++) {
 
-                    if (!Character.isDigit(zipCodeTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isDigit(zipCodeTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2578,9 +2177,9 @@ public class EmployeeGUI extends JPanel{
 
             if (emptyFields && illegalFields) {
 
-                if (MainGUI.pimsSystem.patient_exists(firstNameTextField_TBP.getText(),
+                if (MainGUI.pimsSystem.patient_exists(firstNameTextField_PInfo.getText(),
 
-                        lastNameTextField_TBP.getText(), DOBTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText())))
+                        lastNameTextField_PInfo.getText(), dobTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText())))
 
                     JOptionPane.showMessageDialog
 
@@ -2590,19 +2189,19 @@ public class EmployeeGUI extends JPanel{
 
 
 
-                    MainGUI.pimsSystem.add_patient(firstNameTextField_TBP.getText(),
+                    MainGUI.pimsSystem.add_patient(firstNameTextField_PInfo.getText(),
 
-                            lastNameTextField_TBP.getText(), middleNameTextField_TBP.getText(),
+                            lastNameTextField_PInfo.getText(), middleNameTextField_PInfo.getText(),
 
                             "user", "password",
 
-                            DOBTextField_TBP.getText(),
+                            dobTextField_PInfo.getText(),
 
-                            Integer.parseInt(SSNTextField_TBP.getText()), Integer.parseInt(zipCodeTextField_TBP.getText()),
+                            Integer.parseInt(ssnTextField_PInfo.getText()), Integer.parseInt(zipCodeTextField_PInfo.getText()),
 
-                            addressTextField_TBP.getText(), cityTextField_TBP.getText(),
+                            addressTextField_PInfo.getText(), cityTextField_PInfo.getText(),
 
-                            String.valueOf(stateComboBox_TBP.getSelectedItem()), phoneNumberTextField_TBP.getText());
+                            String.valueOf(stateComboBox_PInfo.getSelectedItem()), phoneNumberTextField_PInfo.getText());
 
 
 
@@ -2610,24 +2209,6 @@ public class EmployeeGUI extends JPanel{
 
                     // to info from the create new info patient panel
 
-                	
-
-                	/*
-                    firstNameTextField_TBP.setText(firstNameTextField_TBP.getText());
-                    middleNameTextField_TBP.setText(middleName);
-                    lastNameTextField_TBP.setText(lastNameTextField_TBP.getText());
-                    SSNTextField_TBP.setText(SSNTextField_TBP.getText());
-                    DOBTextField_TBP.setText(DOBTextField_TBP.getText());
-                    phoneNumberTextField_TBP.setText(phoneNumberTextField_TBP.getText());
-                    addressTextField_TBP.setText(addressTextField_TBP.getText());
-                    cityTextField_TBP.setText(cityTextField_TBP.getText());
-                    zipCodeTextField_TBP.setText(zipCodeTextField_TBP.getText());
-                    stateComboBox_TBP.setSelectedItem(stateComboBox_TBP.getSelectedItem());
-                    //remove(createNewPatientInfoPanel);
-                   // add(tabbedPane);
-                    * 
-                    * 
-                    */
 
                     JOptionPane.showMessageDialog
 
@@ -2651,7 +2232,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        updateInfoButton.addActionListener(e -> {
+        updateInfoButton_PInfo.addActionListener(e -> {
 
             // values to test if there are no input errors
 
@@ -2663,7 +2244,7 @@ public class EmployeeGUI extends JPanel{
 
             String errorMessage = "Must Enter";
 
-            if (String.valueOf(firstNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(firstNameTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " First Name,";
 
@@ -2671,7 +2252,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(lastNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(lastNameTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Last Name,";
 
@@ -2679,7 +2260,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(SSNTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(ssnTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Social Security #,";
 
@@ -2687,7 +2268,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(DOBTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(dobTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Date of Birth,";
 
@@ -2695,7 +2276,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(phoneNumberTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(phoneNumberTextField_PInfo.getText()).equals("")) {
 
                 errorMessage += " Phone Number,";
 
@@ -2703,7 +2284,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(addressTextField_TBP).equals("")) {
+            if (String.valueOf(addressTextField_PInfo).equals("")) {
 
                 errorMessage += " Street,";
 
@@ -2711,7 +2292,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(cityTextField_TBP).equals("")) {
+            if (String.valueOf(cityTextField_PInfo).equals("")) {
 
                 errorMessage += " City,";
 
@@ -2719,7 +2300,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-            if (String.valueOf(zipCodeTextField_TBP).equals("")) {
+            if (String.valueOf(zipCodeTextField_PInfo).equals("")) {
 
                 errorMessage += " Zip Code,";
 
@@ -2741,11 +2322,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (String.valueOf(middleNameTextField_TBP.getText()).equals(""))
+            if (String.valueOf(middleNameTextField_PInfo.getText()).equals(""))
 
                 middleName = "N/A";
 
-            else middleName = middleNameTextField_TBP.getText();
+            else middleName = middleNameTextField_PInfo.getText();
 
 
 
@@ -2753,11 +2334,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (lastNameTextField_TBP.getText().length() > 0) {
+            if (lastNameTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < lastNameTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < lastNameTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(lastNameTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(lastNameTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2779,11 +2360,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (firstNameTextField_TBP.getText().length() > 0) {
+            if (firstNameTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < firstNameTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < firstNameTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(firstNameTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(firstNameTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2805,9 +2386,9 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (middleNameTextField_TBP.getText().length() > 0 &&
+            if (middleNameTextField_PInfo.getText().length() > 0 &&
 
-                    !String.valueOf(middleNameTextField_TBP.getText()).equals("N/A")) {
+                    !String.valueOf(middleNameTextField_PInfo.getText()).equals("N/A")) {
 
                 for (int i = 0; i < middleName.length(); i++) {
 
@@ -2833,7 +2414,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (SSNTextField_TBP.getText().length() > 0 && SSNTextField_TBP.getText().length() != 4) {
+            if (ssnTextField_PInfo.getText().length() > 0 && ssnTextField_PInfo.getText().length() != 4) {
 
                 JOptionPane.showMessageDialog
 
@@ -2841,11 +2422,11 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (SSNTextField_TBP.getText().length() == 4) {
+            } else if (ssnTextField_PInfo.getText().length() == 4) {
 
                 for (int i = 0; i < 4; i++) {
 
-                    if (!Character.isDigit(SSNTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isDigit(ssnTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2867,7 +2448,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (DOBTextField_TBP.getText().length() > 0 && DOBTextField_TBP.getText().length() != 10) {
+            if (dobTextField_PInfo.getText().length() > 0 && dobTextField_PInfo.getText().length() != 10) {
 
                 JOptionPane.showMessageDialog
 
@@ -2875,9 +2456,9 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (DOBTextField_TBP.getText().length() == 10) {
+            } else if (dobTextField_PInfo.getText().length() == 10) {
 
-                if (!DOBparser(DOBTextField_TBP.getText())) {
+                if (!DOBparser(dobTextField_PInfo.getText())) {
 
                     JOptionPane.showMessageDialog
 
@@ -2895,7 +2476,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (phoneNumberTextField_TBP.getText().length() > 0 && phoneNumberTextField_TBP.getText().length() != 12) {
+            if (phoneNumberTextField_PInfo.getText().length() > 0 && phoneNumberTextField_PInfo.getText().length() != 12) {
 
                 JOptionPane.showMessageDialog
 
@@ -2903,9 +2484,9 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (phoneNumberTextField_TBP.getText().length() == 12) {
+            } else if (phoneNumberTextField_PInfo.getText().length() == 12) {
 
-                if (!phoneNumberParser(phoneNumberTextField_TBP.getText())) {
+                if (!phoneNumberParser(phoneNumberTextField_PInfo.getText())) {
 
                     JOptionPane.showMessageDialog
 
@@ -2923,13 +2504,13 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (addressTextField_TBP.getText().length() > 0) {
+            if (addressTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 0; i < addressTextField_TBP.getText().length(); i++) {
+                for (int i = 0; i < addressTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(addressTextField_TBP.getText().charAt(i)) &&
+                    if (!Character.isLetter(addressTextField_PInfo.getText().charAt(i)) &&
 
-                            !Character.isDigit(addressTextField_TBP.getText().charAt(i))) {
+                            !Character.isDigit(addressTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2949,11 +2530,11 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (cityTextField_TBP.getText().length() > 0) {
+            if (cityTextField_PInfo.getText().length() > 0) {
 
-                for (int i = 1; i < cityTextField_TBP.getText().length(); i++) {
+                for (int i = 1; i < cityTextField_PInfo.getText().length(); i++) {
 
-                    if (!Character.isLetter(cityTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isLetter(cityTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -2975,7 +2556,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-            if (zipCodeTextField_TBP.getText().length() > 0 && zipCodeTextField_TBP.getText().length() != 5) {
+            if (zipCodeTextField_PInfo.getText().length() > 0 && zipCodeTextField_PInfo.getText().length() != 5) {
 
                 JOptionPane.showMessageDialog
 
@@ -2983,11 +2564,11 @@ public class EmployeeGUI extends JPanel{
 
                 illegalFields = false;
 
-            } else if (zipCodeTextField_TBP.getText().length() == 5) {
+            } else if (zipCodeTextField_PInfo.getText().length() == 5) {
 
                 for (int i = 0; i < 5; i++) {
 
-                    if (!Character.isDigit(zipCodeTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isDigit(zipCodeTextField_PInfo.getText().charAt(i))) {
 
                         JOptionPane.showMessageDialog
 
@@ -3011,7 +2592,7 @@ public class EmployeeGUI extends JPanel{
 
             patient = MainGUI.pimsSystem.patient_details
 
-                    (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
+                    (lastNameTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
 
 
 
@@ -3023,29 +2604,29 @@ public class EmployeeGUI extends JPanel{
 
                         (null, "Information Updated");
 
-                patient.l_name = lastNameTextField_TBP.getText();
+                patient.l_name = lastNameTextField_PInfo.getText();
 
-                patient.f_name = firstNameTextField_TBP.getText();
+                patient.f_name = firstNameTextField_PInfo.getText();
 
                 patient.m_name = middleName;
 
-                patient.SSN = Integer.parseInt(SSNTextField_TBP.getText());
+                patient.SSN = Integer.parseInt(ssnTextField_PInfo.getText());
 
-                patient.dob = DOBTextField_TBP.getText();
+                patient.dob = dobTextField_PInfo.getText();
 
-                patient.p_number = phoneNumberTextField_TBP.getText();
+                patient.p_number = phoneNumberTextField_PInfo.getText();
 
-                patient.address = addressTextField_TBP.getText();
+                patient.address = addressTextField_PInfo.getText();
 
-                patient.city = cityTextField_TBP.getText();
+                patient.city = cityTextField_PInfo.getText();
 
-                patient.state = String.valueOf(stateComboBox_TBP.getSelectedItem());
+                patient.state = String.valueOf(stateComboBox_PInfo.getSelectedItem());
 
-                patient.zip = Integer.parseInt(zipCodeTextField_TBP.getText());
+                patient.zip = Integer.parseInt(zipCodeTextField_PInfo.getText());
                 
-                patient.user_name = patient_userField.getText();
+                patient.user_name = userField_PInfo.getText();
                 
-                patient.password = patient_pwField.getText();
+                patient.password = pwField_PInfo.getText();
 
             } else if (!String.valueOf(errorMessage).equals("Must Enter"))
 
@@ -3123,123 +2704,74 @@ public class EmployeeGUI extends JPanel{
 
     private void searchPatient(){
 
-
-
-
-
-
-
-        String lName;
-
-        int ssn;
-
-
+    	String lName, fName;
 
         lName = lNameSearchField.getText();
+        fName = fNameSearchField.getText();
 
-
-
-        ssn = Integer.getInteger(ssnSearchField.getText());
-
-       
+        // find patinets with the Last & First Name entered
+        ArrayList<patient> patientsFound = MainGUI.pimsSystem.search_patient(lName, fName);
 
         
-
-        /* TO-DO: check if ssn is an integer*/
-
-
-
-
-
-
-
-        JOptionPane.showMessageDialog(this, "Searcing for Last Name:" + lName + ", or SSN:" + ssn,
-
-
-
-                "Searching...", JOptionPane.DEFAULT_OPTION);
-
-
-
-
-
-
-
-
-
-
-
-		/*
-		 * BACKEND - grab patient information
-		 * -return array list or array of Patients with
-		 * corresponding data
-		 */
-
-
-
-        ArrayList<String> patientsFound = new ArrayList<String>();
-
-
-
-        String[] patientOptions;
-
-
-
-
-
-
-
-        // display whether patients found or not
-
-
-
-        JOptionPane.showMessageDialog(this, "Found Results for for Last Name:" + lName + ", or SSN:" + ssn,
-
-
-
-                "Search Successful", JOptionPane.DEFAULT_OPTION);
-
-
-
-
-
-
-
-
-
-
-
-        // create JComboBox for Patient Options to select from
-
-
-
-        // using patientsFound
-
-
-
-        choosePatientCB = new JComboBox<String>();
-
-
-
-        selectPatientFoundButton = new JButton("Select Patient");
-
-
-
-        //patient patientFound = choosePatientCB.getSelectedItem()
-
-
-
-        //selectPatientFoundButton.addActionListener(e-> fillPatientFoundData(patientFound));
-
-
-
-
-
-
-
-
-
-
+        if (patientsFound.size() > 0){
+
+        	// display whether patients found or not
+
+        	JOptionPane.showMessageDialog(this, "Found Results for Last Name, First Name:" + lName + ", " + fName,
+
+        			"Search Successful", JOptionPane.DEFAULT_OPTION);
+
+        	// create String ArrayList of patients: Last, First (DOB)
+        	ArrayList<String> foundList = new ArrayList<String>();
+        	String toAdd = "";
+        	
+        	for (patient p: patientsFound){
+        		
+        		toAdd = p.l_name + ", " + p.f_name + " (" + p.dob + ")";
+        		foundList.add(toAdd);
+        	}
+        	
+        	
+        	String[] patientOptions = (String[])(foundList.toArray(new String[foundList.size()]));
+
+
+        	// create JComboBox for Patient Options to select from
+
+        	// using patientsFound
+
+        	choosePatientCB = new JComboBox<String>(patientOptions);
+
+        	selectPatientFoundButton = new JButton("Select Patient");
+        	
+        	GridBagConstraints searchTabConstraints = new GridBagConstraints();
+        	
+        	searchTabConstraints.gridx = 10;
+            searchTabConstraints.gridy = 50;
+            searchTabConstraints.weighty = 0.2;
+            searchTabConstraints.anchor = GridBagConstraints.NORTH;
+            searchTabConstraints.insets = new Insets(0, 0, 0, 200);
+        	
+            searchTab.add(choosePatientCB, searchTabConstraints);
+            
+            searchTabConstraints.insets = new Insets(0, 200, 0, 0);
+            
+            searchTab.add(selectPatientFoundButton, searchTabConstraints);
+        	
+        	patient patientFound = patientsFound.get((choosePatientCB.getSelectedIndex()));
+   	
+        	selectPatientFoundButton.addActionListener(e-> fillPatientFoundData(patientFound));
+
+        	repaint();
+        	revalidate();
+        }
+        
+        // no patient found
+        else {
+        	
+        	JOptionPane.showMessageDialog(this, "No Results found for Last Name, First Name:" + lName + ", " + fName,
+
+        			"Search Failed", JOptionPane.ERROR_MESSAGE);
+        }
 
     } // end searchPatient
 
@@ -3257,59 +2789,38 @@ public class EmployeeGUI extends JPanel{
 
     private void fillPatientFoundData(patient toDisplay){
 
-
-
-
-
-
-
         JOptionPane.showMessageDialog(this, "Filling in Information for Patient Found",
-
-
-
                 "Filling in Info", JOptionPane.DEFAULT_OPTION);
 
-
-
-
-
-
-
-
-
-
-
-		/*
-		 * BACKEND - need specific patient object getters
-		 */
-
-
-
-        // Patient patientSearched;
-
-
-
-
-
-
-
-		/*
-		 * To-Do:
-		 *
-		 * -fill in all fields with patientSearched's information
-		 * -ex: first, middle, last name, billing info, etc
-		 * -populate fields across all tabs
-		 */
-
-
-
-
-
-
-
-
-
-
+        
+        // Calendar Tab
+        lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
+        cal_SSNTextField.setText(Integer.toString(toDisplay.SSN));
+        cal_patientLastTextField.setText(toDisplay.l_name);
+        
+        // Patient Info Tab
+        lastNameTextField_PInfo.setText(toDisplay.l_name);
+        firstNameTextField_PInfo.setText(toDisplay.f_name);
+        middleNameTextField_PInfo.setText(toDisplay.m_name);
+        ssnTextField_PInfo.setText(Integer.toString(toDisplay.SSN));
+        dobTextField_PInfo.setText(toDisplay.dob);
+        phoneNumberTextField_PInfo.setText(toDisplay.p_number);
+        addressTextField_PInfo.setText(toDisplay.address);
+        cityTextField_PInfo.setText(toDisplay.city);
+        zipCodeTextField_PInfo.setText(Integer.toString(toDisplay.zip));
+        stateComboBox_PInfo.setSelectedItem(toDisplay.state);
+        userField_PInfo.setText(toDisplay.user_name);
+        pwField_PInfo.setText(toDisplay.p_number);
+        
+        // Billing Tab
+        lNameBillField.setText(toDisplay.l_name);
+        ssnBillField.setText(Integer.toString(toDisplay.SSN));
+        
+        /* TO DO 
+         * 
+         * -ask how to add policy and patient history to 
+         */
+        
 
     }// end fillPatientData()
 
