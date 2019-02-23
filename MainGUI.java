@@ -204,7 +204,7 @@ public class MainGUI extends JFrame{
 
 
 
-        chooseEmployeeOrPatientLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        chooseEmployeeOrPatientLabel.setFont(new java.awt.Font(chooseEmployeeOrPatientLabel.getFont().getFontName(), Font.PLAIN, 30));
 
 
 
@@ -309,9 +309,9 @@ public class MainGUI extends JFrame{
 
 
 
-        patientMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        patientMenuLabel.setFont(new java.awt.Font(patientMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
 
-        employeeMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        employeeMenuLabel.setFont(new java.awt.Font(employeeMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
 
 
 
@@ -321,8 +321,8 @@ public class MainGUI extends JFrame{
 
         // BACK PANELS
 
-        patientMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
-        employeeMenuLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        patientMenuLabel.setFont(new java.awt.Font(patientMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
+        employeeMenuLabel.setFont(new java.awt.Font(employeeMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
 
         // Add label & back button to back patient and employee panels
 
@@ -440,8 +440,6 @@ public class MainGUI extends JFrame{
 
 
         employeePanel = new EmployeeGUI();
-        //employeePanel = new EmployeeGUI_notworking_newideas();
-
 
         this.add(backEmployeePanel, BorderLayout.PAGE_START);
 

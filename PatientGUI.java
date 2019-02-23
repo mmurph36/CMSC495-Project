@@ -43,7 +43,7 @@ public class PatientGUI extends JPanel {
 
         // set label font
 
-        chooseLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+        chooseLabel.setFont(new java.awt.Font(chooseLabel.getFont().getFontName(), Font.PLAIN, 40));
 
         // set constraints for components and add
         // to the main panel
@@ -94,7 +94,7 @@ public class PatientGUI extends JPanel {
         JButton loginButton = new JButton("Login");
         JButton cancelButton = new JButton("Cancel");
 
-        logInLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+        logInLabel.setFont(new java.awt.Font(logInLabel.getFont().getFontName(), Font.PLAIN, 40));
 
 
         loginConstraints.gridx = 10;
@@ -173,7 +173,7 @@ public class PatientGUI extends JPanel {
         JButton cancelButton_cnp = new JButton("Cancel");
 
         createNewPatientLabel.setFont
-                (new Font("Serif", Font.PLAIN, 40));
+                (new java.awt.Font(createNewPatientLabel.getFont().getFontName(), Font.PLAIN, 40));
 
         createNewPatientConstraints.gridx = 10;
         createNewPatientConstraints.gridy = 0;
@@ -707,8 +707,8 @@ public class PatientGUI extends JPanel {
 
         // set the label font
 
-        chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 40));
-        lookUpAppointmentLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+        chooseDateAndTimeLabel.setFont(new java.awt.Font(chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 40));
+        lookUpAppointmentLabel.setFont(new java.awt.Font(lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
         // set the constraints for each component and add
         // them to the calendar panel
 

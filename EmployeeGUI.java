@@ -12,187 +12,54 @@
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
  */
 
-
-
-/*
- * TO-DO: as of 2/20 evening
- * 
- * 
- * Patient Info Tab:
- * -to add a new patient, need to have a way for patient to add username or password.
- * -need a way for patient to update user/pw for both Employee or Patient side?
- * 
- * Search Tab:
- * -check if SSN field is a number. 
- */
-
-
-
-        import java.time.DayOfWeek;
-
-
-
-        import java.time.LocalDate;
-
-
-
-        import java.time.LocalTime;
-
-
-
-        import java.util.ArrayList;
-
-
-
-
-
-
-
-        import javax.swing.JFrame;
-
-
-
-        import javax.swing.JPanel;
-
-        import javax.swing.JPasswordField;
-
-        import javax.swing.JButton;
-
-
-
-        import javax.swing.JTabbedPane;
-
-
-
-        import javax.swing.JLabel;
-
-
-
-        import javax.swing.JOptionPane;
-
-
-
-        import javax.swing.JTextField;
-
-
-
-        import com.github.lgooddatepicker.components.DatePicker;
-
-
-
-        import com.github.lgooddatepicker.components.DatePickerSettings;
-
-
-
-        import com.github.lgooddatepicker.components.TimePicker;
-
-
-
-        import com.github.lgooddatepicker.components.TimePickerSettings;
-
-
-
-        import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
-
-
-
-        import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
-
-
-
-        import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
-
-
-
-
-
-
-
-        import java.awt.*;
-
-
-
-        import javax.swing.JComboBox;
-
-
-
-
-
-
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.ArrayList;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JPasswordField;
+import javax.swing.JButton;
+import javax.swing.JTabbedPane;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
+import java.awt.*;
+import javax.swing.JComboBox;
+
+import com.github.lgooddatepicker.components.DatePicker;
+import com.github.lgooddatepicker.components.DatePickerSettings;
+import com.github.lgooddatepicker.components.TimePicker;
+import com.github.lgooddatepicker.components.TimePickerSettings;
+import com.github.lgooddatepicker.optionalusertools.DateVetoPolicy;
+import com.github.lgooddatepicker.optionalusertools.PickerUtilities;
+import com.github.lgooddatepicker.optionalusertools.TimeVetoPolicy;
 
 @SuppressWarnings("serial")
-
-
 
 public class EmployeeGUI extends JPanel{
 
 
 
     // Patient Information - store info when searched
-
-
-
     private patient patient; // for search 
 
-
-
-
-
     // EmployeeGUI title
-
-
-
     String employeeGUItitle;
 
-
-
-
-
-
-
     // Login panel variables
-
-
-
     JPanel loginPanel;
-
-
-
     JLabel logInLabel, usernameLabel, passwordLabel;
-
-
-
     JTextField usernameTextField;
-
     JPasswordField passwordField;
-
-
-
     JButton loginButton;
-
-
-
-
 
     // Employee Window (Tabbed Pane)
 
-
-
     // 4 Tabs: Calendar, Patient Information, Billing, Search
 
-
-
     JTabbedPane tabbedPane;
-
-
-
     JPanel billingTab, searchTab;
-
-
-
-
-
-
 
     // TAB 1: Calendar
 
@@ -203,12 +70,12 @@ public class EmployeeGUI extends JPanel{
 
 
     JLabel chooseDateAndTimeLabel, currentAppointmentLabel,
-            cal_patientFirstLabel, cal_patientLastLabel, lookUpAppointmentLabel,
+            cal_patientSSNLabel, cal_patientLastLabel, lookUpAppointmentLabel,
             currentPatientLabel;
 
 
 
-    JTextField currentAppointmentTextField, cal_patientFirstTextField,
+    JTextField currentAppointmentTextField, cal_SSNTextField,
             cal_patientLastTextField, lookUpAppointmentTextField,
             currentPatientTextField;
 
@@ -471,7 +338,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        logInLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+        logInLabel.setFont(new java.awt.Font(logInLabel.getFont().getFontName(), Font.PLAIN, 40));
 
 
 
@@ -696,9 +563,9 @@ public class EmployeeGUI extends JPanel{
 
         currentAppointmentLabel = new JLabel("Current Appointment:");
 
-        cal_patientFirstLabel = new JLabel("Patient First Name");
-
-        cal_patientLastLabel = new JLabel("Patient Last Name");
+        cal_patientLastLabel = new JLabel("Patient Last Name:");
+        
+        cal_patientSSNLabel = new JLabel("Last 4 SSN:");
 
         lookUpAppointmentLabel = new JLabel("Look Up Patient's Existing Appointment");
 
@@ -719,13 +586,9 @@ public class EmployeeGUI extends JPanel{
 
         currentAppointmentTextField.setEditable(false);
 
-        cal_patientFirstTextField = new JTextField(12);
-
-        cal_patientFirstTextField.setEditable(false);
+        cal_SSNTextField = new JTextField(12);
 
         cal_patientLastTextField = new JTextField(12);
-
-        cal_patientLastTextField.setEditable(false);
 
         lookUpAppointmentTextField = new JTextField(15);
 
@@ -743,18 +606,14 @@ public class EmployeeGUI extends JPanel{
 
         requestAppointmentButton = new JButton("Request Appointment");
 
-        
-
-        /* NEW BUTTON*/
-
         cancelAppointmentButton = new JButton ("Cancel Appointment");
 
         lookUpAppointmentButton = new JButton("Look Up Appointment");
 
 
 
-        chooseDateAndTimeLabel.setFont(new Font("Serif", Font.PLAIN, 30));
-        lookUpAppointmentLabel.setFont(new Font("Serif", Font.PLAIN, 25));
+        chooseDateAndTimeLabel.setFont(new java.awt.Font(chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 30));
+        lookUpAppointmentLabel.setFont(new java.awt.Font(lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
 
 
 
@@ -821,32 +680,35 @@ public class EmployeeGUI extends JPanel{
 
         calTab.add(lookUpAppointmentTextField, calendarConstraints);
 
-
-        calendarConstraints.gridx = 10;
-        calendarConstraints.gridy = 10;
+        calendarConstraints.gridx = 20;
+        calendarConstraints.gridy = 20;
         calendarConstraints.ipady = 0;
         calendarConstraints.weighty = 0.2;
-        calendarConstraints.weightx = 1;
-        calendarConstraints.anchor = GridBagConstraints.NORTHWEST;
-        calendarConstraints.insets = new Insets(20, 10, 0, 0);
+        calendarConstraints.insets = new Insets(0, 0, 0, 100);
 
-        calTab.add(currentPatientLabel, calendarConstraints);
+        calTab.add(cal_patientLastLabel, calendarConstraints);
 
 
-        calendarConstraints.insets = new Insets(40, 10, 0, 0);
+        calendarConstraints.insets = new Insets(0, 180, 0, 20);
 
-        calTab.add(currentPatientTextField, calendarConstraints);
-
-
-
-        /* ADD new labels, fields, button */
+        calTab.add(cal_patientLastTextField, calendarConstraints);
 
 
+        calendarConstraints.gridy = 30;
+        calendarConstraints.ipady = 0;
+        calendarConstraints.weighty = 0.2;
+        calendarConstraints.insets = new Insets(0, 0, 0, 100);
+
+        calTab.add(cal_patientSSNLabel, calendarConstraints);
 
 
+        calendarConstraints.insets = new Insets(0, 180, 0, 20);
+
+        calTab.add(cal_SSNTextField, calendarConstraints);
 
 
-
+        
+        
         // TAB 2: Patient Information
 
 
@@ -1692,7 +1554,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        patientBillingLabel.setFont(new Font("Serif", Font.PLAIN, 40));
+        patientBillingLabel.setFont(new java.awt.Font(patientBillingLabel.getFont().getFontName(), Font.PLAIN, 40));
 
 
 
@@ -1980,7 +1842,7 @@ public class EmployeeGUI extends JPanel{
 
 
 
-        searchDirectionLabel.setFont(new Font("Serif", Font.PLAIN, 30));
+        searchDirectionLabel.setFont(new java.awt.Font(searchDirectionLabel.getFont().getFontName(), Font.PLAIN, 30));
 
 
 
@@ -2240,7 +2102,98 @@ public class EmployeeGUI extends JPanel{
 
         });
 
+        // CALENDAR TAB LISTENERS
+        
+        
+        requestAppointmentButton.addActionListener(e -> {
+        	
+        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
+        	
+        		patient = MainGUI.pimsSystem.patient_details
+        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
 
+        		if(patient == null)
+        			JOptionPane.showMessageDialog(null, "No patient with that Last Name and SSN exists in our system");
+
+        		else if (!MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
+        			JOptionPane.showMessageDialog(null, "This patient already has an appointment");
+
+        		else {
+        			if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient)){
+        				
+        				JOptionPane.showMessageDialog
+        				(null, "Appointment Saved");
+        				
+        				lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(patient));
+        				validate();
+        			}
+        			else JOptionPane.showMessageDialog
+        			(null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
+        		} //else JOptionPane.showMessageDialog(null, "Error");
+            
+        	}
+        	
+        	else{
+        		
+        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
+        	}
+
+        });
+
+
+        lookUpAppointmentButton.addActionListener(e -> {
+
+        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
+        		
+        		patient = MainGUI.pimsSystem.patient_details
+        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
+
+        		String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
+
+        		if (String.valueOf(appointment).equals(""))
+        			JOptionPane.showMessageDialog
+        			(null, "Requested patient has no Appointment Scheduled At This Time");
+        		else lookUpAppointmentTextField.setText(appointment);
+            
+        	}
+        	
+        	else{
+        		
+        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
+        	}
+        });
+
+
+        cancelAppointmentButton.addActionListener(e -> {
+        	
+        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
+        		
+        		patient = MainGUI.pimsSystem.patient_details
+        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
+
+        		if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
+        			JOptionPane.showMessageDialog
+    				(null, "No Appointment Scheduled At This Time");
+
+        		else if (String.valueOf(lookUpAppointmentTextField.getText()).equals(""))
+        			JOptionPane.showMessageDialog(null, "Must Lookup Appointment First");
+        		else {
+        			if (!MainGUI.pimsSystem.patient_delete_date(patient))
+        				JOptionPane.showMessageDialog
+        				(null, "No Appointment Scheduled At This Time");
+        			else {
+        				JOptionPane.showMessageDialog(null, "Appointment Deleted");
+        				lookUpAppointmentTextField.setText("");
+        			}
+        		}
+        	}
+        	
+        	else{
+        		
+        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
+        	}
+        }); 
+ 
 
         // PATIENT INFO TAB LISTENERS
 
@@ -3104,18 +3057,6 @@ public class EmployeeGUI extends JPanel{
 
         });
 
-
-
-        requestAppointmentButton.addActionListener(e -> {
-
-            JOptionPane.showMessageDialog
-
-                    (null, "Appointment Saved");
-
-        });
-
-
-
         // BILLING TAB LISTENERS
 
 
@@ -3130,7 +3071,47 @@ public class EmployeeGUI extends JPanel{
 
     }// end constructor
 
+    
+    private boolean isSSNFourDigits(String toCheck){
+    	
+    	if (toCheck.length() > 0 && toCheck.length() != 4) {
 
+            JOptionPane.showMessageDialog
+
+                    (null, "Social Security # Must Have 4 Characters");
+            
+            return false;
+
+        } 
+    	
+    	else if (toCheck.length() == 0){
+    		
+    		JOptionPane.showMessageDialog
+
+            (null, "No Social Security # entered");
+
+    return false;
+    	}
+    	
+    	else if (toCheck.length() == 4) {
+
+            for (int i = 0; i < 4; i++) {
+
+                if (!Character.isDigit(toCheck.charAt(i))) {
+
+                    JOptionPane.showMessageDialog
+
+                            (null, "Social Security # Must Have Only Numbers");
+
+                    return false;
+
+                }
+            }
+        }
+    	
+    	return true;
+    }
+    
 
 
 
