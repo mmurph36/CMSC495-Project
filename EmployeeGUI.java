@@ -1558,7 +1558,21 @@ public class EmployeeGUI extends JPanel{
         searchTab.add(searchButton, searchTabConstraints);
 
 
+        choosePatientCB = new JComboBox<String>();
 
+    	selectPatientFoundButton = new JButton("Select Patient");
+    	
+    	searchTabConstraints.gridx = 10;
+        searchTabConstraints.gridy = 50;
+        searchTabConstraints.weighty = 0.2;
+        searchTabConstraints.anchor = GridBagConstraints.NORTH;
+        searchTabConstraints.insets = new Insets(0, 0, 0, 200);
+    	
+        searchTab.add(choosePatientCB, searchTabConstraints);
+        
+        searchTabConstraints.insets = new Insets(0, 200, 0, 0);
+        
+        searchTab.add(selectPatientFoundButton, searchTabConstraints);
 
 
         // add panels to tabbed pane
@@ -2308,7 +2322,7 @@ public class EmployeeGUI extends JPanel{
 
             }
 
-
+            
 
 
 
@@ -2717,7 +2731,8 @@ public class EmployeeGUI extends JPanel{
 
         	// display whether patients found or not
 
-        	JOptionPane.showMessageDialog(this, "Found Results for Last Name, First Name:" + lName + ", " + fName,
+        	JOptionPane.showMessageDialog(this, "Found Results for Last Name, First Name: " + lName + ", " + fName 
+        			+ ".\nPlease select a patient and then press \"Select\" to see information.",
 
         			"Search Successful", JOptionPane.DEFAULT_OPTION);
 
@@ -2731,31 +2746,18 @@ public class EmployeeGUI extends JPanel{
         		foundList.add(toAdd);
         	}
         	
+        	int length;
         	
-        	String[] patientOptions = (String[])(foundList.toArray(new String[foundList.size()]));
+        	// clear combo box (in case this is a second search)
+        	while ((length = choosePatientCB.getItemCount()) > 0){
+        		choosePatientCB.removeItemAt(length - 1);
+        	}
 
-
-        	// create JComboBox for Patient Options to select from
-
-        	// using patientsFound
-
-        	choosePatientCB = new JComboBox<String>(patientOptions);
-
-        	selectPatientFoundButton = new JButton("Select Patient");
+        	// add Patient Options to combo box
         	
-        	GridBagConstraints searchTabConstraints = new GridBagConstraints();
-        	
-        	searchTabConstraints.gridx = 10;
-            searchTabConstraints.gridy = 50;
-            searchTabConstraints.weighty = 0.2;
-            searchTabConstraints.anchor = GridBagConstraints.NORTH;
-            searchTabConstraints.insets = new Insets(0, 0, 0, 200);
-        	
-            searchTab.add(choosePatientCB, searchTabConstraints);
-            
-            searchTabConstraints.insets = new Insets(0, 200, 0, 0);
-            
-            searchTab.add(selectPatientFoundButton, searchTabConstraints);
+        	for (int i = 0; i < foundList.size(); i++){
+        		choosePatientCB.addItem(foundList.get(i));
+        	}
         	
         	patient patientFound = patientsFound.get((choosePatientCB.getSelectedIndex()));
    	
@@ -2788,11 +2790,11 @@ public class EmployeeGUI extends JPanel{
 
 
     private void fillPatientFoundData(patient toDisplay){
-
+    	
+    
         JOptionPane.showMessageDialog(this, "Filling in Information for Patient Found",
                 "Filling in Info", JOptionPane.DEFAULT_OPTION);
 
-        
         // Calendar Tab
         lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
         cal_SSNTextField.setText(Integer.toString(toDisplay.SSN));
@@ -2821,6 +2823,8 @@ public class EmployeeGUI extends JPanel{
          * -ask how to add policy and patient history to 
          */
         
+        repaint();
+    	revalidate();
 
     }// end fillPatientData()
 
