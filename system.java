@@ -148,8 +148,9 @@ public class system {
 
 
     // added by EH
+    // updated by DC
     // for staff end: may not have access to a patient's username & password
-    public boolean patient_exists(String last_name, String first_name, String DOB, int ssn) {
+    public boolean patient_exists(String first_name, String last_name, String DOB, int ssn) {
 
         for (patient p : p_list) {
         	
@@ -162,6 +163,7 @@ public class system {
 
 
     // added by EH
+    // modified by DC
     // search for patient - from Employee Menu
     // returns all patients with First & Last name
 
@@ -171,7 +173,7 @@ public class system {
 
         for (patient p : p_list) {
        
-            if (p.l_name.equals(last_name) && p.f_name.equals(first_name)) patients_found.add(p);
+            if (p.l_name.equalsIgnoreCase(last_name) && p.f_name.equalsIgnoreCase(first_name)) patients_found.add(p);
         }
 
         return patients_found;

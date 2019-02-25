@@ -1319,7 +1319,7 @@ public class EmployeeGUI extends JPanel {
                 if (MainGUI.pimsSystem.patient_exists(firstNameTextField_PInfo.getText(),
                         lastNameTextField_PInfo.getText(), dobTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText())))
                     JOptionPane.showMessageDialog
-                            (null, "This Patient Is Already In System");
+                            (null, "This Patient Is Already In The System");
                 else {
                     MainGUI.pimsSystem.add_patient(firstNameTextField_PInfo.getText(),
                             lastNameTextField_PInfo.getText(), middleNameTextField_PInfo.getText(),
