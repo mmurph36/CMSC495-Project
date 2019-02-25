@@ -66,10 +66,10 @@ public class EmployeeGUI extends JPanel{
     
     JPanel calTab;
     JLabel chooseDateAndTimeLabel, currentAppointmentLabel,
-            cal_patientSSNLabel, cal_patientLastLabel, lookUpAppointmentLabel,
+            cal_patientSSNLabel, cal_patientNameLabel, lookUpAppointmentLabel,
             currentPatientLabel;
     JTextField currentAppointmentTextField, cal_SSNTextField,
-            cal_patientLastTextField, lookUpAppointmentTextField,
+            cal_patientNameTextField, lookUpAppointmentTextField,
             currentPatientTextField;
     DatePicker datePicker;
     TimePicker timePicker;
@@ -418,15 +418,15 @@ public class EmployeeGUI extends JPanel{
 
         /* NEW Labels */
 
-        currentAppointmentLabel = new JLabel("Current Appointment:");
+      //  currentAppointmentLabel = new JLabel("Current Appointment:");
 
-        cal_patientLastLabel = new JLabel("Patient Last Name:");
+        cal_patientNameLabel = new JLabel("Patient Name:");
         
-        cal_patientSSNLabel = new JLabel("Last 4 SSN:");
+       // cal_patientSSNLabel = new JLabel("Last 4 SSN:");
 
         lookUpAppointmentLabel = new JLabel("Look Up Patient's Existing Appointment");
 
-        currentPatientLabel = new JLabel("Current Patient:");
+      //  currentPatientLabel = new JLabel("Current Patient:");
 
 
 
@@ -439,25 +439,26 @@ public class EmployeeGUI extends JPanel{
 
         /* NEW text fields*/
 
-        currentAppointmentTextField = new JTextField(12);
+      //  currentAppointmentTextField = new JTextField(12);
 
-        currentAppointmentTextField.setEditable(false);
+     //   currentAppointmentTextField.setEditable(false);
 
-        cal_SSNTextField = new JTextField(12);
+//        cal_SSNTextField = new JTextField(12);
 
-        cal_patientLastTextField = new JTextField(12);
-
+        cal_patientNameTextField = new JTextField(12);
+        cal_patientNameTextField.setEditable(false);
+        
         lookUpAppointmentTextField = new JTextField(15);
 
         lookUpAppointmentTextField.setEditable(false);
 
         lookUpAppointmentTextField.setBackground(Color.white);
 
-        currentPatientTextField = new JTextField(12);
+       // currentPatientTextField = new JTextField(12);
 
-        currentPatientTextField.setEditable(false);
+        //currentPatientTextField.setEditable(false);
 
-        currentPatientTextField.setBackground(Color.white);
+        //currentPatientTextField.setBackground(Color.white);
 
 
 
@@ -543,14 +544,14 @@ public class EmployeeGUI extends JPanel{
         calendarConstraints.weighty = 0.2;
         calendarConstraints.insets = new Insets(0, 0, 0, 100);
 
-        calTab.add(cal_patientLastLabel, calendarConstraints);
+        calTab.add(cal_patientNameLabel, calendarConstraints);
 
 
         calendarConstraints.insets = new Insets(0, 180, 0, 20);
 
-        calTab.add(cal_patientLastTextField, calendarConstraints);
+        calTab.add(cal_patientNameTextField, calendarConstraints);
 
-
+/*
         calendarConstraints.gridy = 30;
         calendarConstraints.ipady = 0;
         calendarConstraints.weighty = 0.2;
@@ -562,7 +563,7 @@ public class EmployeeGUI extends JPanel{
         calendarConstraints.insets = new Insets(0, 180, 0, 20);
 
         calTab.add(cal_SSNTextField, calendarConstraints);
-
+*/
 
         
         
@@ -1718,94 +1719,95 @@ public class EmployeeGUI extends JPanel{
         // CALENDAR TAB LISTENERS
         
         
-        requestAppointmentButton.addActionListener(e -> {
-        	
-        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
-        	
-        		patient = MainGUI.pimsSystem.patient_details
-        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
 
-        		if(patient == null)
-        			JOptionPane.showMessageDialog(null, "No patient with that Last Name and SSN exists in our system");
+		requestAppointmentButton.addActionListener(e -> {
 
-        		else if (!MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
-        			JOptionPane.showMessageDialog(null, "This patient already has an appointment");
+			if(!cal_patientNameTextField.getText().equals((""))){
 
-        		else {
-        			if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient)){
-        				
-        				JOptionPane.showMessageDialog
-        				(null, "Appointment Saved");
-        				
-        				lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(patient));
-        				validate();
-        			}
-        			else JOptionPane.showMessageDialog
-        			(null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
-        		} //else JOptionPane.showMessageDialog(null, "Error");
-            
-        	}
-        	
-        	else{
-        		
-        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
-        	}
+				patient = MainGUI.pimsSystem.patient_details
+						(cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
 
-        });
+				if(patient == null)
+					JOptionPane.showMessageDialog(null, "No patient with that Last Name and SSN exists in our system");
 
+				else if (!MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
+					JOptionPane.showMessageDialog(null, "This patient already has an appointment");
 
-        lookUpAppointmentButton.addActionListener(e -> {
+				else {
+					if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient)){
 
-        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
-        		
-        		patient = MainGUI.pimsSystem.patient_details
-        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
+						JOptionPane.showMessageDialog
+						(null, "Appointment Saved");
 
-        		String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
+						lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(patient));
+						validate();
+					}
+					else JOptionPane.showMessageDialog
+					(null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
+				} //else JOptionPane.showMessageDialog(null, "Error");
 
-        		if (String.valueOf(appointment).equals(""))
-        			JOptionPane.showMessageDialog
-        			(null, "Requested patient has no Appointment Scheduled At This Time");
-        		else lookUpAppointmentTextField.setText(appointment);
-            
-        	}
-        	
-        	else{
-        		
-        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
-        	}
-        });
+			}
+
+			else{
+
+				JOptionPane.showMessageDialog(null, "Must Search a Patient First");
+			}
+
+		});
 
 
-        cancelAppointmentButton.addActionListener(e -> {
-        	
-        	if(isSSNFourDigits(cal_SSNTextField.getText()) && !cal_patientLastTextField.getText().equals((""))){
-        		
-        		patient = MainGUI.pimsSystem.patient_details
-        				(cal_patientLastTextField.getText(), Integer.parseInt(cal_SSNTextField.getText()));
+		lookUpAppointmentButton.addActionListener(e -> {
 
-        		if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
-        			JOptionPane.showMessageDialog
-    				(null, "No Appointment Scheduled At This Time");
+			if(!cal_patientNameTextField.getText().equals((""))){
+				
+				patient = MainGUI.pimsSystem.patient_details
+						(cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
 
-        		else if (String.valueOf(lookUpAppointmentTextField.getText()).equals(""))
-        			JOptionPane.showMessageDialog(null, "Must Lookup Appointment First");
-        		else {
-        			if (!MainGUI.pimsSystem.patient_delete_date(patient))
-        				JOptionPane.showMessageDialog
-        				(null, "No Appointment Scheduled At This Time");
-        			else {
-        				JOptionPane.showMessageDialog(null, "Appointment Deleted");
-        				lookUpAppointmentTextField.setText("");
-        			}
-        		}
-        	}
-        	
-        	else{
-        		
-        		JOptionPane.showMessageDialog(null, "Last Name not filled out");
-        	}
-        }); 
+				String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
+
+				if (String.valueOf(appointment).equals(""))
+					JOptionPane.showMessageDialog
+					(null, "Requested patient has no Appointment Scheduled At This Time");
+				else lookUpAppointmentTextField.setText(appointment);
+
+			}
+
+			else{
+
+				JOptionPane.showMessageDialog(null, "Must Search a Patient First");
+			}
+		});
+
+
+		cancelAppointmentButton.addActionListener(e -> {
+
+			if(!cal_patientNameTextField.getText().equals((""))){
+				patient = MainGUI.pimsSystem.patient_details
+						(cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
+
+				if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
+					JOptionPane.showMessageDialog
+					(null, "No Appointment Scheduled At This Time");
+
+				else if (String.valueOf(lookUpAppointmentTextField.getText()).equals(""))
+					JOptionPane.showMessageDialog(null, "Must Lookup Appointment First");
+				else {
+					if (!MainGUI.pimsSystem.patient_delete_date(patient))
+						JOptionPane.showMessageDialog
+						(null, "No Appointment Scheduled At This Time");
+					else {
+						JOptionPane.showMessageDialog(null, "Appointment Deleted");
+						lookUpAppointmentTextField.setText("");
+					}
+				}
+			}
+
+			else{
+
+				JOptionPane.showMessageDialog(null, "Must Search a Patient First");
+			}
+		}); 
+
  
 
         // PATIENT INFO TAB LISTENERS
@@ -2778,17 +2780,9 @@ public class EmployeeGUI extends JPanel{
     } // end searchPatient
 
 
-
-
-
-
-
 	/*
-	 *
+	 * fillPatientFoundData()
 	 */
-
-
-
     private void fillPatientFoundData(patient toDisplay){
     	
     
@@ -2797,8 +2791,8 @@ public class EmployeeGUI extends JPanel{
 
         // Calendar Tab
         lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
-        cal_SSNTextField.setText(Integer.toString(toDisplay.SSN));
-        cal_patientLastTextField.setText(toDisplay.l_name);
+        //cal_SSNTextField.setText(Integer.toString(toDisplay.SSN));
+        cal_patientNameTextField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
         
         // Patient Info Tab
         lastNameTextField_PInfo.setText(toDisplay.l_name);
@@ -2820,7 +2814,7 @@ public class EmployeeGUI extends JPanel{
         
         /* TO DO 
          * 
-         * -ask how to add policy and patient history to 
+         * -ask how to add policy and patient history to patient class
          */
         
         repaint();
@@ -2833,11 +2827,7 @@ public class EmployeeGUI extends JPanel{
 
 
     // method to parse the DOB and make
-
     // sure it's in the "MM/DD/YYYY" format
-
-
-
     private boolean DOBparser(String string) {
 
         if (!Character.isDigit(string.charAt(0)))
@@ -2886,14 +2876,8 @@ public class EmployeeGUI extends JPanel{
 
 
 
-
-
     // method to parse the phone number and make
-
     // sure it's in the "###-###-####" format
-
-
-
     private boolean phoneNumberParser(String string) {
 
         if (!Character.isDigit(string.charAt(0)))
@@ -2950,453 +2934,86 @@ public class EmployeeGUI extends JPanel{
 
 
 
-
-
-
-
-
-
 	/*
-	 * DatePicker related methods & private classes
+	 * Calendar Tab: DatePicker & TimePicker related methods 
 	 *
 	 */
 
-
-
-
-
-
-
     // method to create a date picker
-
-
-
-
-
-
-
     private DatePicker createDatePicker() {
-
-
-
-
-
-
 
         DatePickerSettings datePickerSettings = new DatePickerSettings();
 
-
-
-
-
-
-
         datePickerSettings.setAllowEmptyDates(false);
-
-
-
-
-
-
-
         datePickerSettings.setAllowKeyboardEditing(false);
 
-
-
-
-
-
-
-        DatePicker datePicker = new DatePicker(datePickerSettings);
-
-
-
-
-
-
+        DatePicker datePicker = new DatePicker(datePickerSettings);	
 
         // If today is Saturday or Sunday, this sets the default
-
-
-
         // to the following Monday
-
-
-
-
-
-
-
         if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
-
-
-
+        	
             datePicker.setDate(LocalDate.now().plusDays(2));
-
-
-
+            
         } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
-
-
-
+        	
             datePicker.setDate(LocalDate.now().plusDays(1));
-
-
 
         } else datePicker.setDate(LocalDate.now());
 
-
-
-
-
-
-
         // Veto Policy to disallow weekends
-
-
-
-
-
-
-
         datePickerSettings.setVetoPolicy(new VetoWeekends());
-
-
-
-
-
-
 
         return datePicker;
 
+    } // end createDatePicker
 
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
     // method to create a time picker
-
-
-
-
-
-
-
     private TimePicker createTimePicker() {
-
-
-
-
-
-
 
         TimePickerSettings timeSettings = new TimePickerSettings();
 
-
-
-
-
-
-
         timeSettings.initialTime = LocalTime.of(9, 0);
-
-
-
-
-
-
 
         timeSettings.setAllowKeyboardEditing(false);
 
-
-
-
-
-
-
         timeSettings.generatePotentialMenuTimes
-
-
-
                 (TimePickerSettings.TimeIncrement.OneHour,
-
-
-
                         null, null);
 
-
-
-
-
-
-
-
-
-
-
         TimePicker timePicker = new TimePicker(timeSettings);
-
-
-
-
-
-
-
         timeSettings.setVetoPolicy(new VetoTimes());
-
-
-
-
-
-
 
         return timePicker;
 
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // class to disallow choosing Saturdays and Sundays
-
-
-
-
-
-
-
-    private class VetoWeekends implements DateVetoPolicy {
-
-
-
-
-
-
-
-        @Override
-
-
-
-        public boolean isDateAllowed(LocalDate localDate) {
-
-
-
-            if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY ||
-
-
-
-                    localDate.getDayOfWeek() == DayOfWeek.SUNDAY)
-
-
-
-                return false;
-
-
-
-            return true;
-
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
-
-
-
-
-    // Class to disallow choosing times before 9am
-
-
-
-    // and after 5pm
-
-
-
-
-
-
-
-    private class VetoTimes implements TimeVetoPolicy {
-
-
-
-
-
-
-
-        @Override
-
-
-
-        public boolean isTimeAllowed(LocalTime time) {
-
-
-
-
-
-
-
-            // Only allow times from 9a to 5p, inclusive.
-
-
-
-
-
-
-
-            return PickerUtilities.isLocalTimeInRange(
-
-
-
-
-
-
-
-                    time, LocalTime.of(9, 0), LocalTime.of(16, 30), true);
-
-
-
-
-
-
-
-        }
-
-
-
-    }
-
-
-
-
-
-
-
+    } // end createTimePicker
+   
+    
     /*
      * END of DatePicker related methods & private classes
      */
 
-
-
-
-
-
-
 	/*
 	 * main for just employeeGUI
 	 */
-
-
-
     @SuppressWarnings("unused")
-
-
-
     public static void main(String[] args) {
-
-
-
-
-
-
-
-
-
-
 
         MainGUI mainGUI = new MainGUI();
 
-
-
         EmployeeGUI testGUI = new EmployeeGUI();
-
-
-
-
-
-
 
         mainGUI.setLayout(new GridLayout(1,0));
 
-
-
         mainGUI.setSize(1000,600);
-
-
-
-
-
-
-
-        //mainGUI.add(testGUI);
-
-
-
-
-
-
 
         mainGUI.validate();
 
-
-
-
-
-
-
         mainGUI.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-
-
         mainGUI.setLocationRelativeTo(null); // GUI appear in center
-
-
-
         mainGUI.setVisible(true);
 
-
-
-
-
-
-
     }// end main
-
-
 
 }// end EmployeeGUI class
