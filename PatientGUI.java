@@ -959,9 +959,7 @@ public class PatientGUI extends JPanel {
 
         JTextField lookUpAppointmentTextField = new JTextField(15);
 
-
         lookUpAppointmentTextField.setEditable(false);
-
 
         lookUpAppointmentTextField.setBackground(Color.white);
 
@@ -1008,16 +1006,13 @@ public class PatientGUI extends JPanel {
         calendarPanel.add(timePicker, calendarConstraints);
 
 
+        // add requestAppointment button
+
         calendarConstraints.gridy = 30;
-
         calendarConstraints.weighty = 1;
-
         calendarConstraints.ipady = 10;
-
         calendarConstraints.anchor = GridBagConstraints.NORTH;
-
         calendarConstraints.insets = new Insets(30, 0, 0, 170);
-
 
         calendarPanel.add(requestAppointmentButton, calendarConstraints);
 
@@ -1054,8 +1049,8 @@ public class PatientGUI extends JPanel {
         calendarPanel.add(lookUpAppointmentButton, calendarConstraints);
 
 
-        calendarConstraints.ipady = 5;
 
+        calendarConstraints.ipady = 5;
         calendarConstraints.insets = new Insets(5, 180, 0, 0);
 
 
@@ -1066,8 +1061,6 @@ public class PatientGUI extends JPanel {
 
 
         tabbedPane.add("Patient Information", patientInfoPanel);
-
-
         tabbedPane.add("Calendar", calendarPanel);
 
 
@@ -1860,25 +1853,15 @@ public class PatientGUI extends JPanel {
 
 
             if (middleNameTextField.getText().length() > 0 &&
-
                     !String.valueOf(middleNameTextField.getText()).equals("N/A")) {
-
                 for (int i = 0; i < middleName.length(); i++) {
-
                     if (!Character.isLetter(middleName.charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Middle Name Must Have Only Letters");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
 
 
@@ -1886,62 +1869,36 @@ public class PatientGUI extends JPanel {
 
 
             if (SSNTextField.getText().length() > 0 && SSNTextField.getText().length() != 4) {
-
                 JOptionPane.showMessageDialog
-
                         (null, "Social Security # Must Have 4 Characters");
-
                 illegalFields = false;
-
             } else if (SSNTextField.getText().length() == 4) {
-
                 for (int i = 0; i < 4; i++) {
-
                     if (!Character.isDigit(SSNTextField.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Social Security # Must Have Only Numbers");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
 
 
             // throws error if DOB isn't formatted correctly - "MM/DD/YYYY"
 
-
             if (DOBTextField.getText().length() > 0 && DOBTextField.getText().length() != 10) {
-
                 JOptionPane.showMessageDialog
-
                         (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
-
                 illegalFields = false;
-
             } else if (DOBTextField.getText().length() == 10) {
-
                 if (!DOBparser(DOBTextField.getText())) {
-
                     JOptionPane.showMessageDialog
-
                             (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
-
                     illegalFields = false;
-
                 }
-
             }
 
-
             // throws error if phone number isn't formatted correctly - "###-###-####"
-
 
             if (phoneNumberTextField.getText().length() > 0 && phoneNumberTextField.getText().length() != 12) {
 
@@ -2101,16 +2058,10 @@ public class PatientGUI extends JPanel {
                     (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));
 
             if (patient != null) {
-                if (!MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
-                    JOptionPane.showMessageDialog(null, "This patient already has an appointment");
-                else if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient))
-                    JOptionPane.showMessageDialog
-                            (null, "Appointment Saved");
-                else JOptionPane.showMessageDialog
-                            (null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
+                String message =
+                        MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
+                JOptionPane.showMessageDialog(null, message);
             } else JOptionPane.showMessageDialog(null, "Error");
-
-
         });
 
 
@@ -2122,7 +2073,7 @@ public class PatientGUI extends JPanel {
 
             if (String.valueOf(appointment).equals(""))
                 JOptionPane.showMessageDialog
-                        (null, "You Don't Have An Appointment Scheduled At This Time");
+                        (null, "Sorry, You Have No Appointment Scheduled.");
             else lookUpAppointmentTextField.setText(appointment);
         });
 
@@ -2133,7 +2084,7 @@ public class PatientGUI extends JPanel {
 
             if (!MainGUI.pimsSystem.patient_delete_date(patient))
                 JOptionPane.showMessageDialog
-                        (null, "You Have No Appointment Scheduled At This Time");
+                        (null, "Sorry, You Have No Appointment Scheduled.");
             else {
                 JOptionPane.showMessageDialog(null, "Appointment Deleted");
                 lookUpAppointmentTextField.setText("");
