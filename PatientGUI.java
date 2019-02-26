@@ -1655,65 +1655,38 @@ public class PatientGUI extends JPanel {
 
 
             // if there's no middle name, the text field
-
             // is set to "N/A"
-
 
             String middleName;
 
-
             if (String.valueOf(middleNameTextField_TBP.getText()).equals(""))
-
                 middleName = "N/A";
-
             else middleName = middleNameTextField_TBP.getText();
-
 
             // throws error if last name has characters other than letters
 
-
             if (lastNameTextField_TBP.getText().length() > 0) {
-
                 for (int i = 0; i < lastNameTextField_TBP.getText().length(); i++) {
-
                     if (!Character.isLetter(lastNameTextField_TBP.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Last Name Must Have Only Letters");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
-
 
             // throws error if first name has characters other than letters
 
-
             if (firstNameTextField_TBP.getText().length() > 0) {
-
                 for (int i = 0; i < firstNameTextField_TBP.getText().length(); i++) {
-
                     if (!Character.isLetter(firstNameTextField_TBP.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "First Name Must Have Only Letters");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
 
 
@@ -1768,113 +1741,62 @@ public class PatientGUI extends JPanel {
             // throws error if phone number isn't formatted correctly - "###-###-####"
 
             if (phoneNumberTextField_TBP.getText().length() > 0 && phoneNumberTextField_TBP.getText().length() != 12) {
-
                 JOptionPane.showMessageDialog
-
                         (null, "Phone Number Must be formatted \"###-###-####\"");
-
                 illegalFields = false;
-
             } else if (phoneNumberTextField_TBP.getText().length() == 12) {
-
                 if (!phoneNumberParser(phoneNumberTextField_TBP.getText())) {
-
                     JOptionPane.showMessageDialog
-
                             (null, "Phone Number Must be formatted \"###-###-####\"");
-
                     illegalFields = false;
-
                 }
-
             }
-
 
             // throws error if address has characters other than letters and numbers
 
-
             if (addressTextField_TBP.getText().length() > 0) {
-
                 for (int i = 0; i < addressTextField_TBP.getText().length(); i++) {
-
                     if (!Character.isLetter(addressTextField_TBP.getText().charAt(i)) &&
-
                             !Character.isDigit(addressTextField_TBP.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Address Must Have Only Numbers and Letters");
-
                         illegalFields = false;
-
                     }
-
                 }
-
             }
-
 
             // throws error if city has characters other than letters
 
-
             if (cityTextField_TBP.getText().length() > 0) {
-
                 for (int i = 1; i < cityTextField_TBP.getText().length(); i++) {
-
                     if (!Character.isLetter(cityTextField_TBP.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "City Must Have Only Letters");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
-
 
             // throws error if zip code has characters other than numbers, or has less/more than 4 digits
 
-
             if (zipCodeTextField_TBP.getText().length() > 0 && zipCodeTextField_TBP.getText().length() != 5) {
-
                 JOptionPane.showMessageDialog
-
                         (null, "Zip Code Must Have 5 Characters");
-
                 illegalFields = false;
-
             } else if (zipCodeTextField_TBP.getText().length() == 5) {
-
                 for (int i = 0; i < 5; i++) {
-
                     if (!Character.isDigit(zipCodeTextField_TBP.getText().charAt(i))) {
-
                         JOptionPane.showMessageDialog
-
                                 (null, "Zip Code Must Have Only Numbers");
-
                         illegalFields = false;
-
                         break;
-
                     }
-
                 }
-
             }
 
-
             // checks if there are no input errors
-
-            /*patient = MainGUI.pimsSystem.patient_details
-                    (lastNameTextField_TBP.getText(), Integer.parseInt(SSNTextField_TBP.getText()));*/
-
+            
             if (emptyFields && illegalFields && patient != null) {
                 JOptionPane.showMessageDialog
                         (null, "Information Updated");
