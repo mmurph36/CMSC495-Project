@@ -44,11 +44,11 @@ public class system {
         //sample staff object within the staff list
         // NOTE: EH changed doctors to add dob to doctors
 
-        d_list.add(new staff("Joseph", "Joestar", "N/A", "JJ", "password", "1111", 1));
-        d_list.add(new staff("Jotaro", "Kujo", "N/A", "JK", "password", "2222", 1));
-        d_list.add(new staff("Josuke", "Higashikata", "N/A", "JH", "password", "3333", 1));
-        d_list.add(new staff("Giorno", "Giovanna", "N/A", "GG", "password", "4444", 1));
-        d_list.add(new staff("Jolyne", "Cujoh", "N/A", "JC", "password", "5555", 1));
+        d_list.add(new staff("Joseph", "Joestar", "N/A", "JJ", "password", 1111, 1));
+        d_list.add(new staff("Jotaro", "Kujo", "N/A", "JK", "password", 2222, 1));
+        d_list.add(new staff("Josuke", "Higashikata", "N/A", "JH", "password", 3333, 1));
+        d_list.add(new staff("Giorno", "Giovanna", "N/A", "GG", "password", 4444, 1));
+        d_list.add(new staff("Jolyne", "Cujoh", "N/A", "JC", "password", 5555, 1));
 
     }
 
