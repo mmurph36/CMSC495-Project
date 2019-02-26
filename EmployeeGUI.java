@@ -73,12 +73,12 @@ public class EmployeeGUI extends JPanel {
     JPanel calTab;
 
     JLabel chooseDateAndTimeLabel, currentAppointmentLabel,
-    cal_patientSSNLabel, cal_patientNameLabel, lookUpAppointmentLabel,
-    currentPatientLabel;
+            cal_patientSSNLabel, cal_patientNameLabel, lookUpAppointmentLabel,
+            currentPatientLabel;
 
     JTextField currentAppointmentTextField, cal_SSNTextField,
-    cal_patientNameTextField, lookUpAppointmentTextField,
-    currentPatientTextField;
+            cal_patientNameTextField, lookUpAppointmentTextField,
+            currentPatientTextField;
 
     DatePicker datePicker;
 
@@ -94,14 +94,14 @@ public class EmployeeGUI extends JPanel {
     GridBagConstraints patientTabConstraints;
 
     JLabel lastNameLabel_PInfo, firstNameLabel_PInfo, middleNameLabel_PInfo,
-    ssnLabel_PInfo, dobLabel_PInfo, phoneNumberLabel_PInfo,
-    streetLabel_PInfo, cityLabel_PInfo, stateLabel_PInfo, zipCodeLabel_PInfo,
-    userLabel_PInfo, pwLabel_PInfo;
+            ssnLabel_PInfo, dobLabel_PInfo, phoneNumberLabel_PInfo,
+            streetLabel_PInfo, cityLabel_PInfo, stateLabel_PInfo, zipCodeLabel_PInfo,
+            userLabel_PInfo, pwLabel_PInfo;
 
     JTextField lastNameTextField_PInfo, firstNameTextField_PInfo, middleNameTextField_PInfo,
-    ssnTextField_PInfo, dobTextField_PInfo, phoneNumberTextField_PInfo,
-    addressTextField_PInfo, cityTextField_PInfo, zipCodeTextField_PInfo,
-    userField_PInfo, pwField_PInfo;
+            ssnTextField_PInfo, dobTextField_PInfo, phoneNumberTextField_PInfo,
+            addressTextField_PInfo, cityTextField_PInfo, zipCodeTextField_PInfo,
+            userField_PInfo, pwField_PInfo;
 
     JComboBox<String> stateComboBox_PInfo;
 
@@ -1072,21 +1072,15 @@ public class EmployeeGUI extends JPanel {
         // CALENDAR TAB LISTENERS
 
         requestAppointmentButton.addActionListener(e -> {
-            if (!cal_patientNameTextField.getText().equals((""))) {
+            if (!lastNameTextField_PInfo.getText().equals((""))) {
                 patient = MainGUI.pimsSystem.patient_details
-                        (cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
+                        (lastNameTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
                 if (patient == null)
                     JOptionPane.showMessageDialog(null, "No patient with that Last Name and SSN exists in our system");
-                else if (!MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
-                    JOptionPane.showMessageDialog(null, "This patient already has an appointment");
                 else {
-                    if (MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient)) {
-                        JOptionPane.showMessageDialog
-                                (null, "Appointment Saved");
-                        lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(patient));
-                        validate();
-                    } else JOptionPane.showMessageDialog
-                            (null, "Sorry. This Time Slot Is Taken. Select Another Date or Time");
+                    String message =
+                            MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
+                    JOptionPane.showMessageDialog(null, message);
                 } //else JOptionPane.showMessageDialog(null, "Error");
             } else {
                 JOptionPane.showMessageDialog(null, "Must Search a Patient First");
@@ -1094,9 +1088,9 @@ public class EmployeeGUI extends JPanel {
         });
 
         lookUpAppointmentButton.addActionListener(e -> {
-            if (!cal_patientNameTextField.getText().equals((""))) {
+            if (!lastNameTextField_PInfo.getText().equals((""))) {
                 patient = MainGUI.pimsSystem.patient_details
-                        (cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
+                        (lastNameTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
                 String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
                 if (String.valueOf(appointment).equals(""))
                     JOptionPane.showMessageDialog
@@ -1108,22 +1102,15 @@ public class EmployeeGUI extends JPanel {
         });
 
         cancelAppointmentButton.addActionListener(e -> {
-            if (!cal_patientNameTextField.getText().equals((""))) {
+            if (!lastNameTextField_PInfo.getText().equals((""))) {
                 patient = MainGUI.pimsSystem.patient_details
-                        (cal_patientNameTextField.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
-                if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals(""))
+                        (lastNameTextField_PInfo.getText(), Integer.parseInt(ssnTextField_PInfo.getText()));
+                if (!MainGUI.pimsSystem.patient_delete_date(patient))
                     JOptionPane.showMessageDialog
                             (null, "No Appointment Scheduled At This Time");
-                else if (String.valueOf(lookUpAppointmentTextField.getText()).equals(""))
-                    JOptionPane.showMessageDialog(null, "Must Lookup Appointment First");
                 else {
-                    if (!MainGUI.pimsSystem.patient_delete_date(patient))
-                        JOptionPane.showMessageDialog
-                                (null, "No Appointment Scheduled At This Time");
-                    else {
-                        JOptionPane.showMessageDialog(null, "Appointment Deleted");
-                        lookUpAppointmentTextField.setText("");
-                    }
+                    JOptionPane.showMessageDialog(null, "Appointment Deleted");
+                    lookUpAppointmentTextField.setText("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Must Search a Patient First");
