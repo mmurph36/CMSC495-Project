@@ -28,10 +28,10 @@ public class PatientGUI extends JPanel {
     // Choose Login Type Panel
     JPanel chooseLoginTypePanel;
     GridBagConstraints chooseLoginTypePanelConstraints;
-    JLabel clt_chooseLabel; 
+    JLabel clt_chooseLabel;
     JButton clt_existingPatientButton;
-    JButton clt_newPatientButton; 
-    
+    JButton clt_newPatientButton;
+
     // Login Panel
     JPanel loginPanel;
     GridBagConstraints loginConstraints;
@@ -39,24 +39,24 @@ public class PatientGUI extends JPanel {
     JTextField login_usernameTextField;
     JPasswordField login_passwordField;
     JButton loginButton, login_cancelButton;
-    
+
     // New Patient Login panel
-    JPanel newPatientLoginPanel; 
+    JPanel newPatientLoginPanel;
     GridBagConstraints newPatientLoginConstraints;
     JLabel npLogin_createNewPatientLabel, npLogin_usernameLabel, npLogin_passwordLabel;
     JTextField npLogin_usernameTextField;
     JPasswordField npLogin_passwordField;
     JButton npLogin_submitButton, npLogin_cancelButton;
-    
+
     // New Patient Info panel
     JPanel newPatientInfoPanel;
     GridBagConstraints newPatientInfoPanelConstraints;
-    JLabel npInfo_firstNameLabel, npInfo_middleNameLabel, npInfo_lastNameLabel, 
-    	npInfo_SSNLabel, npInfo_DOBLabel, np_phoneNumberLabel, 
-    	npInfo_addressLabel, npInfo_cityLabel, npInfo_stateLabel, npInfo_zipCodeLabel;
-    JTextField npInfo_firstNameTextField, npInfo_middleNameTextField, npInfo_lastNameTextField, 
-    	npInfo_SSNTextField, npInfo_DOBTextField, npInfo_phoneNumberTextField, 
-    	npInfo_addressTextField, npInfo_cityTextField, npInfo_zipCodeTextField;
+    JLabel npInfo_firstNameLabel, npInfo_middleNameLabel, npInfo_lastNameLabel,
+            npInfo_SSNLabel, npInfo_DOBLabel, np_phoneNumberLabel,
+            npInfo_addressLabel, npInfo_cityLabel, npInfo_stateLabel, npInfo_zipCodeLabel;
+    JTextField npInfo_firstNameTextField, npInfo_middleNameTextField, npInfo_lastNameTextField,
+            npInfo_SSNTextField, npInfo_DOBTextField, npInfo_phoneNumberTextField,
+            npInfo_addressTextField, npInfo_cityTextField, npInfo_zipCodeTextField;
     static String[] npInfo_states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
             "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
             "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
@@ -78,13 +78,13 @@ public class PatientGUI extends JPanel {
     JPanel patientInfoPanel;
     GridBagConstraints patientInfoPanelConstraints;
     JLabel pInfo_firstNameLabel, pInfo_middleNameLabel, pInfo_lastNameLabel,
-    	pInfo_SSNLabel, pInfo_DOBLabel, pInfo_phoneNumberLabel,
-    	pInfo_addressLabel, pInfo_cityLabel, pInfo_stateLabel, pInfo_zipCodeLabel,
-    	pInfo_patient_userLabel, pInfo_patient_pwLabel;
+            pInfo_SSNLabel, pInfo_DOBLabel, pInfo_phoneNumberLabel,
+            pInfo_addressLabel, pInfo_cityLabel, pInfo_stateLabel, pInfo_zipCodeLabel,
+            pInfo_patient_userLabel, pInfo_patient_pwLabel;
     JTextField pInfo_firstNameTextField, pInfo_middleNameTextField, pInfo_lastNameTextField,
-    	pInfo_SSNTextField, pInfo_DOBTextField, pInfo_phoneNumberTextField,
-    	pInfo_addressTextField, pInfo_cityTextField, pInfo_zipCodeTextField,
-    	pInfo_patient_userField, pInfo_patient_pwField;
+            pInfo_SSNTextField, pInfo_DOBTextField, pInfo_phoneNumberTextField,
+            pInfo_addressTextField, pInfo_cityTextField, pInfo_zipCodeTextField,
+            pInfo_patient_userField, pInfo_patient_pwField;
     JComboBox<String> pInfo_stateComboBox;
     JButton pInfo_updateInfoButton;
 
@@ -96,7 +96,7 @@ public class PatientGUI extends JPanel {
     TimePicker timePicker;
     JButton cal_requestAppointmentButton, cal_cancelAppointmentButton, cal_lookUpAppointmentButton;
     JTextField cal_lookUpAppointmentTextField;
-    
+
     // constructor
     public PatientGUI() {
         initialize();
@@ -108,20 +108,20 @@ public class PatientGUI extends JPanel {
         setLayout(new BorderLayout());
 
         initializeMainPanel();
-        
+
         // mainPanel is first thing to see 
         add(chooseLoginTypePanel);
 
         initializeLoginPanel();
         initializeCreateNewPatientPanel();
         initializeCreateNewPatientInfoPanel();
-        
+
         // Tabbed Panel
         tabbedPane = new JTabbedPane();
 
         initializePatientInfoTab();
         initializeCalendarTab();
-        
+
         // add patient and calendar panels to tabbed pane
         tabbedPane.add("Patient Information", patientInfoPanel);
         tabbedPane.add("Calendar", calendarPanel);
@@ -141,7 +141,7 @@ public class PatientGUI extends JPanel {
         npLogin_cancelButton.addActionListener(e -> npl_cancel());
 
         // New Patient Info Panel
-        
+
         // submits a new patient info into the system
         npInfo_submitNewInfoButton.addActionListener(e -> npi_submit());
 
@@ -159,11 +159,11 @@ public class PatientGUI extends JPanel {
     } // end initialize()
 
 /* START initialize() related functions*/
-    
+
     // main panel
     private void initializeMainPanel(){
-    	
-    	// Main panel
+
+        // Main panel
         chooseLoginTypePanel = new JPanel(new GridBagLayout());
         chooseLoginTypePanelConstraints = new GridBagConstraints();
 
@@ -201,21 +201,21 @@ public class PatientGUI extends JPanel {
         chooseLoginTypePanelConstraints.insets = new Insets(30, 0, 0, 150);
         chooseLoginTypePanel.add(clt_newPatientButton, chooseLoginTypePanelConstraints);
     }// end chooseNewOrExisting
-    
+
     // Login Panel
     private void initializeLoginPanel(){
-    	
-    	// Login Panel
+
+        // Login Panel
         loginPanel = new JPanel(new GridBagLayout());
         loginConstraints = new GridBagConstraints();
-        
+
         logInLabel = new JLabel("Patient Login");
         login_usernameLabel = new JLabel("Username:");
         login_passwordLabel = new JLabel("Password:");
-        
+
         logInLabel.setFont(new java.awt.Font(logInLabel.getFont().getFontName(), Font.PLAIN, 40));
 
- 
+
         login_usernameTextField = new JTextField(12);
         login_passwordField = new JPasswordField(12);
 
@@ -223,7 +223,7 @@ public class PatientGUI extends JPanel {
         login_cancelButton = new JButton("Cancel");
 
         //add components to login screen
-        
+
         // add login label
         loginConstraints.gridx = 10;
         loginConstraints.gridy = 10;
@@ -279,9 +279,9 @@ public class PatientGUI extends JPanel {
         loginPanel.add(login_cancelButton, loginConstraints);
 
     }// end initializeLoginPanel
-    
+
     private void initializeCreateNewPatientPanel(){
-    	
+
         // Create new patient panel
 
         newPatientLoginPanel = new JPanel(new GridBagLayout());
@@ -292,11 +292,11 @@ public class PatientGUI extends JPanel {
         npLogin_passwordLabel = new JLabel("Password:");
 
         npLogin_createNewPatientLabel.setFont
-        	(new java.awt.Font(npLogin_createNewPatientLabel.getFont().getFontName(), Font.PLAIN, 40));
+                (new java.awt.Font(npLogin_createNewPatientLabel.getFont().getFontName(), Font.PLAIN, 40));
 
         npLogin_usernameTextField = new JTextField(12);
         npLogin_passwordField = new JPasswordField(12);
-        
+
         npLogin_submitButton = new JButton("Submit");
         npLogin_cancelButton = new JButton("Cancel");
 
@@ -355,9 +355,9 @@ public class PatientGUI extends JPanel {
         newPatientLoginPanel.add(npLogin_cancelButton, newPatientLoginConstraints);
 
     } // end initializeCreateNewPatientPanel
-    
+
     private void initializeCreateNewPatientInfoPanel(){
-    	
+
         // create the patient info panel
         newPatientInfoPanel = new JPanel(new GridBagLayout());
         newPatientInfoPanelConstraints = new GridBagConstraints();
@@ -507,10 +507,10 @@ public class PatientGUI extends JPanel {
         newPatientInfoPanel.add(npInfo_cancelButton, newPatientInfoPanelConstraints);
 
     } // end initializeCreateNewPatientInfoPanel
-    
+
     private void initializePatientInfoTab(){
-    	
-    	// create the patient info panel
+
+        // create the patient info panel
         patientInfoPanel = new JPanel(new GridBagLayout());
         patientInfoPanelConstraints = new GridBagConstraints();
 
@@ -538,7 +538,7 @@ public class PatientGUI extends JPanel {
         pInfo_zipCodeTextField = new JTextField(12);
         pInfo_patient_userField = new JTextField(12);
         pInfo_patient_pwField = new JTextField(12);
-        
+
         pInfo_stateComboBox = new JComboBox<>(npInfo_states);
 
         pInfo_updateInfoButton = new JButton("Update Information");
@@ -683,23 +683,23 @@ public class PatientGUI extends JPanel {
 
 
     } // end initializePatientInfoTab
-    
+
     private void initializeCalendarTab(){
-    	
+
         // create calendar panel
         calendarPanel = new JPanel(new GridBagLayout());
         calendarConstraints = new GridBagConstraints();
-        
+
         cal_chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
         cal_lookUpAppointmentLabel = new JLabel("Look Up Existing Appointment");
-            
+
         // set the label font
         cal_chooseDateAndTimeLabel.setFont(new java.awt.Font(cal_chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 40));
         cal_lookUpAppointmentLabel.setFont(new java.awt.Font(cal_lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
-        
+
         datePicker = createDatePicker();
         timePicker = createTimePicker();
-        
+
         cal_requestAppointmentButton = new JButton("Request Appointment");
         cal_cancelAppointmentButton = new JButton("Cancel Appointment");
         cal_lookUpAppointmentButton = new JButton("Look Up Appointment");
@@ -724,7 +724,7 @@ public class PatientGUI extends JPanel {
         calendarConstraints.anchor = GridBagConstraints.CENTER;
         calendarConstraints.insets = new Insets(20, 0, 0, 110);
         calendarPanel.add(datePicker, calendarConstraints);
-        
+
         // add time picker
         calendarConstraints.insets = new Insets(20, 160, 0, 0);
         calendarPanel.add(timePicker, calendarConstraints);
@@ -766,11 +766,11 @@ public class PatientGUI extends JPanel {
 /* END initialize() related functions*/
     
 /* START Action Listener related functions*/
-    
+
     // Choose Login Type Panel
-    
+
     private void clt_existingPatient(){
-    	
+
         remove(chooseLoginTypePanel);
         add(loginPanel);
 
@@ -778,7 +778,7 @@ public class PatientGUI extends JPanel {
         revalidate();
 
     } // end clt_existingPatient
-    
+
     private void clt_newPatient(){
 
         remove(chooseLoginTypePanel);
@@ -788,11 +788,11 @@ public class PatientGUI extends JPanel {
         revalidate();
 
     } // end clt_newPatient
-    
+
     // Login Panel
-    
+
     private void login(){
-    
+
         if (String.valueOf(login_usernameTextField.getText()).equals(""))
             JOptionPane.showMessageDialog
                     (null, "Must Enter A Username");
@@ -845,7 +845,7 @@ public class PatientGUI extends JPanel {
                     (null, "Invalid Password or Username");
 
     } // end login
-    
+
     private void login_cancel(){
 
         remove(loginPanel);
@@ -857,13 +857,13 @@ public class PatientGUI extends JPanel {
         // reset username and password fields
         login_usernameTextField.setText("");
         login_passwordField.setText("");
-        
+
     } // end login_cancel
-    
+
     // New Patient Login Panel
-    
+
     private void npl_submit(){
-    	
+
         if (String.valueOf(npLogin_usernameTextField.getText()).equals(""))
 
             JOptionPane.showMessageDialog
@@ -881,7 +881,7 @@ public class PatientGUI extends JPanel {
             add(newPatientInfoPanel);
 
             JOptionPane.showMessageDialog
-                (null, "Submission Successful");
+                    (null, "Submission Successful");
 
             repaint();
             revalidate();
@@ -891,7 +891,7 @@ public class PatientGUI extends JPanel {
                     (null, "This Username and Password are Already Taken");
 
     } // end npl_submit
-    
+
     private void npl_cancel(){
 
         remove(newPatientLoginPanel);
@@ -903,14 +903,14 @@ public class PatientGUI extends JPanel {
         // reset username and password fields
         npLogin_usernameTextField.setText("");
         npLogin_passwordField.setText("");
-        
+
     } // end npl_cancel
-    
+
     // New Patient Info Panel
-    
+
     private void npi_submit(){
-    	
-    	 // values to test if there are no input errors
+
+        // values to test if there are no input errors
         boolean emptyFields = true, illegalFields = true;
 
         String errorMessage = "Must Enter";
@@ -1184,7 +1184,7 @@ public class PatientGUI extends JPanel {
                 pInfo_stateComboBox.setSelectedItem(npInfo_stateComboBox.getSelectedItem());
                 pInfo_patient_userField.setText(npLogin_usernameTextField.getText());
                 pInfo_patient_pwField.setText(String.valueOf(npLogin_passwordField.getPassword()));
-                
+
                 remove(newPatientInfoPanel);
                 add(tabbedPane);
 
@@ -1200,13 +1200,13 @@ public class PatientGUI extends JPanel {
         }
 
     } // end npi_submit
-    
+
     private void npi_cancel(){
-    	
+
 
         remove(newPatientInfoPanel);
         add(chooseLoginTypePanel);
-        
+
         repaint();
         revalidate();
 
@@ -1215,11 +1215,11 @@ public class PatientGUI extends JPanel {
         npLogin_passwordField.setText("");
 
     } // end npi_cancel
-    
+
     // Patient Info Tab Listeners
     private void pInfo_updateInfo(){
-    	
-    	 // values to test if there are no input errors
+
+        // values to test if there are no input errors
         boolean emptyFields = true, illegalFields = true;
 
         String errorMessage = "Must Enter";
@@ -1285,7 +1285,7 @@ public class PatientGUI extends JPanel {
         }
 
         // if there's no middle name, the text field
-      // is set to "N/A"
+        // is set to "N/A"
         String middleName;
 
         if (String.valueOf(pInfo_middleNameTextField.getText()).equals(""))
@@ -1332,8 +1332,8 @@ public class PatientGUI extends JPanel {
             for (int i = 0; i < middleName.length(); i++) {
 
                 if (!Character.isLetter(middleName.charAt(i))) {
-                    
-                	JOptionPane.showMessageDialog
+
+                    JOptionPane.showMessageDialog
                             (null, "Middle Name Must Have Only Letters");
 
                     illegalFields = false;
@@ -1344,8 +1344,8 @@ public class PatientGUI extends JPanel {
 
         // throws error if SSN has characters other than numbers, or has less/more than 4 digits 
         if (pInfo_SSNTextField.getText().length() > 0 && pInfo_SSNTextField.getText().length() != 4) {
-            
-        	JOptionPane.showMessageDialog
+
+            JOptionPane.showMessageDialog
                     (null, "Social Security # Must Have 4 Characters");
 
             illegalFields = false;
@@ -1452,7 +1452,7 @@ public class PatientGUI extends JPanel {
 
                     JOptionPane.showMessageDialog
                             (null, "Zip Code Must Have Only Numbers");
-                   
+
                     illegalFields = false;
                     break;
                 }
@@ -1490,24 +1490,24 @@ public class PatientGUI extends JPanel {
             JOptionPane.showMessageDialog(null, "Error");
 
     } // end pInfo_updateInfo
-    
+
     // Calendar Tab listeners
     private void cal_requestAppointment(){
-    	
-    	patient = MainGUI.pimsSystem.patient_details
+
+        patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
 
         if (patient != null) {
-        	
-        	String message = MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
-        	JOptionPane.showMessageDialog(null, message);
-        	
+
+            String message = MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
+            JOptionPane.showMessageDialog(null, message);
+
         } else JOptionPane.showMessageDialog(null, "Error");
     }// end cal_requestAppointment
-    
+
     private void cal_lookUpAppointment(){
-    	
-    	patient = MainGUI.pimsSystem.patient_details
+
+        patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
 
         String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
@@ -1517,10 +1517,10 @@ public class PatientGUI extends JPanel {
                     (null, "You Don't Have An Appointment Scheduled At This Time");
         else cal_lookUpAppointmentTextField.setText(appointment);
     }// end cal_lookUpAppointment
-    
+
     private void cal_cancelAppointment(){
-    	
-    	patient = MainGUI.pimsSystem.patient_details
+
+        patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
 
         if (!MainGUI.pimsSystem.patient_delete_date(patient))
@@ -1560,10 +1560,10 @@ public class PatientGUI extends JPanel {
 
         else if (!Character.isDigit(string.charAt(6)))
             return false;
-        
+
         else if (!Character.isDigit(string.charAt(7)))
             return false;
-        
+
         else if (!Character.isDigit(string.charAt(8)))
             return false;
 
@@ -1615,7 +1615,7 @@ public class PatientGUI extends JPanel {
             return false;
 
         return true;
-    
+
     } // end phoneNumberParser
 
 /* END helper functions */
@@ -1635,16 +1635,16 @@ public class PatientGUI extends JPanel {
         // If today is Saturday or Sunday, this sets the default
         // to the following Monday
         if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(2));
+            datePicker.setDate(LocalDate.now().plusDays(3));
         } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(1));
-        } else datePicker.setDate(LocalDate.now());
+            datePicker.setDate(LocalDate.now().plusDays(2));
+        } else datePicker.setDate(LocalDate.now().plusDays(1));
 
         // Veto Policy to disallow weekends
         datePickerSettings.setVetoPolicy(new VetoWeekends());
-        
+
         return datePicker;
-        
+
     } // end createDatePicker
 
     // method to create a time picker

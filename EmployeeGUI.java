@@ -1457,10 +1457,10 @@ public class EmployeeGUI extends JPanel {
         // If today is Saturday or Sunday, this sets the default
         // to the following Monday
         if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(2));
+            datePicker.setDate(LocalDate.now().plusDays(3));
         } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(1));
-        } else datePicker.setDate(LocalDate.now());
+            datePicker.setDate(LocalDate.now().plusDays(2));
+        } else datePicker.setDate(LocalDate.now().plusDays(1));
 
         // Veto Policy to disallow weekends
         datePickerSettings.setVetoPolicy(new VetoWeekends());
