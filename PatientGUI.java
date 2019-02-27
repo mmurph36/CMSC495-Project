@@ -1240,6 +1240,7 @@ public class PatientGUI extends JPanel {
 
         });
 
+
         cancelButton_cnp.addActionListener(e -> {
 
             remove(createNewPatientPanel);
@@ -1275,158 +1276,289 @@ public class PatientGUI extends JPanel {
 
             String errorMessage = "Must Enter";
 
-            if (String.valueOf(firstNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(firstNameTextField.getText()).equals("")) {
+
                 errorMessage += " First Name,";
+
                 emptyFields = false;
-            }
-            if (String.valueOf(lastNameTextField_TBP.getText()).equals("")) {
-                errorMessage += " Last Name,";
-                emptyFields = false;
-            }
-            if (String.valueOf(SSNTextField_TBP.getText()).equals("")) {
-                errorMessage += " Social Security #,";
-                emptyFields = false;
-            }
-            if (String.valueOf(DOBTextField_TBP.getText()).equals("")) {
-                errorMessage += " Date of Birth,";
-                emptyFields = false;
-            }
-            if (String.valueOf(phoneNumberTextField_TBP.getText()).equals("")) {
-                errorMessage += " Phone Number,";
-                emptyFields = false;
-            }
-            if (String.valueOf(addressTextField_TBP).equals("")) {
-                errorMessage += " Street,";
-                emptyFields = false;
-            }
-            if (String.valueOf(cityTextField_TBP).equals("")) {
-                errorMessage += " City,";
-                emptyFields = false;
-            }
-            if (String.valueOf(zipCodeTextField_TBP).equals("")) {
-                errorMessage += " Zip Code,";
-                emptyFields = false;
+
             }
 
+            if (String.valueOf(lastNameTextField.getText()).equals("")) {
+
+                errorMessage += " Last Name,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(SSNTextField.getText()).equals("")) {
+
+                errorMessage += " Social Security #,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(DOBTextField.getText()).equals("")) {
+
+                errorMessage += " Date of Birth,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(phoneNumberTextField.getText()).equals("")) {
+
+                errorMessage += " Phone Number,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(addressTextField).equals("")) {
+
+                errorMessage += " Street,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(cityTextField).equals("")) {
+
+                errorMessage += " City,";
+
+                emptyFields = false;
+
+            }
+
+            if (String.valueOf(zipCodeTextField).equals("")) {
+
+                errorMessage += " Zip Code,";
+
+                emptyFields = false;
+
+            }
+
+
             // if there's no middle name, the text field
+
             // is set to "N/A"
+
 
             String middleName;
 
+
             if (String.valueOf(middleNameTextField.getText()).equals(""))
+
                 middleName = "N/A";
+
             else middleName = middleNameTextField.getText();
+
 
             // throws error if last name has characters other than letters
 
+
             if (lastNameTextField.getText().length() > 0) {
+
                 for (int i = 0; i < lastNameTextField.getText().length(); i++) {
+
                     if (!Character.isLetter(lastNameTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Last Name Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if first name has characters other than letters
 
+
             if (firstNameTextField.getText().length() > 0) {
-                for (int i = 0; i < firstNameTextField_TBP.getText().length(); i++) {
-                    if (!Character.isLetter(firstNameTextField_TBP.getText().charAt(i))) {
+
+                for (int i = 0; i < firstNameTextField.getText().length(); i++) {
+
+                    if (!Character.isLetter(firstNameTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "First Name Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if middle name has characters other than letters
 
-            if (middleName.length() > 0 &&
-                    !String.valueOf(middleName).equals("N/A")) {
-                for (int i = 0; i < middleName.length(); i++) {
-                    if (!Character.isLetter(middleName.charAt(i))) {
+
+            if (middleNameTextField.getText().length() > 0 &&
+
+                    !String.valueOf(middleNameTextField.getText()).equals("N/A")) {
+
+                for (int i = 0; i < middleNameTextField.getText().length(); i++) {
+
+                    if (!Character.isLetter(middleNameTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Middle Name Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if SSN has characters other than numbers, or has less/more than 4 digits
 
+
             if (SSNTextField.getText().length() > 0 && SSNTextField.getText().length() != 4) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Social Security # Must Have 4 Characters");
+
                 illegalFields = false;
+
             } else if (SSNTextField.getText().length() == 4) {
+
                 for (int i = 0; i < 4; i++) {
+
                     if (!Character.isDigit(SSNTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Social Security # Must Have Only Numbers");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if DOB isn't formatted correctly - "MM/DD/YYYY"
 
+
             if (DOBTextField.getText().length() > 0 && DOBTextField.getText().length() != 10) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
+
                 illegalFields = false;
+
             } else if (DOBTextField.getText().length() == 10) {
+
                 if (!DOBparser(DOBTextField.getText())) {
+
                     JOptionPane.showMessageDialog
+
                             (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
+
                     illegalFields = false;
+
                 }
+
             }
+
 
             // throws error if phone number isn't formatted correctly - "###-###-####"
 
+
             if (phoneNumberTextField.getText().length() > 0 && phoneNumberTextField.getText().length() != 12) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Phone Number Must be formatted \"###-###-####\"");
+
                 illegalFields = false;
+
             } else if (phoneNumberTextField.getText().length() == 12) {
+
                 if (!phoneNumberParser(phoneNumberTextField.getText())) {
+
                     JOptionPane.showMessageDialog
+
                             (null, "Phone Number Must be formatted \"###-###-####\"");
+
                     illegalFields = false;
+
                 }
+
             }
 
 
             // throws error if address has characters other than letters and numbers
 
+
             if (addressTextField.getText().length() > 0) {
+
                 for (int i = 0; i < addressTextField.getText().length(); i++) {
+
                     if (!Character.isLetter(addressTextField.getText().charAt(i)) &&
+
                             !Character.isDigit(addressTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Address Must Have Only Numbers and Letters");
+
                         illegalFields = false;
+
                     }
+
                 }
+
             }
+
 
             // throws error if city has characters other than letters
 
+
             if (cityTextField.getText().length() > 0) {
+
                 for (int i = 1; i < cityTextField.getText().length(); i++) {
+
                     if (!Character.isLetter(cityTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "City Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
 
 
@@ -1573,7 +1705,7 @@ public class PatientGUI extends JPanel {
 
             String errorMessage = "Must Enter";
 
-            if (String.valueOf(firstNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(firstNameTextField.getText()).equals("")) {
 
                 errorMessage += " First Name,";
 
@@ -1581,7 +1713,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(lastNameTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(lastNameTextField.getText()).equals("")) {
 
                 errorMessage += " Last Name,";
 
@@ -1589,7 +1721,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(SSNTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(SSNTextField.getText()).equals("")) {
 
                 errorMessage += " Social Security #,";
 
@@ -1597,7 +1729,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(DOBTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(DOBTextField.getText()).equals("")) {
 
                 errorMessage += " Date of Birth,";
 
@@ -1605,7 +1737,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(phoneNumberTextField_TBP.getText()).equals("")) {
+            if (String.valueOf(phoneNumberTextField.getText()).equals("")) {
 
                 errorMessage += " Phone Number,";
 
@@ -1613,7 +1745,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(addressTextField_TBP).equals("")) {
+            if (String.valueOf(addressTextField).equals("")) {
 
                 errorMessage += " Street,";
 
@@ -1621,7 +1753,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(cityTextField_TBP).equals("")) {
+            if (String.valueOf(cityTextField).equals("")) {
 
                 errorMessage += " City,";
 
@@ -1629,7 +1761,7 @@ public class PatientGUI extends JPanel {
 
             }
 
-            if (String.valueOf(zipCodeTextField_TBP).equals("")) {
+            if (String.valueOf(zipCodeTextField).equals("")) {
 
                 errorMessage += " Zip Code,";
 
@@ -1655,45 +1787,73 @@ public class PatientGUI extends JPanel {
 
 
             // if there's no middle name, the text field
+
             // is set to "N/A"
+
 
             String middleName;
 
-            if (String.valueOf(middleNameTextField_TBP.getText()).equals(""))
+
+            if (String.valueOf(middleNameTextField.getText()).equals(""))
+
                 middleName = "N/A";
-            else middleName = middleNameTextField_TBP.getText();
+
+            else middleName = middleNameTextField.getText();
+
 
             // throws error if last name has characters other than letters
 
-            if (lastNameTextField_TBP.getText().length() > 0) {
-                for (int i = 0; i < lastNameTextField_TBP.getText().length(); i++) {
-                    if (!Character.isLetter(lastNameTextField_TBP.getText().charAt(i))) {
+
+            if (lastNameTextField.getText().length() > 0) {
+
+                for (int i = 0; i < lastNameTextField.getText().length(); i++) {
+
+                    if (!Character.isLetter(lastNameTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Last Name Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if first name has characters other than letters
 
-            if (firstNameTextField_TBP.getText().length() > 0) {
-                for (int i = 0; i < firstNameTextField_TBP.getText().length(); i++) {
-                    if (!Character.isLetter(firstNameTextField_TBP.getText().charAt(i))) {
+
+            if (firstNameTextField.getText().length() > 0) {
+
+                for (int i = 0; i < firstNameTextField.getText().length(); i++) {
+
+                    if (!Character.isLetter(firstNameTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "First Name Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
 
 
             // throws error if middle name has characters other than letters
 
-            if (middleName.length() > 0 &&
-                    !String.valueOf(middleName).equals("N/A")) {
+
+            if (middleNameTextField.getText().length() > 0 &&
+                    !String.valueOf(middleNameTextField.getText()).equals("N/A")) {
                 for (int i = 0; i < middleName.length(); i++) {
                     if (!Character.isLetter(middleName.charAt(i))) {
                         JOptionPane.showMessageDialog
@@ -1708,13 +1868,13 @@ public class PatientGUI extends JPanel {
             // throws error if SSN has characters other than numbers, or has less/more than 4 digits
 
 
-            if (SSNTextField_TBP.getText().length() > 0 && SSNTextField_TBP.getText().length() != 4) {
+            if (SSNTextField.getText().length() > 0 && SSNTextField.getText().length() != 4) {
                 JOptionPane.showMessageDialog
                         (null, "Social Security # Must Have 4 Characters");
                 illegalFields = false;
-            } else if (SSNTextField_TBP.getText().length() == 4) {
+            } else if (SSNTextField.getText().length() == 4) {
                 for (int i = 0; i < 4; i++) {
-                    if (!Character.isDigit(SSNTextField_TBP.getText().charAt(i))) {
+                    if (!Character.isDigit(SSNTextField.getText().charAt(i))) {
                         JOptionPane.showMessageDialog
                                 (null, "Social Security # Must Have Only Numbers");
                         illegalFields = false;
@@ -1726,12 +1886,12 @@ public class PatientGUI extends JPanel {
 
             // throws error if DOB isn't formatted correctly - "MM/DD/YYYY"
 
-            if (DOBTextField_TBP.getText().length() > 0 && DOBTextField_TBP.getText().length() != 10) {
+            if (DOBTextField.getText().length() > 0 && DOBTextField.getText().length() != 10) {
                 JOptionPane.showMessageDialog
                         (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
                 illegalFields = false;
-            } else if (DOBTextField_TBP.getText().length() == 10) {
-                if (!DOBparser(DOBTextField_TBP.getText())) {
+            } else if (DOBTextField.getText().length() == 10) {
+                if (!DOBparser(DOBTextField.getText())) {
                     JOptionPane.showMessageDialog
                             (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
                     illegalFields = false;
@@ -1740,82 +1900,156 @@ public class PatientGUI extends JPanel {
 
             // throws error if phone number isn't formatted correctly - "###-###-####"
 
-            if (phoneNumberTextField_TBP.getText().length() > 0 && phoneNumberTextField_TBP.getText().length() != 12) {
+            if (phoneNumberTextField.getText().length() > 0 && phoneNumberTextField.getText().length() != 12) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Phone Number Must be formatted \"###-###-####\"");
+
                 illegalFields = false;
-            } else if (phoneNumberTextField_TBP.getText().length() == 12) {
-                if (!phoneNumberParser(phoneNumberTextField_TBP.getText())) {
+
+            } else if (phoneNumberTextField.getText().length() == 12) {
+
+                if (!phoneNumberParser(phoneNumberTextField.getText())) {
+
                     JOptionPane.showMessageDialog
+
                             (null, "Phone Number Must be formatted \"###-###-####\"");
+
                     illegalFields = false;
+
                 }
+
             }
+
 
             // throws error if address has characters other than letters and numbers
 
+
             if (addressTextField_TBP.getText().length() > 0) {
+
                 for (int i = 0; i < addressTextField_TBP.getText().length(); i++) {
+
                     if (!Character.isLetter(addressTextField_TBP.getText().charAt(i)) &&
+
                             !Character.isDigit(addressTextField_TBP.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Address Must Have Only Numbers and Letters");
+
                         illegalFields = false;
+
                     }
+
                 }
+
             }
+
 
             // throws error if city has characters other than letters
 
-            if (cityTextField_TBP.getText().length() > 0) {
-                for (int i = 1; i < cityTextField_TBP.getText().length(); i++) {
-                    if (!Character.isLetter(cityTextField_TBP.getText().charAt(i))) {
+
+            if (cityTextField.getText().length() > 0) {
+
+                for (int i = 1; i < cityTextField.getText().length(); i++) {
+
+                    if (!Character.isLetter(cityTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "City Must Have Only Letters");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
+
 
             // throws error if zip code has characters other than numbers, or has less/more than 4 digits
 
-            if (zipCodeTextField_TBP.getText().length() > 0 && zipCodeTextField_TBP.getText().length() != 5) {
+
+            if (zipCodeTextField.getText().length() > 0 && zipCodeTextField.getText().length() != 5) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Zip Code Must Have 5 Characters");
+
                 illegalFields = false;
-            } else if (zipCodeTextField_TBP.getText().length() == 5) {
+
+            } else if (zipCodeTextField.getText().length() == 5) {
+
                 for (int i = 0; i < 5; i++) {
-                    if (!Character.isDigit(zipCodeTextField_TBP.getText().charAt(i))) {
+
+                    if (!Character.isDigit(zipCodeTextField.getText().charAt(i))) {
+
                         JOptionPane.showMessageDialog
+
                                 (null, "Zip Code Must Have Only Numbers");
+
                         illegalFields = false;
+
                         break;
+
                     }
+
                 }
+
             }
 
+
             // checks if there are no input errors
-            
+
+
+            patient = MainGUI.pimsSystem.patient_details
+
+                    (lastNameTextField.getText(), Integer.parseInt(SSNTextField.getText()));
+
+
             if (emptyFields && illegalFields && patient != null) {
+
                 JOptionPane.showMessageDialog
+
                         (null, "Information Updated");
+
                 patient.l_name = lastNameTextField_TBP.getText();
+
                 patient.f_name = firstNameTextField_TBP.getText();
+
                 patient.m_name = middleName;
+
                 patient.SSN = Integer.parseInt(SSNTextField_TBP.getText());
+
                 patient.dob = DOBTextField_TBP.getText();
+
                 patient.p_number = phoneNumberTextField_TBP.getText();
+
                 patient.address = addressTextField_TBP.getText();
+
                 patient.city = cityTextField_TBP.getText();
+
                 patient.state = String.valueOf(stateComboBox_TBP.getSelectedItem());
+
                 patient.zip = Integer.parseInt(zipCodeTextField_TBP.getText());
+
                 patient.user_name = patient_userField_TBP.getText();
+
                 patient.password = patient_pwField_TBP.getText();
+
+
             } else if (!String.valueOf(errorMessage).equals("Must Enter"))
+
                 JOptionPane.showMessageDialog(null, errorMessage);
+
             else if (patient == null)
-                JOptionPane.showMessageDialog(null, "No Patient Found");
+
+                JOptionPane.showMessageDialog(null, "Error");
+
         });
 
 
