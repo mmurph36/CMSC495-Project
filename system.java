@@ -12,33 +12,36 @@ public class system {
 
     static ArrayList<staff> d_list;
     static HashMap<String, patient> date_list;
-
     static HashMap<patient, String> lookupDateMap;
+    static HashMap<String, Integer> cost_list; 
 
-
+    static int COPAY = 50;
+    
     // added constructor by eh
-
-
 
     public system() {
         p_list = new ArrayList<>();
         d_list = new ArrayList<>();
         date_list = new HashMap<>();
         lookupDateMap = new HashMap<>();
-
+        
+        cost_list = new HashMap<>();
+        cost_list.put("CHECKUP", 300);
+        cost_list.put("PHYSICAL", 250);
+        cost_list.put("DIAGNOSTIC", 500);
 
 
         // First, Last, Middle (optional), username, password, DOB (MM/DD/YYYY), Last 4 SSN, Zip Code, Address, City, State (full name), Phone # (###-###-####)
 
-        p_list.add(new patient("Amuro", "Ray", "N/A", "whitedevil", "password", "11/04/0063", 7979, 55555, "address", "Baltimore", "Maryland", "205-345-3452"));
-        p_list.add(new patient("Char", "Aznable", "N/A", "redcomet", "password", "11/17/0059", 5959, 77777, "address", "Washington", "District of Columbia", "205-346-3562"));
-        p_list.add(new patient("Haman", "Karn", "N/A", "qubeley", "password", "01/10/0081", 8989, 88888, "address", "Austin", "Texas", "235-645-3294"));
-        p_list.add(new patient("Judau", "Ashta", "N/A", "zz", "password", "09/10/0073", 1432, 99999, "address", "Boston", "Massachusetts", "205-345-3452"));
-        p_list.add(new patient("Kamille", "Bidan", "N/A", "zeta", "password", "11/11/0069", 9376, 66666, "address", "Harrison", "Pennsylvania", "205-345-3452"));
+        p_list.add(new patient("Amuro", "Ray", "N/A", "whitedevil", "password", "11/04/0063", 7979, 55555, "address", "Baltimore", "Maryland", "205-345-3452", true));
+        p_list.add(new patient("Char", "Aznable", "N/A", "redcomet", "password", "11/17/0059", 5959, 77777, "address", "Washington", "District of Columbia", "205-346-3562", true));
+        p_list.add(new patient("Haman", "Karn", "N/A", "qubeley", "password", "01/10/0081", 8989, 88888, "address", "Austin", "Texas", "235-645-3294", true));
+        p_list.add(new patient("Judau", "Ashta", "N/A", "zz", "password", "09/10/0073", 1432, 99999, "address", "Boston", "Massachusetts", "205-345-3452", false));
+        p_list.add(new patient("Kamille", "Bidan", "N/A", "zeta", "password", "11/11/0069", 9376, 66666, "address", "Harrison", "Pennsylvania", "205-345-3452", false));
 
         // patients with same first and last name
-        p_list.add(new patient("John", "Doe", "N/A", "alpha", "password", "11/11/1991", 1221, 11111, "address", "Seattle", "Washington", "202-232-3563"));
-        p_list.add(new patient("John", "Doe", "N/A", "beta", "password", "01/22/2011", 1451, 22222, "address", "New York", "New York", "901-766-9087"));
+        p_list.add(new patient("John", "Doe", "N/A", "alpha", "password", "11/11/1991", 1221, 11111, "address", "Seattle", "Washington", "202-232-3563", false));
+        p_list.add(new patient("John", "Doe", "N/A", "beta", "password", "01/22/2011", 1451, 22222, "address", "New York", "New York", "901-766-9087", false));
 
 
         //sample staff object within the staff list
@@ -59,11 +62,11 @@ public class system {
     //will return false if patient already exists within database
 
     public boolean add_patient(String f_name, String l_name, String m_name, String user_name, String password, String dob,
-                               int SSN, int zip, String address, String city, String state, String p_number) {
+                               int SSN, int zip, String address, String city, String state, String p_number, boolean policy) {
 
         //check if the patient exists
         if (patient_exists(user_name, password)) return false;
-        p_list.add(new patient(f_name, l_name, m_name, user_name, password, dob, SSN, zip, address, city, state, p_number));
+        p_list.add(new patient(f_name, l_name, m_name, user_name, password, dob, SSN, zip, address, city, state, p_number, policy));
         return true;
     }
 
@@ -184,10 +187,19 @@ public class system {
         return date_list.get(s);
     }
 
-
+    
     public String lookUpAppointmentDate(patient patient) {
         if (!lookupDateMap.containsKey(patient))
             return "";
         return lookupDateMap.get(patient);
     }
+    
+    //appointment charge
+    public int charge(patient p, String charge) {
+    	if(p.policy) {
+    		return cost_list.get(charge) - COPAY;
+    	} else {
+    		return cost_list.get(charge);
+    	}
+    }   
 }
