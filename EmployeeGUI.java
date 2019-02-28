@@ -19,20 +19,16 @@
  *  	-what fields do we want on the billing tab?
  *
  */
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JButton;
-import javax.swing.JTabbedPane;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
+import javax.swing.*;
+import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
-import javax.swing.JComboBox;
+import java.util.HashMap;
+
 import com.github.lgooddatepicker.components.DatePicker;
 import com.github.lgooddatepicker.components.DatePickerSettings;
 import com.github.lgooddatepicker.components.TimePicker;
@@ -57,21 +53,21 @@ public class EmployeeGUI extends JPanel {
     JButton loginButton;
 
     /* Employee Window (Tabbed Pane) */
-    // 4 Tabs: Calendar, Patient Information, Billing, Search
+    // 5 Tabs: Appointments, Patient Information, Billing, Search, Calendar
     JTabbedPane tabbedPane;
 
-    // TAB 1: Calendar
-    JPanel calTab;
-    GridBagConstraints calendarConstraints;
-    JLabel cal_chooseDateAndTimeLabel, cal_currentAppointmentLabel,
-            cal_patientSSNLabel, cal_patientNameLabel, cal_lookUpAppointmentLabel,
+    // TAB 1: Appointments
+    JPanel appTab;
+    GridBagConstraints appointmentConstraints;
+    JLabel app_chooseDateAndTimeLabel, cal_currentAppointmentLabel,
+            cal_patientSSNLabel, app_patientNameLabel, app_lookUpAppointmentLabel,
             cal_currentPatientLabel;
     JTextField cal_currentAppointmentTextField, cal_SSNTextField,
-            cal_patientNameTextField, cal_lookUpAppointmentTextField,
+            app_patientNameTextField, app_lookUpAppointmentTextField,
             cal_currentPatientTextField;
     DatePicker datePicker;
     TimePicker timePicker;
-    JButton cal_requestAppointmentButton, cal_cancelAppointmentButton, cal_lookUpAppointmentButton;
+    JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
 
 
     // TAB 2: Patient Information
@@ -118,6 +114,15 @@ public class EmployeeGUI extends JPanel {
     JComboBox<String> search_choosePatientCB;
     ArrayList<patient> patientsFound;
 
+    // TAB 5: Calendar
+    JPanel calTab;
+    GridBagConstraints calendarConstraints;
+    JLabel cal_calendarLabel, cal_chooseDateLabel, cal_calendarDisplayLabel;
+    JButton cal_chooseDateButton;
+    DatePicker cal_datePicker;
+    JTable cal_table;
+    JScrollPane cal_scrollPane;
+
     // Constructor
     public EmployeeGUI() {
         initialize();
@@ -137,16 +142,18 @@ public class EmployeeGUI extends JPanel {
         // ** initialize JTabbedPane **
         tabbedPane = new JTabbedPane();
 
-        initializeCalendarTab();
+        initializeAppointmentsTab();
         initializePatientInfoTab();
         initializeBillingTab();
         initializeSearchTab();
+        initializeCalendarTab();
 
         // add panels to tabbed pane
-        tabbedPane.add("Calendar", calTab);
+        tabbedPane.add("Appointments", appTab);
         tabbedPane.add("Patient Information", patientTab);
         tabbedPane.add("Billing", billingTab);
         tabbedPane.add("Search", searchTab);
+        tabbedPane.add("Calendar", calTab);
 
         // set up login panel - what is shown first to Employee
         add(loginPanel, BorderLayout.CENTER);
@@ -159,9 +166,9 @@ public class EmployeeGUI extends JPanel {
         loginButton.addActionListener(e -> login());
 
         // Calendar Tab listeners
-        cal_requestAppointmentButton.addActionListener(e -> cal_requestAppointment());
-        cal_lookUpAppointmentButton.addActionListener(e -> cal_lookUpAppointment());
-        cal_cancelAppointmentButton.addActionListener(e -> cal_cancelAppointment());
+        app_requestAppointmentButton.addActionListener(e -> app_requestAppointment());
+        app_lookUpAppointmentButton.addActionListener(e -> app_lookUpAppointment());
+        app_cancelAppointmentButton.addActionListener(e -> app_cancelAppointment());
 
         // Patient Info Tab Listeners
         pInfo_submitNewInfoButton.addActionListener(e -> pInfo_createNew());
@@ -174,12 +181,15 @@ public class EmployeeGUI extends JPanel {
         search_searchButton.addActionListener(e -> searchPatient());
         search_selectPatientFoundButton.addActionListener(e -> search_selectPatientToDisplay());
 
+        // Calendar Tab Listeners
+        cal_chooseDateButton.addActionListener(e -> search_date());
+
     }// end initialize()
 
     /* START initialize() related Functions (called within constructor) */
 
     // LogIn Panel
-    private void initializeLogInPanel(){
+    private void initializeLogInPanel() {
 
         // set up Login Panel
         loginPanel = new JPanel(new GridBagLayout());
@@ -188,7 +198,7 @@ public class EmployeeGUI extends JPanel {
         login_directionLabel = new JLabel("Employee Login");
         login_usernameLabel = new JLabel("Username:");
         login_passwordLabel = new JLabel("Password:");
-        login_directionLabel.setFont(new java.awt.Font(login_directionLabel.getFont().getFontName(), Font.PLAIN, 40));
+        login_directionLabel.setFont(new Font(login_directionLabel.getFont().getFontName(), Font.PLAIN, 40));
 
         login_usernameTextField = new JTextField(12);
         login_passwordField = new JPasswordField(12);
@@ -243,100 +253,101 @@ public class EmployeeGUI extends JPanel {
 
     } // end initializeLogInPanel
 
-    // TAB 1: Calendar
-    private void initializeCalendarTab(){
+    // TAB 1: Appointments
+    private void initializeAppointmentsTab() {
 
-        calTab = new JPanel(new GridBagLayout());
-        calendarConstraints = new GridBagConstraints();
+        appTab = new JPanel(new GridBagLayout());
+        appointmentConstraints = new GridBagConstraints();
 
-        cal_chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
-        cal_patientNameLabel = new JLabel("Patient Name:");
-        cal_lookUpAppointmentLabel = new JLabel("Look Up Patient's Existing Appointment");
-        cal_chooseDateAndTimeLabel.setFont(new java.awt.Font(cal_chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 30));
-        cal_lookUpAppointmentLabel.setFont(new java.awt.Font(cal_lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
+        app_chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
+        app_patientNameLabel = new JLabel("Patient Name:");
+        app_lookUpAppointmentLabel = new JLabel("Look Up Patient's Existing Appointment");
+        app_chooseDateAndTimeLabel.setFont(new java.awt.Font(app_chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 30));
+        app_lookUpAppointmentLabel.setFont(new java.awt.Font(app_lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
 
 
-        datePicker = createDatePicker();
+        datePicker = createDatePicker(true);
         timePicker = createTimePicker();
 
-        cal_patientNameTextField = new JTextField(12);
-        cal_patientNameTextField.setEditable(false);
-        cal_lookUpAppointmentTextField = new JTextField(15);
-        cal_lookUpAppointmentTextField.setEditable(false);
-        cal_lookUpAppointmentTextField.setBackground(Color.white);
+        app_patientNameTextField = new JTextField(12);
+        app_patientNameTextField.setEditable(false);
+        app_patientNameTextField.setBackground(Color.white);
+        app_lookUpAppointmentTextField = new JTextField(15);
+        app_lookUpAppointmentTextField.setEditable(false);
+        app_lookUpAppointmentTextField.setBackground(Color.white);
 
-        cal_requestAppointmentButton = new JButton("Request Appointment");
-        cal_cancelAppointmentButton = new JButton("Cancel Appointment");
-        cal_lookUpAppointmentButton = new JButton("Look Up Appointment");
+        app_requestAppointmentButton = new JButton("Request Appointment");
+        app_cancelAppointmentButton = new JButton("Cancel Appointment");
+        app_lookUpAppointmentButton = new JButton("Look Up Appointment");
 
-        // add components to calendar panel
+        // add components to appointments panel
 
-        // calendar directions label
-        calendarConstraints.gridx = 10;
-        calendarConstraints.gridy = 10;
-        calendarConstraints.weightx = 1;
-        calendarConstraints.weighty = 0.2;
-        calendarConstraints.anchor = GridBagConstraints.NORTH;
-        calendarConstraints.insets = new Insets(20, 0, 0, 0);
-        calTab.add(cal_chooseDateAndTimeLabel, calendarConstraints);
+        // appointments directions label
+        appointmentConstraints.gridx = 10;
+        appointmentConstraints.gridy = 10;
+        appointmentConstraints.weightx = 1;
+        appointmentConstraints.weighty = 0.2;
+        appointmentConstraints.anchor = GridBagConstraints.NORTH;
+        appointmentConstraints.insets = new Insets(20, 0, 0, 0);
+        appTab.add(app_chooseDateAndTimeLabel, appointmentConstraints);
 
 
         // add patient name label
-        calendarConstraints.anchor = GridBagConstraints.NORTHEAST;
-        calendarConstraints.insets = new Insets(10, 0, 0, 40);
-        calTab.add(cal_patientNameLabel, calendarConstraints);
+        appointmentConstraints.anchor = GridBagConstraints.NORTHEAST;
+        appointmentConstraints.insets = new Insets(10, 0, 0, 40);
+        appTab.add(app_patientNameLabel, appointmentConstraints);
 
         // add patient name textfield
-        calendarConstraints.insets = new Insets(35, 0, 0, 10);
-        calTab.add(cal_patientNameTextField, calendarConstraints);
+        appointmentConstraints.insets = new Insets(35, 0, 0, 10);
+        appTab.add(app_patientNameTextField, appointmentConstraints);
 
         // add date picker
-        calendarConstraints.gridy = 20;
-        calendarConstraints.weightx = 0;
-        calendarConstraints.weighty = 0.1;
-        calendarConstraints.anchor = GridBagConstraints.NORTH;
-        calendarConstraints.insets = new Insets(10, 0, 0, 110);
-        calTab.add(datePicker, calendarConstraints);
+        appointmentConstraints.gridy = 20;
+        appointmentConstraints.weightx = 0;
+        appointmentConstraints.anchor = GridBagConstraints.CENTER;
+        appointmentConstraints.insets = new Insets(20, 0, 0, 110);
+        appTab.add(datePicker, appointmentConstraints);
 
         // add time picker
-        calendarConstraints.insets = new Insets(10, 160, 0, 0);
-        calTab.add(timePicker, calendarConstraints);
+        appointmentConstraints.insets = new Insets(20, 160, 0, 0);
+        appTab.add(timePicker, appointmentConstraints);
 
-        // add request appt button
-        calendarConstraints.gridy = 30;
-        calendarConstraints.weighty = 0.4;
-        calendarConstraints.ipady = 10;
-        calendarConstraints.insets = new Insets(10, 0, 0, 170);
-        calTab.add(cal_requestAppointmentButton, calendarConstraints);
+        // add request appointment button
+        appointmentConstraints.gridy = 30;
+        appointmentConstraints.weighty = 1;
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.anchor = GridBagConstraints.NORTH;
+        appointmentConstraints.insets = new Insets(30, 0, 0, 170);
+        appTab.add(app_requestAppointmentButton, appointmentConstraints);
 
-        // add cancel appt button
-        calendarConstraints.ipady = 10;
-        calendarConstraints.insets = new Insets(10, 170, 0, 0);
-        calTab.add(cal_cancelAppointmentButton, calendarConstraints);
+        // add cancel appointment button
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.insets = new Insets(30, 170, 0, 0);
+        appTab.add(app_cancelAppointmentButton, appointmentConstraints);
 
-        // add lookup appt label
-        calendarConstraints.ipady = 0;
-        calendarConstraints.gridy = 40;
-        calendarConstraints.weighty = 0.2;
-        calendarConstraints.insets = new Insets(0, 0, 0, 0);
-        calTab.add(cal_lookUpAppointmentLabel, calendarConstraints);
+        // add lookup appointment label
+        appointmentConstraints.ipady = 0;
+        appointmentConstraints.gridy = 40;
+        appointmentConstraints.weighty = 0.2;
+        appointmentConstraints.insets = new Insets(0, 0, 0, 0);
+        appTab.add(app_lookUpAppointmentLabel, appointmentConstraints);
 
         // add lookup appt button
-        calendarConstraints.ipady = 10;
-        calendarConstraints.weighty = 1;
-        calendarConstraints.gridy = 50;
-        calendarConstraints.insets = new Insets(0, 0, 0, 195);
-        calTab.add(cal_lookUpAppointmentButton, calendarConstraints);
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.weighty = 1;
+        appointmentConstraints.gridy = 50;
+        appointmentConstraints.insets = new Insets(0, 0, 0, 195);
+        appTab.add(app_lookUpAppointmentButton, appointmentConstraints);
 
         // add lookup appt text field
-        calendarConstraints.ipady = 5;
-        calendarConstraints.insets = new Insets(5, 180, 0, 0);
-        calTab.add(cal_lookUpAppointmentTextField, calendarConstraints);
+        appointmentConstraints.ipady = 5;
+        appointmentConstraints.insets = new Insets(5, 180, 0, 0);
+        appTab.add(app_lookUpAppointmentTextField, appointmentConstraints);
 
-    }// end initializeCalendarTab
+    }// end initializeAppointmentsTab
 
     // TAB 2: Patient Information
-    private void initializePatientInfoTab(){
+    private void initializePatientInfoTab() {
 
         patientTab = new JPanel(new GridBagLayout());
         patientTabConstraints = new GridBagConstraints();
@@ -516,7 +527,7 @@ public class EmployeeGUI extends JPanel {
     } // end initializePatientInfoTab()s
 
     // TAB 3: Billing
-    private void initializeBillingTab(){
+    private void initializeBillingTab() {
 
         billingTab = new JPanel(new GridBagLayout());
         billingTabConstraints = new GridBagConstraints();
@@ -614,7 +625,7 @@ public class EmployeeGUI extends JPanel {
     } // end initializeBillingTab()
 
     // TAB 4: Search
-    private void initializeSearchTab(){
+    private void initializeSearchTab() {
 
         searchTab = new JPanel(new GridBagLayout());
         searchTabConstraints = new GridBagConstraints();
@@ -698,13 +709,103 @@ public class EmployeeGUI extends JPanel {
 
     } // end initializeBillingTab()
 
+    // TAB 5: Calendar
+    private void initializeCalendarTab() {
+
+        calTab = new JPanel(new GridBagLayout());
+        calendarConstraints = new GridBagConstraints();
+
+        // calendar
+        cal_calendarLabel = new JLabel("Search Appointments");
+        cal_chooseDateLabel = new JLabel("Choose Date");
+        cal_calendarDisplayLabel = new JLabel("Calendar");
+        cal_chooseDateButton = new JButton("Look Up");
+        cal_datePicker = createDatePicker(false);
+
+        // set font
+        cal_calendarLabel.setFont(new Font((cal_calendarLabel.getFont().getFontName()), Font.PLAIN, 40));
+
+        // create table
+
+        String[] columnNames = {"Time", "Date"};
+        String[][] data = {
+                {"", cal_datePicker.getText()},
+                {"9:00am", ""}, {"10:00am", ""},
+                {"11:00am", ""}, {"12:00pm", ""},
+                {"1:00pm", ""}, {"2:00pm", ""},
+                {"3:00pm", ""}, {"4:00pm", ""}};
+
+        cal_table = new JTable(data, columnNames);
+        cal_table.setRowHeight(20);
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        cal_table.getColumnModel().getColumn(0).setCellRenderer(centerRenderer);
+        cal_table.getColumnModel().getColumn(1).setCellRenderer(centerRenderer);
+
+        cal_scrollPane = new JScrollPane(cal_table);
+        cal_scrollPane.setPreferredSize(new Dimension(220, 203));
+
+
+        // add calendar label
+        calendarConstraints.gridx = 10;
+        calendarConstraints.gridy = 10;
+        //calendarConstraints.weightx = 1;
+        calendarConstraints.weighty = 0.2;
+        calendarConstraints.gridwidth = 20;
+        calendarConstraints.anchor = GridBagConstraints.NORTH;
+        calendarConstraints.insets = new Insets(30, 0, 0, 0);
+
+        calTab.add(cal_calendarLabel, calendarConstraints);
+
+        // add chooseDateLabel
+        //calendarConstraints.gridx = 10;
+        calendarConstraints.gridy = 20;
+        calendarConstraints.weightx = 1;
+        calendarConstraints.weighty = 0.1;
+        calendarConstraints.gridwidth = 10;
+        calendarConstraints.anchor = GridBagConstraints.NORTHEAST;
+        calendarConstraints.insets = new Insets(30, 0, 0, 100);
+
+        calTab.add(cal_chooseDateLabel, calendarConstraints);
+
+        // add datePicker
+        calendarConstraints.anchor = GridBagConstraints.EAST;
+        calendarConstraints.insets = new Insets(0, 0, 215, 50);
+
+        calTab.add(cal_datePicker, calendarConstraints);
+
+        // add choose date button
+        calendarConstraints.weighty = 1;
+        calendarConstraints.ipady = 5;
+        //calendarConstraints.anchor = GridBagConstraints.WEST;
+        calendarConstraints.insets = new Insets(0, 0, 115, 100);
+
+        calTab.add(cal_chooseDateButton, calendarConstraints);
+
+        // add calendar label
+        calendarConstraints.gridx = 20;
+        calendarConstraints.ipady = 0;
+        calendarConstraints.weighty = 0.2;
+        calendarConstraints.anchor = GridBagConstraints.NORTHWEST;
+        calendarConstraints.insets = new Insets(30, 135, 0, 0);
+
+        calTab.add(cal_calendarDisplayLabel, calendarConstraints);
+
+        // add calendar table
+        calendarConstraints.weighty = 1;
+        calendarConstraints.anchor = GridBagConstraints.WEST;
+        calendarConstraints.insets = new Insets(0, 50, 35, 0);
+
+        calTab.add(cal_scrollPane, calendarConstraints);
+    }
+
     /* END initialize() related functions*/
 
     /* START Action Listener related Functions */
 
     // Login Listeners
 
-    private void login(){
+    private void login() {
 
         if (String.valueOf(login_usernameTextField.getText()).equals(""))
             JOptionPane.showMessageDialog
@@ -733,27 +834,21 @@ public class EmployeeGUI extends JPanel {
 
     // Calendar Tab Listeners
 
-    private void cal_requestAppointment(){
-
-
-        if (!cal_patientNameTextField.getText().equals((""))) {
+    private void app_requestAppointment() {
+        if (!app_patientNameTextField.getText().equals((""))) {
             patient = MainGUI.pimsSystem.patient_details
                     (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_ssnTextField.getText()));
-
             if (patient != null) {
-
                 String message = MainGUI.pimsSystem.add_date(datePicker.getText(), timePicker.getText(), patient);
                 JOptionPane.showMessageDialog(null, message);
             }
-        }
-
-        else {
+        } else {
             JOptionPane.showMessageDialog(null, "Must Search a Patient First (Search Tab)");
         }
-    } // end cal_requestAppointment
+    } // end app_requestAppointment
 
-    private void cal_cancelAppointment(){
-        if (!cal_patientNameTextField.getText().equals((""))) {
+    private void app_cancelAppointment() {
+        if (!app_patientNameTextField.getText().equals((""))) {
             if (!pInfo_lastNameTextField.getText().equals((""))) {
                 patient = MainGUI.pimsSystem.patient_details
                         (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_ssnTextField.getText()));
@@ -762,31 +857,30 @@ public class EmployeeGUI extends JPanel {
                             (null, "No Appointment Scheduled At This Time");
                 else {
                     JOptionPane.showMessageDialog(null, "Appointment Deleted");
-                    cal_lookUpAppointmentTextField.setText("");
+                    app_lookUpAppointmentTextField.setText("");
                 }
             } else {
                 JOptionPane.showMessageDialog(null, "Must Search a Patient First (Search Tab)");
             }
         }
-    }// end cal_cancelAppointment
+    }// end app_cancelAppointment
 
-    private void cal_lookUpAppointment(){
-        if (!cal_patientNameTextField.getText().equals((""))) {
+    private void app_lookUpAppointment() {
+        if (!app_patientNameTextField.getText().equals((""))) {
             patient = MainGUI.pimsSystem.patient_details
                     (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_ssnTextField.getText()));
             String appointment = MainGUI.pimsSystem.lookUpAppointmentDate(patient);
             if (appointment.equals(""))
                 JOptionPane.showMessageDialog
                         (null, "Requested patient has no Appointment Scheduled At This Time");
-            else cal_lookUpAppointmentTextField.setText(appointment);
-        }
-        else {
+            else app_lookUpAppointmentTextField.setText(appointment);
+        } else {
             JOptionPane.showMessageDialog(null, "Must Search a Patient First (Search Tab)");
         }
-    }// end cal_cancelAppointment
+    }// end app_cancelAppointment
 
     // Patient Info Tab Listeners
-    private void pInfo_updateExisting(){
+    private void pInfo_updateExisting() {
 
         // values to test if there are no input errors
         boolean emptyFields = true, illegalFields = true;
@@ -971,16 +1065,14 @@ public class EmployeeGUI extends JPanel {
             patient.zip = Integer.parseInt(pInfo_zipCodeTextField.getText());
             patient.user_name = pInfo_userField.getText();
             patient.password = pInfo_pwField.getText();
-        }
-
-        else if (!String.valueOf(errorMessage).equals("Must Enter"))
+        } else if (!String.valueOf(errorMessage).equals("Must Enter"))
             JOptionPane.showMessageDialog(null, errorMessage);
 
         else if (patient == null)
             JOptionPane.showMessageDialog(null, "Error");
     } // end pInfo_updateExisting
 
-    private void pInfo_createNew(){
+    private void pInfo_createNew() {
 
         // values to test if there are no input errors
         boolean emptyFields = true, illegalFields = true;
@@ -1167,7 +1259,7 @@ public class EmployeeGUI extends JPanel {
                         pInfo_dobTextField.getText(),
                         Integer.parseInt(pInfo_ssnTextField.getText()), Integer.parseInt(pInfo_zipCodeTextField.getText()),
                         pInfo_addressTextField.getText(), pInfo_cityTextField.getText(),
-                        String.valueOf(pInfo_stateComboBox.getSelectedItem()), pInfo_phoneNumberTextField.getText());
+                        String.valueOf(pInfo_stateComboBox.getSelectedItem()), pInfo_phoneNumberTextField.getText(), true);
 
                 // set the patient info panel in the tabbed pane to
                 // to info from the create new info patient panel
@@ -1184,7 +1276,7 @@ public class EmployeeGUI extends JPanel {
 
     // Billing Tab Listeners
 
-    private void billing_calculate(){
+    private void billing_calculate() {
 
         // need to search patient before calculating amount due?
 
@@ -1192,7 +1284,7 @@ public class EmployeeGUI extends JPanel {
                 "Calculate", JOptionPane.DEFAULT_OPTION);
 
     	/*
-    	 * Holding space for back end code
+         * Holding space for back end code
     	 */
 
     }// end billing_calculate
@@ -1248,7 +1340,7 @@ public class EmployeeGUI extends JPanel {
         }
 
         // one patient found
-        else if (patientsFound.size() == 1){
+        else if (patientsFound.size() == 1) {
 
             // do not display drop down list
             search_searchResultLabel.setVisible(false);
@@ -1276,7 +1368,7 @@ public class EmployeeGUI extends JPanel {
         }
     } // end searchPatient
 
-    private void search_selectPatientToDisplay(){
+    private void search_selectPatientToDisplay() {
 
         // grab selected patient
         patient patientFound = patientsFound.get((search_choosePatientCB.getSelectedIndex()));
@@ -1291,13 +1383,13 @@ public class EmployeeGUI extends JPanel {
      */
     private void search_fillPatientFoundData(patient toDisplay) {
 
-        if (toDisplay != null){
+        if (toDisplay != null) {
             JOptionPane.showMessageDialog(this, "Filling in Information for Patient Found",
                     "Filling in Info", JOptionPane.DEFAULT_OPTION);
 
-            // Calendar Tab
-            cal_lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
-            cal_patientNameTextField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
+            // Appointment Tab
+            app_lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
+            app_patientNameTextField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
 
             // Patient Info Tab
             pInfo_lastNameTextField.setText(toDisplay.l_name);
@@ -1318,15 +1410,14 @@ public class EmployeeGUI extends JPanel {
             billing_ssnField.setText(Integer.toString(toDisplay.SSN));
 
     		/* TO DO
-    		 *
+             *
     		 * -ask how to add policy and patient history to patient class
     		 */
 
             repaint();
             revalidate();
 
-        }
-        else
+        } else
             JOptionPane.showMessageDialog(this, "No Patient to Select. Make a search first",
                     "Filling in Info", JOptionPane.DEFAULT_OPTION);
 
@@ -1358,40 +1449,87 @@ public class EmployeeGUI extends JPanel {
         return true;
     }  // end constructor
 
+    // search date method
+    private void search_date() {
+        System.out.println("foo");
+        String date = cal_datePicker.getText();
+        HashMap<String, patient[]> tempMap =
+                MainGUI.pimsSystem.getStaff_lookupAppointmentsMap();
+        patient patient;
+        String temp = "";
+        cal_table.setValueAt(date, 0, 1);
+        if (!tempMap.containsKey(date)) {
+            for (int i = 1; i < 9; i++) {
+                cal_table.setValueAt("No Appointment", i, 1);
+            }
+        } else {
+            patient[] tempArray = tempMap.get(date);
+            if (tempArray[0] != null) {
+                patient = tempArray[0];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 1, 1);
+            } else cal_table.setValueAt("No Appointment", 1, 1);
+            if (tempArray[1] != null) {
+                patient = tempArray[1];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 2, 1);
+            } else cal_table.setValueAt("No Appointment", 2, 1);
+            if (tempArray[2] != null) {
+                patient = tempArray[2];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 3, 1);
+            } else cal_table.setValueAt("No Appointment", 3, 1);
+            if (tempArray[3] != null) {
+                patient = tempArray[3];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 4, 1);
+            } else cal_table.setValueAt("No Appointment", 4, 1);
+            if (tempArray[4] != null) {
+                patient = tempArray[4];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 5, 1);
+            } else cal_table.setValueAt("No Appointment", 5, 1);
+            if (tempArray[5] != null) {
+                patient = tempArray[5];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 6, 1);
+            } else cal_table.setValueAt("No Appointment", 6, 1);
+            if (tempArray[6] != null) {
+                patient = tempArray[6];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 7, 1);
+            } else cal_table.setValueAt("No Appointment", 7, 1);
+            if (tempArray[7] != null) {
+                patient = tempArray[7];
+                temp = patient.f_name + " " + patient.l_name;
+                cal_table.setValueAt(temp, 8, 1);
+            } else cal_table.setValueAt("No Appointment", 8, 1);
+        }
+    }
+
     // method to parse the DOB and make
     // sure it's in the "MM/DD/YYYY" format
     private boolean dobParser(String string) {
-
         if (!Character.isDigit(string.charAt(0)))
             return false;
-
         else if (!Character.isDigit(string.charAt(1)))
             return false;
-
         else if (string.charAt(2) != '/')
             return false;
-
         else if (!Character.isDigit(string.charAt(3)))
             return false;
-
         else if (!Character.isDigit(string.charAt(4)))
             return false;
-
         else if (string.charAt(5) != '/')
             return false;
-
         else if (!Character.isDigit(string.charAt(6)))
             return false;
-
         else if (!Character.isDigit(string.charAt(7)))
             return false;
-
         else if (!Character.isDigit(string.charAt(8)))
             return false;
-
         else if (!Character.isDigit(string.charAt(9)))
             return false;
-
         return true;
     } // end dobParser
 
@@ -1399,43 +1537,30 @@ public class EmployeeGUI extends JPanel {
     // method to parse the phone number and make
     // sure it's in the "###-###-####" format
     private boolean phoneNumberParser(String string) {
-
         if (!Character.isDigit(string.charAt(0)))
             return false;
-
         else if (!Character.isDigit(string.charAt(1)))
             return false;
-
         else if (!Character.isDigit(string.charAt(2)))
             return false;
-
         else if (string.charAt(3) != '-')
             return false;
-
         else if (!Character.isDigit(string.charAt(4)))
             return false;
-
         else if (!Character.isDigit(string.charAt(5)))
             return false;
-
         else if (!Character.isDigit(string.charAt(6)))
             return false;
-
         else if (string.charAt(7) != '-')
             return false;
-
         else if (!Character.isDigit(string.charAt(8)))
             return false;
-
         else if (!Character.isDigit(string.charAt(9)))
             return false;
-
         else if (!Character.isDigit(string.charAt(10)))
             return false;
-
         else if (!Character.isDigit(string.charAt(11)))
             return false;
-
         return true;
 
     } // end phoneNumberParser
@@ -1445,28 +1570,23 @@ public class EmployeeGUI extends JPanel {
 	/* START Calendar Tab: DatePicker & TimePicker related methods */
 
     // method to create a date picker
-    private DatePicker createDatePicker() {
-
+    private DatePicker createDatePicker(boolean veto) {
         DatePickerSettings datePickerSettings = new DatePickerSettings();
-
         datePickerSettings.setAllowEmptyDates(false);
         datePickerSettings.setAllowKeyboardEditing(false);
-
         DatePicker datePicker = new DatePicker(datePickerSettings);
-
-        // If today is Saturday or Sunday, this sets the default
-        // to the following Monday
-        if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(3));
-        } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
-            datePicker.setDate(LocalDate.now().plusDays(2));
-        } else datePicker.setDate(LocalDate.now().plusDays(1));
-
-        // Veto Policy to disallow weekends
-        datePickerSettings.setVetoPolicy(new VetoWeekends());
-
+        if (veto) {
+            // If today is Saturday or Sunday, this sets the default
+            // to the following Monday
+            if (LocalDate.now().getDayOfWeek() == DayOfWeek.SATURDAY) {
+                datePicker.setDate(LocalDate.now().plusDays(3));
+            } else if (LocalDate.now().getDayOfWeek() == DayOfWeek.SUNDAY) {
+                datePicker.setDate(LocalDate.now().plusDays(2));
+            } else datePicker.setDate(LocalDate.now().plusDays(1));
+            // Veto Policy to disallow weekends
+            datePickerSettings.setVetoPolicy(new VetoDates());
+        } else datePicker.setDate(LocalDate.now());
         return datePicker;
-
     } // end createDatePicker
 
     // method to create a time picker

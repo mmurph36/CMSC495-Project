@@ -1,10 +1,11 @@
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 
 /**
  * @author Kamran Lotfian
- *	Main Class that houses all the functionality of the backend that will be called by the GUI
+ * Main Class that houses all the functionality of the backend that will be called by the GUI
  */
 
 public class system {
@@ -13,10 +14,11 @@ public class system {
     static ArrayList<staff> d_list;
     static HashMap<String, patient> date_list;
     static HashMap<patient, String> lookupDateMap;
-    static HashMap<String, Integer> cost_list; 
+    static HashMap<String, patient[]> staff_lookupAppointmentsMap;
+    static HashMap<String, Integer> cost_list;
 
     static int COPAY = 50;
-    
+
     // added constructor by eh
 
     public system() {
@@ -24,7 +26,9 @@ public class system {
         d_list = new ArrayList<>();
         date_list = new HashMap<>();
         lookupDateMap = new HashMap<>();
-        
+        staff_lookupAppointmentsMap = new HashMap<>();
+
+
         cost_list = new HashMap<>();
         cost_list.put("CHECKUP", 300);
         cost_list.put("PHYSICAL", 250);
@@ -157,7 +161,44 @@ public class system {
         else {
             date_list.put(s, p);
             lookupDateMap.put(p, s);
+            addDateToStaffCalendar(date, time, p);
             return "Appointment Saved";
+        }
+    }
+
+    // adds date to staff calendar
+    private void addDateToStaffCalendar(String date, String time, patient patient) {
+        if (!staff_lookupAppointmentsMap.containsKey(date)) {
+            patient[] times = new patient[8];
+            staff_lookupAppointmentsMap.put(date, times);
+        }
+        patient[] tempArray = staff_lookupAppointmentsMap.get(date);
+
+        switch (time) {
+            case "9:00am":
+                tempArray[0] = patient;
+                break;
+            case "10:00am":
+                tempArray[1] = patient;
+                break;
+            case "11:00am":
+                tempArray[2] = patient;
+                break;
+            case "12:00pm":
+                tempArray[3] = patient;
+                break;
+            case "1:00pm":
+                tempArray[4] = patient;
+                break;
+            case "2:00pm":
+                tempArray[5] = patient;
+                break;
+            case "3:00pm":
+                tempArray[6] = patient;
+                break;
+            case "4:00pm":
+                tempArray[7] = patient;
+                break;
         }
     }
 
@@ -168,7 +209,58 @@ public class system {
         String date_time = lookupDateMap.get(patient);
         date_list.remove(date_time);
         lookupDateMap.remove(patient);
+
+        String date = "";
+        String time = "";
+        int i = 0;
+        while (true) {
+            if (date_time.charAt(i) != ' ') {
+                date += date_time.charAt(i);
+                i++;
+            } else break;
+        }
+        while (i < date_time.length()) {
+            time += date_time.charAt(i);
+            i++;
+        }
+        deleteDateFromStaffCalendar(date, time, patient);
         return true;
+    }
+
+    // deletes date from staff calendar
+    private void deleteDateFromStaffCalendar(String date, String time, patient patient) {
+        if (!staff_lookupAppointmentsMap.containsKey(date)) {
+            JOptionPane.showMessageDialog(null, "Error");
+        } else {
+            patient[] tempArray = staff_lookupAppointmentsMap.get(date);
+
+            switch (time) {
+                case "9:00am":
+                    tempArray[0] = patient;
+                    break;
+                case "10:00am":
+                    tempArray[1] = patient;
+                    break;
+                case "11:00am":
+                    tempArray[2] = patient;
+                    break;
+                case "12:00pm":
+                    tempArray[3] = patient;
+                    break;
+                case "1:00pm":
+                    tempArray[4] = patient;
+                    break;
+                case "2:00pm":
+                    tempArray[5] = patient;
+                    break;
+                case "3:00pm":
+                    tempArray[6] = patient;
+                    break;
+                case "4:00pm":
+                    tempArray[7] = patient;
+                    break;
+            }
+        }
     }
 
 
@@ -187,19 +279,23 @@ public class system {
         return date_list.get(s);
     }
 
-    
+
     public String lookUpAppointmentDate(patient patient) {
         if (!lookupDateMap.containsKey(patient))
             return "";
         return lookupDateMap.get(patient);
     }
-    
+
     //appointment charge
     public int charge(patient p, String charge) {
-    	if(p.policy) {
-    		return cost_list.get(charge) - COPAY;
-    	} else {
-    		return cost_list.get(charge);
-    	}
-    }   
+        if (p.policy) {
+            return cost_list.get(charge) - COPAY;
+        } else {
+            return cost_list.get(charge);
+        }
+    }
+
+    public HashMap<String, patient[]> getStaff_lookupAppointmentsMap() {
+        return staff_lookupAppointmentsMap;
+    }
 }
