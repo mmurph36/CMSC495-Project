@@ -15,7 +15,7 @@ public class system {
     static HashMap<String, patient> date_list;
     static HashMap<patient, String> lookupDateMap;
     static HashMap<String, patient[]> staff_lookupAppointmentsMap;
-    static HashMap<String, Integer> cost_list;
+    static HashMap<String, Double> cost_list;
 
     static int COPAY = 50;
 
@@ -29,10 +29,10 @@ public class system {
         staff_lookupAppointmentsMap = new HashMap<>();
 
 
-        cost_list = new HashMap<>();
-        cost_list.put("CHECKUP", 300);
-        cost_list.put("PHYSICAL", 250);
-        cost_list.put("DIAGNOSTIC", 500);
+        cost_list = new HashMap<String, Double>();
+        cost_list.put("CHECKUP", 300.0);
+        cost_list.put("PHYSICAL", 250.0);
+        cost_list.put("DIAGNOSTIC", 500.0);
 
 
         // First, Last, Middle (optional), username, password, DOB (MM/DD/YYYY), Last 4 SSN, Zip Code, Address, City, State (full name), Phone # (###-###-####)
@@ -287,12 +287,33 @@ public class system {
     }
 
     //appointment charge
-    public int charge(patient p, String charge) {
+    public double charge(patient p, String charge) {
+    	/*
         if (p.policy) {
             return cost_list.get(charge) - COPAY;
         } else {
             return cost_list.get(charge);
+        } */
+    	
+    	if (p.policy) {
+            return COPAY;
+        } else {
+            return cost_list.get(charge);
         }
+    }
+    
+    public boolean recordApptPayment(patient patient, String charge){
+    	
+    	
+    	String appt = lookUpAppointmentDate(patient);
+    	
+    	if (patient != null & !appt.equals("")){
+    		
+    		patient.apptPaymentHistory.add("Paid: $" + charge + " for the appointment on: " + appt);
+    		return true;
+    	}
+    	else
+    		return false;
     }
 
     public HashMap<String, patient[]> getStaff_lookupAppointmentsMap() {
