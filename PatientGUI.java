@@ -88,14 +88,14 @@ public class PatientGUI extends JPanel {
     JComboBox<String> pInfo_stateComboBox;
     JButton pInfo_updateInfoButton;
 
-    // Tab 2: Calendar
-    JPanel calendarPanel;
-    GridBagConstraints calendarConstraints;
-    JLabel cal_chooseDateAndTimeLabel, cal_lookUpAppointmentLabel;
+    // Tab 2: Appointments
+    JPanel appointmentsPanel;
+    GridBagConstraints appointmentConstraints;
+    JLabel app_chooseDateAndTimeLabel, app_lookUpAppointmentLabel;
     DatePicker datePicker;
     TimePicker timePicker;
-    JButton cal_requestAppointmentButton, cal_cancelAppointmentButton, cal_lookUpAppointmentButton;
-    JTextField cal_lookUpAppointmentTextField;
+    JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
+    JTextField app_lookUpAppointmentTextField;
 
     // constructor
     public PatientGUI() {
@@ -120,11 +120,11 @@ public class PatientGUI extends JPanel {
         tabbedPane = new JTabbedPane();
 
         initializePatientInfoTab();
-        initializeCalendarTab();
+        initializeAppointmentsTab();
 
-        // add patient and calendar panels to tabbed pane
+        // add patient and appointments panels to tabbed pane
         tabbedPane.add("Patient Information", patientInfoPanel);
-        tabbedPane.add("Calendar", calendarPanel);
+        tabbedPane.add("Appointments", appointmentsPanel);
 
         // create ActionListeners for all the buttons
 
@@ -151,10 +151,10 @@ public class PatientGUI extends JPanel {
         // Patient Info Tab
         pInfo_updateInfoButton.addActionListener(e -> pInfo_updateInfo());
 
-        // Calendar Tab Listeners
-        cal_requestAppointmentButton.addActionListener(e -> cal_requestAppointment());
-        cal_lookUpAppointmentButton.addActionListener(e -> cal_lookUpAppointment());
-        cal_cancelAppointmentButton.addActionListener(e -> cal_cancelAppointment());
+        // Appointments Tab Listeners
+        app_requestAppointmentButton.addActionListener(e -> app_requestAppointment());
+        app_lookUpAppointmentButton.addActionListener(e -> app_lookUpAppointment());
+        app_cancelAppointmentButton.addActionListener(e -> app_cancelAppointment());
 
     } // end initialize()
 
@@ -684,84 +684,84 @@ public class PatientGUI extends JPanel {
 
     } // end initializePatientInfoTab
 
-    private void initializeCalendarTab(){
+    private void initializeAppointmentsTab(){
 
-        // create calendar panel
-        calendarPanel = new JPanel(new GridBagLayout());
-        calendarConstraints = new GridBagConstraints();
+        // create appointments panel
+        appointmentsPanel = new JPanel(new GridBagLayout());
+        appointmentConstraints = new GridBagConstraints();
 
-        cal_chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
-        cal_lookUpAppointmentLabel = new JLabel("Look Up Existing Appointment");
+        app_chooseDateAndTimeLabel = new JLabel("Select Date and Time For Appointment");
+        app_lookUpAppointmentLabel = new JLabel("Look Up Existing Appointment");
 
         // set the label font
-        cal_chooseDateAndTimeLabel.setFont(new java.awt.Font(cal_chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 40));
-        cal_lookUpAppointmentLabel.setFont(new java.awt.Font(cal_lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
+        app_chooseDateAndTimeLabel.setFont(new java.awt.Font(app_chooseDateAndTimeLabel.getFont().getFontName(), Font.PLAIN, 40));
+        app_lookUpAppointmentLabel.setFont(new java.awt.Font(app_lookUpAppointmentLabel.getFont().getFontName(), Font.PLAIN, 25));
 
         datePicker = createDatePicker();
         timePicker = createTimePicker();
 
-        cal_requestAppointmentButton = new JButton("Request Appointment");
-        cal_cancelAppointmentButton = new JButton("Cancel Appointment");
-        cal_lookUpAppointmentButton = new JButton("Look Up Appointment");
+        app_requestAppointmentButton = new JButton("Request Appointment");
+        app_cancelAppointmentButton = new JButton("Cancel Appointment");
+        app_lookUpAppointmentButton = new JButton("Look Up Appointment");
 
-        cal_lookUpAppointmentTextField = new JTextField(15);
-        cal_lookUpAppointmentTextField.setEditable(false);
-        cal_lookUpAppointmentTextField.setBackground(Color.white);
+        app_lookUpAppointmentTextField = new JTextField(15);
+        app_lookUpAppointmentTextField.setEditable(false);
+        app_lookUpAppointmentTextField.setBackground(Color.white);
 
         // set the constraints for each component and add
-        // them to the calendar panel
+        // them to the appointments panel
 
         // add choose date and time label
-        calendarConstraints.gridx = 10;
-        calendarConstraints.gridy = 10;
-        calendarConstraints.weighty = 0.2;
-        calendarConstraints.anchor = GridBagConstraints.NORTH;
-        calendarConstraints.insets = new Insets(20, 0, 0, 0);
-        calendarPanel.add(cal_chooseDateAndTimeLabel, calendarConstraints);
+        appointmentConstraints.gridx = 10;
+        appointmentConstraints.gridy = 10;
+        appointmentConstraints.weighty = 0.2;
+        appointmentConstraints.anchor = GridBagConstraints.NORTH;
+        appointmentConstraints.insets = new Insets(20, 0, 0, 0);
+        appointmentsPanel.add(app_chooseDateAndTimeLabel, appointmentConstraints);
 
         // add date picker
-        calendarConstraints.gridy = 20;
-        calendarConstraints.anchor = GridBagConstraints.CENTER;
-        calendarConstraints.insets = new Insets(20, 0, 0, 110);
-        calendarPanel.add(datePicker, calendarConstraints);
+        appointmentConstraints.gridy = 20;
+        appointmentConstraints.anchor = GridBagConstraints.CENTER;
+        appointmentConstraints.insets = new Insets(20, 0, 0, 110);
+        appointmentsPanel.add(datePicker, appointmentConstraints);
 
         // add time picker
-        calendarConstraints.insets = new Insets(20, 160, 0, 0);
-        calendarPanel.add(timePicker, calendarConstraints);
+        appointmentConstraints.insets = new Insets(20, 160, 0, 0);
+        appointmentsPanel.add(timePicker, appointmentConstraints);
 
         // add request appointment button
-        calendarConstraints.gridy = 30;
-        calendarConstraints.weighty = 1;
-        calendarConstraints.ipady = 10;
-        calendarConstraints.anchor = GridBagConstraints.NORTH;
-        calendarConstraints.insets = new Insets(30, 0, 0, 170);
-        calendarPanel.add(cal_requestAppointmentButton, calendarConstraints);
+        appointmentConstraints.gridy = 30;
+        appointmentConstraints.weighty = 1;
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.anchor = GridBagConstraints.NORTH;
+        appointmentConstraints.insets = new Insets(30, 0, 0, 170);
+        appointmentsPanel.add(app_requestAppointmentButton, appointmentConstraints);
 
         // add cancel appointment button
-        calendarConstraints.ipady = 10;
-        calendarConstraints.insets = new Insets(30, 170, 0, 0);
-        calendarPanel.add(cal_cancelAppointmentButton, calendarConstraints);
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.insets = new Insets(30, 170, 0, 0);
+        appointmentsPanel.add(app_cancelAppointmentButton, appointmentConstraints);
 
         // add lookup appointment label
-        calendarConstraints.ipady = 0;
-        calendarConstraints.gridy = 40;
-        calendarConstraints.weighty = 0.2;
-        calendarConstraints.insets = new Insets(0, 0, 0, 0);
-        calendarPanel.add(cal_lookUpAppointmentLabel, calendarConstraints);
+        appointmentConstraints.ipady = 0;
+        appointmentConstraints.gridy = 40;
+        appointmentConstraints.weighty = 0.2;
+        appointmentConstraints.insets = new Insets(0, 0, 0, 0);
+        appointmentsPanel.add(app_lookUpAppointmentLabel, appointmentConstraints);
 
         // add lookup appointment button
-        calendarConstraints.ipady = 10;
-        calendarConstraints.weighty = 1;
-        calendarConstraints.gridy = 50;
-        calendarConstraints.insets = new Insets(0, 0, 0, 195);
-        calendarPanel.add(cal_lookUpAppointmentButton, calendarConstraints);
+        appointmentConstraints.ipady = 10;
+        appointmentConstraints.weighty = 1;
+        appointmentConstraints.gridy = 50;
+        appointmentConstraints.insets = new Insets(0, 0, 0, 195);
+        appointmentsPanel.add(app_lookUpAppointmentButton, appointmentConstraints);
 
         // add lookup appointment textfield
-        calendarConstraints.ipady = 5;
-        calendarConstraints.insets = new Insets(5, 180, 0, 0);
-        calendarPanel.add(cal_lookUpAppointmentTextField, calendarConstraints);
+        appointmentConstraints.ipady = 5;
+        appointmentConstraints.insets = new Insets(5, 180, 0, 0);
+        appointmentsPanel.add(app_lookUpAppointmentTextField, appointmentConstraints);
 
-    } // end initializeCalendarTab
+    } // end initializeAppointmentsTab
     
 /* END initialize() related functions*/
     
@@ -1164,7 +1164,7 @@ public class PatientGUI extends JPanel {
                     String.valueOf(npLogin_passwordField.getPassword()), npInfo_DOBTextField.getText(),
                     Integer.parseInt(npInfo_SSNTextField.getText()), Integer.parseInt(npInfo_zipCodeTextField.getText()),
                     npInfo_addressTextField.getText(), npInfo_cityTextField.getText(),
-                    String.valueOf(npInfo_stateComboBox.getSelectedItem()), npInfo_phoneNumberTextField.getText()))
+                    String.valueOf(npInfo_stateComboBox.getSelectedItem()), npInfo_phoneNumberTextField.getText(), true))
 
                 JOptionPane.showMessageDialog
                         (null, "This Patient Is Already In System");
@@ -1364,57 +1364,40 @@ public class PatientGUI extends JPanel {
                 }
             }
         }
-
         // throws error if DOB isn't formatted correctly - "MM/DD/YYYY"
-        if (pInfo_DOBTextField.getText().length() > 0 && pInfo_DOBTextField.getText().length() != 10) {
 
+        if (pInfo_DOBTextField.getText().length() > 0 && pInfo_DOBTextField.getText().length() != 10) {
             JOptionPane.showMessageDialog
                     (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
-
             illegalFields = false;
-
         } else if (pInfo_DOBTextField.getText().length() == 10) {
-
             if (!dobParser(pInfo_DOBTextField.getText())) {
-
                 JOptionPane.showMessageDialog
                         (null, "Date of Birth must be formatted \"MM/DD/YYYY\"");
-
                 illegalFields = false;
             }
         }
-
         // throws error if phone number isn't formatted correctly - "###-###-####"
-        if (pInfo_phoneNumberTextField.getText().length() > 0 && pInfo_phoneNumberTextField.getText().length() != 12) {
 
+        if (pInfo_phoneNumberTextField.getText().length() > 0 && pInfo_phoneNumberTextField.getText().length() != 12) {
             JOptionPane.showMessageDialog
                     (null, "Phone Number Must be formatted \"###-###-####\"");
-
             illegalFields = false;
-
         } else if (pInfo_phoneNumberTextField.getText().length() == 12) {
-
             if (!phoneNumberParser(pInfo_phoneNumberTextField.getText())) {
-
                 JOptionPane.showMessageDialog
                         (null, "Phone Number Must be formatted \"###-###-####\"");
-
                 illegalFields = false;
             }
         }
-
         // throws error if address has characters other than letters and numbers
+
         if (pInfo_addressTextField.getText().length() > 0) {
-
             for (int i = 0; i < pInfo_addressTextField.getText().length(); i++) {
-
                 if (!Character.isLetter(pInfo_addressTextField.getText().charAt(i)) &&
-
                         !Character.isDigit(pInfo_addressTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "Address Must Have Only Numbers and Letters");
-
                     illegalFields = false;
                 }
             }
@@ -1491,8 +1474,8 @@ public class PatientGUI extends JPanel {
 
     } // end pInfo_updateInfo
 
-    // Calendar Tab listeners
-    private void cal_requestAppointment(){
+    // Appointments Tab listeners
+    private void app_requestAppointment(){
 
         patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
@@ -1503,9 +1486,9 @@ public class PatientGUI extends JPanel {
             JOptionPane.showMessageDialog(null, message);
 
         } else JOptionPane.showMessageDialog(null, "Error");
-    }// end cal_requestAppointment
+    }// end app_requestAppointment
 
-    private void cal_lookUpAppointment(){
+    private void app_lookUpAppointment(){
 
         patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
@@ -1515,10 +1498,10 @@ public class PatientGUI extends JPanel {
         if (String.valueOf(appointment).equals(""))
             JOptionPane.showMessageDialog
                     (null, "You Don't Have An Appointment Scheduled At This Time");
-        else cal_lookUpAppointmentTextField.setText(appointment);
-    }// end cal_lookUpAppointment
+        else app_lookUpAppointmentTextField.setText(appointment);
+    }// end app_lookUpAppointment
 
-    private void cal_cancelAppointment(){
+    private void app_cancelAppointment(){
 
         patient = MainGUI.pimsSystem.patient_details
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
@@ -1528,9 +1511,9 @@ public class PatientGUI extends JPanel {
                     (null, "You Have No Appointment Scheduled At This Time");
         else {
             JOptionPane.showMessageDialog(null, "Appointment Deleted");
-            cal_lookUpAppointmentTextField.setText("");
+            app_lookUpAppointmentTextField.setText("");
         }
-    }// end cal_cancelAppointment
+    }// end app_cancelAppointment
 
 /* END Action Listener related functions*/
 
@@ -1539,37 +1522,26 @@ public class PatientGUI extends JPanel {
     // method to parse the DOB and make
     // sure it's in the "MM/DD/YYYY" format
     private boolean dobParser(String string) {
-
         if (!Character.isDigit(string.charAt(0)))
             return false;
-
         else if (!Character.isDigit(string.charAt(1)))
             return false;
-
         else if (string.charAt(2) != '/')
             return false;
-
         else if (!Character.isDigit(string.charAt(3)))
             return false;
-
         else if (!Character.isDigit(string.charAt(4)))
             return false;
-
         else if (string.charAt(5) != '/')
             return false;
-
         else if (!Character.isDigit(string.charAt(6)))
             return false;
-
         else if (!Character.isDigit(string.charAt(7)))
             return false;
-
         else if (!Character.isDigit(string.charAt(8)))
             return false;
-
         else if (!Character.isDigit(string.charAt(9)))
             return false;
-
         return true;
     } // end dobParser
 
@@ -1577,50 +1549,36 @@ public class PatientGUI extends JPanel {
     // method to parse the phone number and make
     // sure it's in the "###-###-####" format
     private boolean phoneNumberParser(String string) {
-
         if (!Character.isDigit(string.charAt(0)))
             return false;
-
         else if (!Character.isDigit(string.charAt(1)))
             return false;
-
         else if (!Character.isDigit(string.charAt(2)))
             return false;
-
         else if (string.charAt(3) != '-')
             return false;
-
         else if (!Character.isDigit(string.charAt(4)))
             return false;
-
         else if (!Character.isDigit(string.charAt(5)))
             return false;
-
         else if (!Character.isDigit(string.charAt(6)))
             return false;
-
         else if (string.charAt(7) != '-')
             return false;
-
         else if (!Character.isDigit(string.charAt(8)))
             return false;
-
         else if (!Character.isDigit(string.charAt(9)))
             return false;
-
         else if (!Character.isDigit(string.charAt(10)))
             return false;
-
         else if (!Character.isDigit(string.charAt(11)))
             return false;
-
         return true;
-
     } // end phoneNumberParser
 
 /* END helper functions */
 
-/* START Calendar Tab: DatePicker & TimePicker related methods */
+/* START Appointments Tab: DatePicker & TimePicker related methods */
 
     // method to create a date picker
     private DatePicker createDatePicker() {
@@ -1641,7 +1599,7 @@ public class PatientGUI extends JPanel {
         } else datePicker.setDate(LocalDate.now().plusDays(1));
 
         // Veto Policy to disallow weekends
-        datePickerSettings.setVetoPolicy(new VetoWeekends());
+        datePickerSettings.setVetoPolicy(new VetoDates());
 
         return datePicker;
 
