@@ -109,7 +109,7 @@ public class PatientGUI extends JPanel {
 
         initializeMainPanel();
 
-        // mainPanel is first thing to see 
+        // mainPanel is first thing to see
         add(chooseLoginTypePanel);
 
         initializeLoginPanel();
@@ -128,7 +128,7 @@ public class PatientGUI extends JPanel {
 
         // create ActionListeners for all the buttons
 
-        // Choose Login Type Panel 
+        // Choose Login Type Panel
         clt_existingPatientButton.addActionListener(e -> clt_existingPatient());
         clt_newPatientButton.addActionListener(e -> clt_newPatient());
 
@@ -158,7 +158,7 @@ public class PatientGUI extends JPanel {
 
     } // end initialize()
 
-/* START initialize() related functions*/
+    /* START initialize() related functions*/
 
     // main panel
     private void initializeMainPanel(){
@@ -762,10 +762,10 @@ public class PatientGUI extends JPanel {
         appointmentsPanel.add(app_lookUpAppointmentTextField, appointmentConstraints);
 
     } // end initializeAppointmentsTab
-    
-/* END initialize() related functions*/
-    
-/* START Action Listener related functions*/
+
+    /* END initialize() related functions*/
+
+    /* START Action Listener related functions*/
 
     // Choose Login Type Panel
 
@@ -1342,7 +1342,7 @@ public class PatientGUI extends JPanel {
             }
         }
 
-        // throws error if SSN has characters other than numbers, or has less/more than 4 digits 
+        // throws error if SSN has characters other than numbers, or has less/more than 4 digits
         if (pInfo_SSNTextField.getText().length() > 0 && pInfo_SSNTextField.getText().length() != 4) {
 
             JOptionPane.showMessageDialog
@@ -1515,9 +1515,9 @@ public class PatientGUI extends JPanel {
         }
     }// end app_cancelAppointment
 
-/* END Action Listener related functions*/
+    /* END Action Listener related functions*/
 
-/* START Helper Functions */
+    /* START Helper Functions */
 
     // method to parse the DOB and make
     // sure it's in the "MM/DD/YYYY" format
@@ -1576,9 +1576,9 @@ public class PatientGUI extends JPanel {
         return true;
     } // end phoneNumberParser
 
-/* END helper functions */
+    /* END helper functions */
 
-/* START Appointments Tab: DatePicker & TimePicker related methods */
+    /* START Appointments Tab: DatePicker & TimePicker related methods */
 
     // method to create a date picker
     private DatePicker createDatePicker() {
@@ -1622,6 +1622,18 @@ public class PatientGUI extends JPanel {
 
     } // end createTimePicker
 
-/* END of TimePicker & DatePicker related methods & private classes */
+    /* END of TimePicker & DatePicker related methods & private classes */
+
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected static ImageIcon createImageIcon(String path,
+                                               String description) {
+        java.net.URL imgURL = MainGUI.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 
 }// end PatientGUI
