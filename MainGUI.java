@@ -10,8 +10,11 @@
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
  */
 import java.awt.*;
+import java.awt.image.BufferedImage;
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -23,10 +26,17 @@ public class MainGUI extends JFrame{
 
     JPanel employeePanel, patientPanel;
 
+    // icon
+    ImageIcon pimsTitleLogo = createImageIcon("image/logo_name_slogan_BORDER.png", "PIMS title logo");
+    //Image image = pimsLogo.getImage(); //
+    //Image newimg = getScaledImage(pimsLogo.getImage(), 120, 120);
+    // pimsLogo = new ImageIcon(newimg);  // transform it back
+
     // "Start Panel" - login GUI variables
     JPanel startPanel = new JPanel(new BorderLayout());
+    JLabel iconLabel = new JLabel(pimsTitleLogo, JLabel.CENTER);
     JLabel welcomeLabel_1 = new JLabel("Welcome to PIMS", SwingConstants.CENTER);
-    JLabel welcomeLabel2 = new JLabel("Patient Information Management System", SwingConstants.CENTER);
+    //JLabel welcomeLabel2 = new JLabel("Patient Information Management System", SwingConstants.CENTER);
     JLabel chooseEmployeeOrPatientLabel =
             new JLabel("Choose Employee or Patient", SwingConstants.CENTER);
 
@@ -34,15 +44,16 @@ public class MainGUI extends JFrame{
      *  - to be displayed in Left or Center on top, in the same line where the backToLoginButton is
      */
     JPanel welcomePanel = new JPanel(new GridBagLayout());
-    
+
     JButton employeeButton = new JButton("Employee");
     JButton patientButton = new JButton("Patient");
 
 
     // Back Button to go back to Login
-    
-    JLabel employeeMenuLabel = new JLabel("PIMS - Employee Menu", SwingConstants.CENTER);
-    JLabel patientMenuLabel= new JLabel("PIMS - Patient Menu", SwingConstants.CENTER);
+    ImageIcon pimsLogo = createImageIcon("image/logo only.png", "PIMS name logo");
+
+    JLabel employeeMenuLabel = new JLabel("Employee Menu", pimsLogo, SwingConstants.CENTER);
+    JLabel patientMenuLabel= new JLabel("Patient Menu", pimsLogo, SwingConstants.CENTER);
     JButton backToLoginPatientButton = new JButton("Back to \"Welcome\" Page");
     JButton backToLoginEmployeeButton = new JButton("Back to \"Welcome\" Page");
     JPanel backPatientPanel = new JPanel(new GridBagLayout());
@@ -64,21 +75,28 @@ public class MainGUI extends JFrame{
 
         // set up start Panel
         welcomeLabel_1.setFont(new java.awt.Font(welcomeLabel_1.getFont().getFontName(), Font.PLAIN, 40));
-        welcomeLabel2.setFont(new java.awt.Font(welcomeLabel2.getFont().getFontName(), Font.PLAIN, 40));
+        //welcomeLabel2.setFont(new java.awt.Font(welcomeLabel2.getFont().getFontName(), Font.PLAIN, 40));
         chooseEmployeeOrPatientLabel.setFont(new java.awt.Font(chooseEmployeeOrPatientLabel.getFont().getFontName(), Font.PLAIN, 30));
+
+        //welcomePanel.setBackground(Color.WHITE);
 
         GridBagConstraints welcomePanelConstraints = new GridBagConstraints();
 
         welcomePanelConstraints.gridx = 10;
         welcomePanelConstraints.gridy = 10;
         welcomePanelConstraints.anchor = GridBagConstraints.NORTH;
-        welcomePanelConstraints.insets = new Insets(30, 0, 0, 0);
-        welcomePanel.add(welcomeLabel_1, welcomePanelConstraints);
+        welcomePanelConstraints.insets = new Insets(10, 0, 0, 0);
+        welcomePanel.add(iconLabel, welcomePanelConstraints);
 
         welcomePanelConstraints.weighty = 0.4;
         welcomePanelConstraints.anchor = GridBagConstraints.CENTER;
-        welcomePanelConstraints.insets = new Insets(10, 0, 0, 0);
-        welcomePanel.add(welcomeLabel2, welcomePanelConstraints);
+        welcomePanelConstraints.insets = new Insets(150, 0, 0, 0);
+        welcomePanel.add(welcomeLabel_1, welcomePanelConstraints);
+/*
+        welcomePanelConstraints.weighty = 0.4;
+        welcomePanelConstraints.anchor = GridBagConstraints.CENTER;
+        welcomePanelConstraints.insets = new Insets(220, 0, 0, 0);
+        welcomePanel.add(welcomeLabel2, welcomePanelConstraints);*/
 
         welcomePanelConstraints.gridy = 20;
         welcomePanelConstraints.weighty = 0;
@@ -92,7 +110,7 @@ public class MainGUI extends JFrame{
         welcomePanelConstraints.anchor = GridBagConstraints.NORTH;
         welcomePanelConstraints.insets = new Insets(40, 0, 0, 150);
         welcomePanel.add(employeeButton, welcomePanelConstraints);
-        
+
         welcomePanelConstraints.gridy = 30;
         welcomePanelConstraints.ipadx = 30;
         welcomePanelConstraints.insets = new Insets(40, 150, 0, 0);
@@ -110,7 +128,12 @@ public class MainGUI extends JFrame{
         // BACK PANELS
 
         patientMenuLabel.setFont(new java.awt.Font(patientMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
+        patientMenuLabel.setHorizontalAlignment(JLabel.LEFT);
+        patientMenuLabel.setVerticalAlignment(JLabel.CENTER);
         employeeMenuLabel.setFont(new java.awt.Font(employeeMenuLabel.getFont().getFontName(), Font.PLAIN, 30));
+        employeeMenuLabel.setHorizontalAlignment(JLabel.LEFT);
+        employeeMenuLabel.setVerticalAlignment(JLabel.CENTER);
+
 
         // Add label & back button to back patient and employee panels
 
@@ -120,7 +143,7 @@ public class MainGUI extends JFrame{
         backButtonConstraints.ipadx = 20;
         backButtonConstraints.ipady = 10;
         backButtonConstraints.anchor = GridBagConstraints.NORTHWEST;
-        backButtonConstraints.insets = new Insets(10, 0, 0, 10);
+        backButtonConstraints.insets = new Insets(10, 10, 0, 10);
 
         backPatientPanel.add(patientMenuLabel, backButtonConstraints);
 
@@ -133,13 +156,12 @@ public class MainGUI extends JFrame{
 
         backEmployeePanel.add(backToLoginEmployeeButton, backButtonConstraints);
 
-        
-        
+        repaint();
         validate();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // GUI appear in center
         setVisible(true);
-        
+
         // Action Listeners
         employeeButton.addActionListener (e -> employeeMenu());
 
@@ -151,41 +173,41 @@ public class MainGUI extends JFrame{
 
     }// end constructor
 
-	/*
-	 * getter for startPanel
-	 */
+    /*
+     * getter for startPanel
+     */
     public Component getStartPanel() {
         return startPanel;
     }
 
-	/*
-	 * employeeMenu()
-	 */
+    /*
+     * employeeMenu()
+     */
     private void employeeMenu(){
 
         remove(startPanel);
         revalidate();
         repaint();
-        
+
         employeePanel = new EmployeeGUI();
         this.add(backEmployeePanel, BorderLayout.PAGE_START);
         this.add(employeePanel, BorderLayout.CENTER);
-        
+
         validate();
-        
+
     }// end employeeMenu
 
-    
-	/*
-	 * patientMenu()
-	 */
+
+    /*
+     * patientMenu()
+     */
     private void patientMenu(){
-    	
+
         remove(startPanel);
         revalidate();
         repaint();
-        
-        patientPanel = new PatientGUI();	
+
+        patientPanel = new PatientGUI();
         this.add(backPatientPanel, BorderLayout.PAGE_START);
         this.add(patientPanel, BorderLayout.CENTER);
 
@@ -195,8 +217,8 @@ public class MainGUI extends JFrame{
 
 
     /*
-	 * returnToLogin()
-	 */
+     * returnToLogin()
+     */
     private void returnToLogin(){
 
         getContentPane().removeAll();
@@ -205,20 +227,31 @@ public class MainGUI extends JFrame{
 
         this.add(startPanel, BorderLayout.CENTER);
 
-       revalidate();
-       repaint();
+        revalidate();
+        repaint();
 
     }// end patientMenu
 
+    /** Returns an ImageIcon, or null if the path was invalid. */
+    protected static ImageIcon createImageIcon(String path,
+                                               String description) {
+        java.net.URL imgURL = MainGUI.class.getResource(path);
+        if (imgURL != null) {
+            return new ImageIcon(imgURL, description);
+        } else {
+            System.err.println("Couldn't find file: " + path);
+            return null;
+        }
+    }
 
-	/*
-	 * MAIN to run entire project
-	 */
+    /*
+     * MAIN to run entire project
+     */
     @SuppressWarnings("unused")
     public static void main(String[] args) {
 
         MainGUI testGUI = new MainGUI();
 
     }// end main
-    
+
 }// end MainGUI
