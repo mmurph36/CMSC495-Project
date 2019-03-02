@@ -27,7 +27,7 @@ public class MainGUI extends JFrame{
     JPanel employeePanel, patientPanel;
     
     // icon
-    ImageIcon pimsTitleLogo = createImageIcon("image/PIMS_fullLogo.png", "PIMS title logo");
+    ImageIcon pimsTitleLogo = createImageIcon("image/logo_name_slogan_BORDER.png", "PIMS title logo");
     //Image image = pimsLogo.getImage(); // 
     //Image newimg = getScaledImage(pimsLogo.getImage(), 120, 120);
    // pimsLogo = new ImageIcon(newimg);  // transform it back
@@ -50,7 +50,7 @@ public class MainGUI extends JFrame{
 
 
     // Back Button to go back to Login
-    ImageIcon pimsLogo = createImageIcon("image/PIMS_name.png", "PIMS name logo");
+    ImageIcon pimsLogo = createImageIcon("image/logo only.png", "PIMS name logo");
 
     JLabel employeeMenuLabel = new JLabel("Employee Menu", pimsLogo, SwingConstants.CENTER);
     JLabel patientMenuLabel= new JLabel("Patient Menu", pimsLogo, SwingConstants.CENTER);
