@@ -10,7 +10,7 @@ public class VetoDates implements DateVetoPolicy {
     public boolean isDateAllowed(LocalDate localDate) {
         if (localDate.getDayOfWeek() == DayOfWeek.SATURDAY ||
                 localDate.getDayOfWeek() == DayOfWeek.SUNDAY ||
-                localDate.isBefore(LocalDate.now().plusDays(1)))
+                localDate.isBefore(LocalDate.now()))
             return false;
         return true;
     }
