@@ -9,17 +9,6 @@
  * DISCLAIMER: EmployeeGUI & PatientGUI use code from the following project for the calendar
  *  https://github.com/LGoodDatePicker/LGoodDatePicker
  */
-
-/*
- * TO DO
- *
- *  -check for unused components in GUI
- *  -find overlaps in code, to pull out and make functions
- *  -update billing tab & patient object to account for policy
- *  	-what fields do we want on the billing tab?
- *
- */
-
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -99,10 +88,10 @@ public class EmployeeGUI extends JPanel {
     // TAB 3: Billing
     JPanel billingTab;
     GridBagConstraints billingTabConstraints;
-    JLabel billing_patientBillingLabel, billing_lNameLabel, billing_ssnLabel,
+    JLabel billing_patientBillingLabel, billing_fullNameLabel, billing_ssnLabel,
             billing_billCodeLabel, billing_policyLabel, billing_amtDueLabel,
             billing_historyLabel;
-    JTextField billing_lNameField, billing_ssnField, billing_amtDueField;
+    JTextField billing_fullNameField, billing_ssnField, billing_amtDueField;
     JComboBox<String> billing_codeCB, billing_policyCB;
     JScrollPane billing_historyScrollPane;
     JTextArea billing_patientHistoryTextArea;
@@ -537,7 +526,7 @@ public class EmployeeGUI extends JPanel {
         billingTabConstraints = new GridBagConstraints();
 
         billing_patientBillingLabel = new JLabel("Patient Billing");
-        billing_lNameLabel = new JLabel("Patient Full Name:");
+        billing_fullNameLabel = new JLabel("Patient Full Name:");
         //billing_ssnLabel = new JLabel("SSN:");
         billing_billCodeLabel = new JLabel("Billing Code:");
         billing_policyLabel = new JLabel("Policy:");
@@ -545,7 +534,8 @@ public class EmployeeGUI extends JPanel {
         billing_patientBillingLabel.setFont(new java.awt.Font(billing_patientBillingLabel.getFont().getFontName(), Font.PLAIN, 40));
         billing_historyLabel = new JLabel("Payment & Appointment History:");
 
-        billing_lNameField = new JTextField(12);
+        billing_fullNameField = new JTextField(12);
+        billing_fullNameField.setEditable(false);
         billing_ssnField = new JTextField(12);
         billing_amtDueField = new JTextField(12);
         billing_amtDueField.setEditable(false);
@@ -555,6 +545,7 @@ public class EmployeeGUI extends JPanel {
 
         billing_codeCB = new JComboBox<String>(billingCodeOptions);
         billing_policyCB = new JComboBox<String>(policyOptions);
+        billing_policyCB.setEditable(false);
         
         billing_patientHistoryTextArea = new JTextArea();
         billing_patientHistoryTextArea.setEditable(false);
@@ -582,12 +573,12 @@ public class EmployeeGUI extends JPanel {
         billingTabConstraints.weightx = 0.2;
         billingTabConstraints.anchor = GridBagConstraints.WEST;
         billingTabConstraints.insets = new Insets(0, 20, 0, 0);
-        billingTab.add(billing_lNameLabel, billingTabConstraints);
+        billingTab.add(billing_fullNameLabel, billingTabConstraints);
 
         // add last name field
         billingTabConstraints.gridx = 20;
         billingTabConstraints.weightx = 1;
-        billingTab.add(billing_lNameField, billingTabConstraints);
+        billingTab.add(billing_fullNameField, billingTabConstraints);
 
         // add billing code label
         billingTabConstraints.gridx = 10;
@@ -1296,7 +1287,7 @@ public class EmployeeGUI extends JPanel {
     private void billing_calculate() {
 
         // need to search patient before calculating amount due
-    	if (billing_lNameField.equals("")){
+    	if (billing_fullNameField.equals("")){
     		
     		JOptionPane.showMessageDialog(this, "Must search for a patient first!\nGo to the Search Tab.",
                     "Need to Search Patient", JOptionPane.ERROR_MESSAGE);
@@ -1450,7 +1441,7 @@ public class EmployeeGUI extends JPanel {
             pInfo_pwField.setText(toDisplay.p_number);
 
             // Billing Tab
-            billing_lNameField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
+            billing_fullNameField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
             billing_ssnField.setText(Integer.toString(toDisplay.SSN));
             
             // true = yes, false = no policy
