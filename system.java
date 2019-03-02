@@ -1,3 +1,5 @@
+package cmsc495.projectdb_03022019;
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -108,6 +110,7 @@ public class system {
     public boolean patient_exists(String user_name, String password) {
         for (patient p : p_list) {
             //if (p.user_name.equals(user_name) && p.password.equals(password)) return true;
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             //Michael's Update to Code BEGIN
 
@@ -116,8 +119,8 @@ public class system {
 
             String pU = p.user_name.toString();
             String pP = p.password.toString();
-            boolean containsU = p.user_name.toLowerCase().contains(user_name.toLowerCase());
-            boolean containsP = p.password.toLowerCase().contains(password.toLowerCase());
+            boolean containsU = p.user_name.contains(user_name);
+            boolean containsP = p.password.contains(password);
             System.out.println("This : " + containsU + " and this: " + containsP);
 
             if (containsU==true && containsP==true) {
@@ -148,6 +151,7 @@ public class system {
     public patient setPatientDetails(String user_Name, String password) {
         for (patient p : p_list) {
             //if (p.user_name.equals(user_Name) && p.password.equals(password)) return p;
+
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             //Michael's Update to Code BEGIN
 
@@ -156,8 +160,8 @@ public class system {
 
             String pUD = p.user_name.toString();
             String pPD = p.password.toString();
-            boolean containsUD = p.user_name.toLowerCase().contains(user_Name.toLowerCase());
-            boolean containsPD = p.password.toLowerCase().contains(password.toLowerCase());
+            boolean containsUD = p.user_name.contains(user_Name);
+            boolean containsPD = p.password.contains(password);
             System.out.println("This : " + containsUD + " and this: " + containsPD);
 
             if (containsUD==true && containsPD==true) {
