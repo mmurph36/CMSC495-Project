@@ -95,7 +95,7 @@ public class EmployeeGUI extends JPanel {
     JComboBox<String> billing_codeCB, billing_policyCB;
     JScrollPane billing_historyScrollPane;
     JTextArea billing_patientHistoryTextArea;
-    JButton billing_calculateButton; 
+    JButton billing_calculateButton;
 
     // TAB 4: Search
     JPanel searchTab;
@@ -126,7 +126,7 @@ public class EmployeeGUI extends JPanel {
      * - sets up EmployeeGUI panel
      */
     private void initialize() {
-    	
+
         // set up EmployeeGUI JPanel
         setLayout(new BorderLayout());
 
@@ -546,14 +546,14 @@ public class EmployeeGUI extends JPanel {
         billing_codeCB = new JComboBox<String>(billingCodeOptions);
         billing_policyCB = new JComboBox<String>(policyOptions);
         billing_policyCB.setEditable(false);
-        
+
         billing_patientHistoryTextArea = new JTextArea();
         billing_patientHistoryTextArea.setEditable(false);
         billing_patientHistoryTextArea.setLineWrap(true);
-       
+
         billing_historyScrollPane = new JScrollPane(billing_patientHistoryTextArea);
         billing_historyScrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		
+
         billing_calculateButton = new JButton("Calculate Payment");
 
         // add contents to Billing tab
@@ -614,12 +614,12 @@ public class EmployeeGUI extends JPanel {
         billingTabConstraints.gridx = 30;
         billingTabConstraints.gridy = 30;
         billingTab.add(billing_calculateButton, billingTabConstraints);
-        
+
         // add patient history label
         billingTabConstraints.gridx = 10;
         billingTabConstraints.gridy = 40;
         billingTab.add(billing_historyLabel, billingTabConstraints);
-        
+
         // add patient history text area (wrapped in scroll pane)
         billingTabConstraints.gridx = 10;
         billingTabConstraints.gridy = 50;
@@ -1287,40 +1287,40 @@ public class EmployeeGUI extends JPanel {
     private void billing_calculate() {
 
         // need to search patient before calculating amount due
-    	if (billing_fullNameField.equals("")){
-    		
-    		JOptionPane.showMessageDialog(this, "Must search for a patient first!\nGo to the Search Tab.",
-                    "Need to Search Patient", JOptionPane.ERROR_MESSAGE);
-    	}
-    	
-    	if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals("")){
-    		
-    		JOptionPane.showMessageDialog(this, "No Appointment to pay for!\nGo to Appointment Tab to make one.",
-                    "Nothing to pay for", JOptionPane.ERROR_MESSAGE);
-    	}
-    	
-    	// patient has been searched - get info from patient info panel
-    	else{
-    		
-    		patient =  MainGUI.pimsSystem.patient_details
-                    (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_ssnTextField.getText()));
-    		
-    		// patient has a policy, amount due is copay: $50
-    		// no policy, amount due is cost amount
-    		double toPay = MainGUI.pimsSystem.charge(patient, billing_codeCB.getSelectedItem().toString());
-    		billing_amtDueField.setText(doubleToDecimalString(toPay));
-    		
-    		
-    		JOptionPane.showMessageDialog(this, "Amount Due Calculated.",
-    				"Calculate", JOptionPane.DEFAULT_OPTION);
+        if (billing_fullNameField.equals("")){
 
-    		// returns true if appointment payed & recorded
-    		 if(MainGUI.pimsSystem.recordApptPayment(patient, billing_amtDueField.getText()));
-	    		
-    		 clearHistory();
-    		 printHistory(patient);
-	 
-    	}
+            JOptionPane.showMessageDialog(this, "Must search for a patient first!\nGo to the Search Tab.",
+                    "Need to Search Patient", JOptionPane.ERROR_MESSAGE);
+        }
+
+        if (MainGUI.pimsSystem.lookUpAppointmentDate(patient).equals("")){
+
+            JOptionPane.showMessageDialog(this, "No Appointment to pay for!\nGo to Appointment Tab to make one.",
+                    "Nothing to pay for", JOptionPane.ERROR_MESSAGE);
+        }
+
+        // patient has been searched - get info from patient info panel
+        else{
+
+            patient =  MainGUI.pimsSystem.patient_details
+                    (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_ssnTextField.getText()));
+
+            // patient has a policy, amount due is copay: $50
+            // no policy, amount due is cost amount
+            double toPay = MainGUI.pimsSystem.charge(patient, billing_codeCB.getSelectedItem().toString());
+            billing_amtDueField.setText(doubleToDecimalString(toPay));
+
+
+            JOptionPane.showMessageDialog(this, "Amount Due Calculated.",
+                    "Calculate", JOptionPane.DEFAULT_OPTION);
+
+            // returns true if appointment payed & recorded
+            if(MainGUI.pimsSystem.recordApptPayment(patient, billing_amtDueField.getText()));
+
+            clearHistory();
+            printHistory(patient);
+
+        }
 
     }// end billing_calculate
 
@@ -1443,14 +1443,14 @@ public class EmployeeGUI extends JPanel {
             // Billing Tab
             billing_fullNameField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
             billing_ssnField.setText(Integer.toString(toDisplay.SSN));
-            
+
             // true = yes, false = no policy
             int policy;
             if (toDisplay.policy)
-            	policy = 1;
+                policy = 1;
             else
-            	policy = 0;
-            
+                policy = 0;
+
             billing_policyCB.setSelectedIndex(policy);
             billing_policyCB.setEditable(false);
             printHistory(toDisplay);
@@ -1467,16 +1467,16 @@ public class EmployeeGUI extends JPanel {
     /* END Action Listener related functions*/
 
     /* START Helper functions*/
-    
+
     // format a number's decimal places to a string
     // must pass in a double!
     private String doubleToDecimalString(double toFormat){
-    	
-    	String d = "";
-    	DecimalFormat df = new DecimalFormat("0.00");
-    	d = df.format(toFormat);
-    	
-    	return d;
+
+        String d = "";
+        DecimalFormat df = new DecimalFormat("0.00");
+        d = df.format(toFormat);
+
+        return d;
     }
 
     // checks if SSN 4 digits
@@ -1500,30 +1500,30 @@ public class EmployeeGUI extends JPanel {
         }
         return true;
     }  // end isSSNFourDigits
-    
+
     // prints out Patient Appointment & Billing History in the billing tab
     private void printHistory(patient toPrint){
-    	
-    	if (toPrint == null)
-    		 JOptionPane.showMessageDialog
-             (null, "No Patient to print");
-    	
-    	else{
-    		
-    		String history = "";
-    		
-    		for (String s: toPrint.apptPaymentHistory){
-    			
-    			history += s + "\n";
-    		}
-    		
-    		billing_patientHistoryTextArea.setText(history);
-    	}
+
+        if (toPrint == null)
+            JOptionPane.showMessageDialog
+                    (null, "No Patient to print");
+
+        else{
+
+            String history = "";
+
+            for (String s: toPrint.apptPaymentHistory){
+
+                history += s + "\n";
+            }
+
+            billing_patientHistoryTextArea.setText(history);
+        }
     }
-    
+
     private void clearHistory(){
-    	
-    	billing_patientHistoryTextArea.setText("");
+
+        billing_patientHistoryTextArea.setText("");
     }
 
     // search date method
@@ -1644,7 +1644,7 @@ public class EmployeeGUI extends JPanel {
 
     /* END helper functions */
 
-	/* START Calendar Tab: DatePicker & TimePicker related methods */
+    /* START Calendar Tab: DatePicker & TimePicker related methods */
 
     // method to create a date picker
     private DatePicker createDatePicker(boolean veto) {
@@ -1696,7 +1696,7 @@ public class EmployeeGUI extends JPanel {
             return null;
         }
     }
-    
+
     // main for just employeeGUI
     @SuppressWarnings("unused")
     public static void main(String[] args) {

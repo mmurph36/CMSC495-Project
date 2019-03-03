@@ -25,13 +25,13 @@ public class MainGUI extends JFrame{
     String guiTitle;
 
     JPanel employeePanel, patientPanel;
-    
+
     // icon
     ImageIcon pimsTitleLogo = createImageIcon("image/logo_name_slogan_BORDER.png", "PIMS title logo");
-    //Image image = pimsLogo.getImage(); // 
+    //Image image = pimsLogo.getImage(); //
     //Image newimg = getScaledImage(pimsLogo.getImage(), 120, 120);
-   // pimsLogo = new ImageIcon(newimg);  // transform it back
-    
+    // pimsLogo = new ImageIcon(newimg);  // transform it back
+
     // "Start Panel" - login GUI variables
     JPanel startPanel = new JPanel(new BorderLayout());
     JLabel iconLabel = new JLabel(pimsTitleLogo, JLabel.CENTER);
@@ -44,7 +44,7 @@ public class MainGUI extends JFrame{
      *  - to be displayed in Left or Center on top, in the same line where the backToLoginButton is
      */
     JPanel welcomePanel = new JPanel(new GridBagLayout());
-    
+
     JButton employeeButton = new JButton("Employee");
     JButton patientButton = new JButton("Patient");
 
@@ -63,7 +63,7 @@ public class MainGUI extends JFrame{
     public MainGUI() {
 
         guiTitle = "PIMS";
-        
+
         // initialize system object
         pimsSystem = new system();
 
@@ -79,7 +79,7 @@ public class MainGUI extends JFrame{
         chooseEmployeeOrPatientLabel.setFont(new java.awt.Font(chooseEmployeeOrPatientLabel.getFont().getFontName(), Font.PLAIN, 30));
 
         //welcomePanel.setBackground(Color.WHITE);
-        
+
         GridBagConstraints welcomePanelConstraints = new GridBagConstraints();
 
         welcomePanelConstraints.gridx = 10;
@@ -87,7 +87,7 @@ public class MainGUI extends JFrame{
         welcomePanelConstraints.anchor = GridBagConstraints.NORTH;
         welcomePanelConstraints.insets = new Insets(10, 0, 0, 0);
         welcomePanel.add(iconLabel, welcomePanelConstraints);
-        
+
         welcomePanelConstraints.weighty = 0.4;
         welcomePanelConstraints.anchor = GridBagConstraints.CENTER;
         welcomePanelConstraints.insets = new Insets(150, 0, 0, 0);
@@ -110,7 +110,7 @@ public class MainGUI extends JFrame{
         welcomePanelConstraints.anchor = GridBagConstraints.NORTH;
         welcomePanelConstraints.insets = new Insets(40, 0, 0, 150);
         welcomePanel.add(employeeButton, welcomePanelConstraints);
-        
+
         welcomePanelConstraints.gridy = 30;
         welcomePanelConstraints.ipadx = 30;
         welcomePanelConstraints.insets = new Insets(40, 150, 0, 0);
@@ -134,7 +134,7 @@ public class MainGUI extends JFrame{
         employeeMenuLabel.setHorizontalAlignment(JLabel.LEFT);
         employeeMenuLabel.setVerticalAlignment(JLabel.CENTER);
 
-        
+
         // Add label & back button to back patient and employee panels
 
         GridBagConstraints backButtonConstraints = new GridBagConstraints();
@@ -155,13 +155,13 @@ public class MainGUI extends JFrame{
         backPatientPanel.add(backToLoginPatientButton, backButtonConstraints);
 
         backEmployeePanel.add(backToLoginEmployeeButton, backButtonConstraints);
-        
+
         repaint();
         validate();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null); // GUI appear in center
         setVisible(true);
-        
+
         // Action Listeners
         employeeButton.addActionListener (e -> employeeMenu());
 
@@ -173,41 +173,41 @@ public class MainGUI extends JFrame{
 
     }// end constructor
 
-	/*
-	 * getter for startPanel
-	 */
+    /*
+     * getter for startPanel
+     */
     public Component getStartPanel() {
         return startPanel;
     }
 
-	/*
-	 * employeeMenu()
-	 */
+    /*
+     * employeeMenu()
+     */
     private void employeeMenu(){
 
         remove(startPanel);
         revalidate();
         repaint();
-        
+
         employeePanel = new EmployeeGUI();
         this.add(backEmployeePanel, BorderLayout.PAGE_START);
         this.add(employeePanel, BorderLayout.CENTER);
-        
+
         validate();
-        
+
     }// end employeeMenu
 
-    
-	/*
-	 * patientMenu()
-	 */
+
+    /*
+     * patientMenu()
+     */
     private void patientMenu(){
-    	
+
         remove(startPanel);
         revalidate();
         repaint();
-        
-        patientPanel = new PatientGUI();	
+
+        patientPanel = new PatientGUI();
         this.add(backPatientPanel, BorderLayout.PAGE_START);
         this.add(patientPanel, BorderLayout.CENTER);
 
@@ -217,8 +217,8 @@ public class MainGUI extends JFrame{
 
 
     /*
-	 * returnToLogin()
-	 */
+     * returnToLogin()
+     */
     private void returnToLogin(){
 
         getContentPane().removeAll();
@@ -227,8 +227,8 @@ public class MainGUI extends JFrame{
 
         this.add(startPanel, BorderLayout.CENTER);
 
-       revalidate();
-       repaint();
+        revalidate();
+        repaint();
 
     }// end patientMenu
 
@@ -244,14 +244,14 @@ public class MainGUI extends JFrame{
         }
     }
 
-	/*
-	 * MAIN to run entire project
-	 */
+    /*
+     * MAIN to run entire project
+     */
     @SuppressWarnings("unused")
     public static void main(String[] args) {
 
         MainGUI testGUI = new MainGUI();
 
     }// end main
-    
+
 }// end MainGUI
