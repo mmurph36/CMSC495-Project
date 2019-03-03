@@ -52,7 +52,7 @@ public class PatientGUI extends JPanel {
     JPanel newPatientInfoPanel;
     GridBagConstraints newPatientInfoPanelConstraints;
     JLabel npInfo_firstNameLabel, npInfo_middleNameLabel, npInfo_lastNameLabel,
-            npInfo_SSNLabel, npInfo_DOBLabel, np_phoneNumberLabel,
+            npInfo_SSNLabel, npInfo_DOBLabel, npInfo_phoneNumberLabel,
             npInfo_addressLabel, npInfo_cityLabel, npInfo_stateLabel, npInfo_zipCodeLabel;
     JTextField npInfo_firstNameTextField, npInfo_middleNameTextField, npInfo_lastNameTextField,
             npInfo_SSNTextField, npInfo_DOBTextField, npInfo_phoneNumberTextField,
@@ -106,10 +106,12 @@ public class PatientGUI extends JPanel {
     private void initialize() {
 
         setLayout(new BorderLayout());
+        setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+       // setBackground(MainGUI.backgroundColor);
 
         initializeMainPanel();
 
-        // mainPanel is first thing to see
+        // mainPanel is first thing to see 
         add(chooseLoginTypePanel);
 
         initializeLoginPanel();
@@ -118,6 +120,8 @@ public class PatientGUI extends JPanel {
 
         // Tabbed Panel
         tabbedPane = new JTabbedPane();
+        tabbedPane.setBackground(MainGUI.backgroundColor);
+        tabbedPane.setForeground(MainGUI.fontColor);
 
         initializePatientInfoTab();
         initializeAppointmentsTab();
@@ -128,7 +132,7 @@ public class PatientGUI extends JPanel {
 
         // create ActionListeners for all the buttons
 
-        // Choose Login Type Panel
+        // Choose Login Type Panel 
         clt_existingPatientButton.addActionListener(e -> clt_existingPatient());
         clt_newPatientButton.addActionListener(e -> clt_newPatient());
 
@@ -158,7 +162,7 @@ public class PatientGUI extends JPanel {
 
     } // end initialize()
 
-    /* START initialize() related functions*/
+/* START initialize() related functions*/
 
     // main panel
     private void initializeMainPanel(){
@@ -166,13 +170,19 @@ public class PatientGUI extends JPanel {
         // Main panel
         chooseLoginTypePanel = new JPanel(new GridBagLayout());
         chooseLoginTypePanelConstraints = new GridBagConstraints();
+        chooseLoginTypePanel.setBackground(MainGUI.backgroundColor);
 
         // create label
         clt_chooseLabel = new JLabel("Choose New or Existing Patient");
+        
+        clt_chooseLabel.setForeground(MainGUI.fontColor);
 
         // create buttons
         clt_existingPatientButton = new JButton("Existing Patient");
         clt_newPatientButton = new JButton("New Patient");
+        
+        clt_existingPatientButton.setForeground(MainGUI.fontColor);
+        clt_newPatientButton.setForeground(MainGUI.fontColor);
 
         // set label font
         clt_chooseLabel.setFont(new java.awt.Font(clt_chooseLabel.getFont().getFontName(), Font.PLAIN, 40));
@@ -208,6 +218,8 @@ public class PatientGUI extends JPanel {
         // Login Panel
         loginPanel = new JPanel(new GridBagLayout());
         loginConstraints = new GridBagConstraints();
+        
+        loginPanel.setBackground(MainGUI.backgroundColor);
 
         logInLabel = new JLabel("Patient Login");
         login_usernameLabel = new JLabel("Username:");
@@ -215,12 +227,18 @@ public class PatientGUI extends JPanel {
 
         logInLabel.setFont(new java.awt.Font(logInLabel.getFont().getFontName(), Font.PLAIN, 40));
 
-
+        logInLabel.setForeground(MainGUI.fontColor);
+        login_usernameLabel.setForeground(MainGUI.fontColor);
+        login_passwordLabel.setForeground(MainGUI.fontColor);
+        
         login_usernameTextField = new JTextField(12);
         login_passwordField = new JPasswordField(12);
 
         loginButton = new JButton("Login");
         login_cancelButton = new JButton("Cancel");
+        
+        loginButton.setForeground(MainGUI.fontColor);
+        login_cancelButton.setForeground(MainGUI.fontColor);
 
         //add components to login screen
 
@@ -286,6 +304,8 @@ public class PatientGUI extends JPanel {
 
         newPatientLoginPanel = new JPanel(new GridBagLayout());
         newPatientLoginConstraints = new GridBagConstraints();
+        
+        newPatientLoginPanel.setBackground(MainGUI.backgroundColor);
 
         npLogin_createNewPatientLabel = new JLabel("New Patient");
         npLogin_usernameLabel = new JLabel("Username:");
@@ -294,11 +314,18 @@ public class PatientGUI extends JPanel {
         npLogin_createNewPatientLabel.setFont
                 (new java.awt.Font(npLogin_createNewPatientLabel.getFont().getFontName(), Font.PLAIN, 40));
 
+        npLogin_createNewPatientLabel.setForeground(MainGUI.fontColor);
+        npLogin_usernameLabel.setForeground(MainGUI.fontColor);
+        npLogin_passwordLabel.setForeground(MainGUI.fontColor);
+        
         npLogin_usernameTextField = new JTextField(12);
         npLogin_passwordField = new JPasswordField(12);
 
         npLogin_submitButton = new JButton("Submit");
         npLogin_cancelButton = new JButton("Cancel");
+        
+        npLogin_submitButton.setForeground(MainGUI.fontColor);
+        npLogin_cancelButton.setForeground(MainGUI.fontColor);
 
         // add components to create new patient panel
         newPatientLoginConstraints.gridx = 10;
@@ -366,7 +393,7 @@ public class PatientGUI extends JPanel {
         npInfo_lastNameLabel = new JLabel("Last Name:");
         npInfo_SSNLabel = new JLabel("Social Security #:");
         npInfo_DOBLabel = new JLabel("Date of Birth:");
-        np_phoneNumberLabel = new JLabel("Phone Number:");
+        npInfo_phoneNumberLabel = new JLabel("Phone Number:");
         npInfo_addressLabel = new JLabel("Address:");
         npInfo_cityLabel = new JLabel("City:");
         npInfo_stateLabel = new JLabel("State:");
@@ -383,6 +410,20 @@ public class PatientGUI extends JPanel {
         npInfo_stateComboBox = new JComboBox<>(npInfo_states);
         npInfo_submitNewInfoButton = new JButton("Submit Information");
         npInfo_cancelButton = new JButton("Cancel");
+        
+        npInfo_firstNameLabel.setForeground(MainGUI.fontColor);
+        npInfo_middleNameLabel.setForeground(MainGUI.fontColor);
+        npInfo_lastNameLabel.setForeground(MainGUI.fontColor);
+        npInfo_SSNLabel.setForeground(MainGUI.fontColor);
+        npInfo_DOBLabel.setForeground(MainGUI.fontColor);
+        npInfo_phoneNumberLabel.setForeground(MainGUI.fontColor);
+        npInfo_addressLabel.setForeground(MainGUI.fontColor);
+        npInfo_cityLabel.setForeground(MainGUI.fontColor);
+        npInfo_stateLabel.setForeground(MainGUI.fontColor);
+        npInfo_zipCodeLabel.setForeground(MainGUI.fontColor);
+        
+        npInfo_submitNewInfoButton.setForeground(MainGUI.fontColor);
+        npInfo_cancelButton.setForeground(MainGUI.fontColor);
 
         // set the constraints for each component and add
         // them to the patient info panel
@@ -418,7 +459,7 @@ public class PatientGUI extends JPanel {
         newPatientInfoPanelConstraints.weighty = 1;
         newPatientInfoPanelConstraints.anchor = GridBagConstraints.NORTHWEST;
         newPatientInfoPanelConstraints.insets = new Insets(10, 20, 0, 0);
-        newPatientInfoPanel.add(np_phoneNumberLabel, newPatientInfoPanelConstraints);
+        newPatientInfoPanel.add(npInfo_phoneNumberLabel, newPatientInfoPanelConstraints);
 
         // add address label
         newPatientInfoPanelConstraints.gridy = 50;
@@ -543,6 +584,21 @@ public class PatientGUI extends JPanel {
 
         pInfo_updateInfoButton = new JButton("Update Information");
 
+        
+        pInfo_firstNameLabel.setForeground(MainGUI.fontColor);
+        pInfo_middleNameLabel.setForeground(MainGUI.fontColor);
+        pInfo_lastNameLabel.setForeground(MainGUI.fontColor);
+        pInfo_SSNLabel.setForeground(MainGUI.fontColor);
+        pInfo_DOBLabel.setForeground(MainGUI.fontColor);
+        pInfo_phoneNumberLabel.setForeground(MainGUI.fontColor);
+        pInfo_addressLabel.setForeground(MainGUI.fontColor);
+        pInfo_cityLabel.setForeground(MainGUI.fontColor);
+        pInfo_stateLabel.setForeground(MainGUI.fontColor);
+        pInfo_zipCodeLabel.setForeground(MainGUI.fontColor);
+        pInfo_patient_userLabel.setForeground(MainGUI.fontColor);
+        pInfo_patient_pwLabel.setForeground(MainGUI.fontColor);
+
+        pInfo_updateInfoButton.setForeground(MainGUI.fontColor);
 
         // set the constraints for each component and add
         // them to the patient info panel
@@ -703,6 +759,13 @@ public class PatientGUI extends JPanel {
         app_requestAppointmentButton = new JButton("Request Appointment");
         app_cancelAppointmentButton = new JButton("Cancel Appointment");
         app_lookUpAppointmentButton = new JButton("Look Up Appointment");
+        
+        app_chooseDateAndTimeLabel.setForeground(MainGUI.fontColor);
+        app_lookUpAppointmentLabel.setForeground(MainGUI.fontColor);
+        
+        app_requestAppointmentButton.setForeground(MainGUI.fontColor);
+        app_cancelAppointmentButton.setForeground(MainGUI.fontColor);
+        app_lookUpAppointmentButton.setForeground(MainGUI.fontColor);
 
         app_lookUpAppointmentTextField = new JTextField(15);
         app_lookUpAppointmentTextField.setEditable(false);
@@ -762,10 +825,10 @@ public class PatientGUI extends JPanel {
         appointmentsPanel.add(app_lookUpAppointmentTextField, appointmentConstraints);
 
     } // end initializeAppointmentsTab
-
-    /* END initialize() related functions*/
-
-    /* START Action Listener related functions*/
+    
+/* END initialize() related functions*/
+    
+/* START Action Listener related functions*/
 
     // Choose Login Type Panel
 
@@ -1342,7 +1405,7 @@ public class PatientGUI extends JPanel {
             }
         }
 
-        // throws error if SSN has characters other than numbers, or has less/more than 4 digits
+        // throws error if SSN has characters other than numbers, or has less/more than 4 digits 
         if (pInfo_SSNTextField.getText().length() > 0 && pInfo_SSNTextField.getText().length() != 4) {
 
             JOptionPane.showMessageDialog
@@ -1515,9 +1578,9 @@ public class PatientGUI extends JPanel {
         }
     }// end app_cancelAppointment
 
-    /* END Action Listener related functions*/
+/* END Action Listener related functions*/
 
-    /* START Helper Functions */
+/* START Helper Functions */
 
     // method to parse the DOB and make
     // sure it's in the "MM/DD/YYYY" format
@@ -1576,9 +1639,9 @@ public class PatientGUI extends JPanel {
         return true;
     } // end phoneNumberParser
 
-    /* END helper functions */
+/* END helper functions */
 
-    /* START Appointments Tab: DatePicker & TimePicker related methods */
+/* START Appointments Tab: DatePicker & TimePicker related methods */
 
     // method to create a date picker
     private DatePicker createDatePicker() {
@@ -1622,7 +1685,7 @@ public class PatientGUI extends JPanel {
 
     } // end createTimePicker
 
-    /* END of TimePicker & DatePicker related methods & private classes */
+/* END of TimePicker & DatePicker related methods & private classes */
 
     /** Returns an ImageIcon, or null if the path was invalid. */
     protected static ImageIcon createImageIcon(String path,
@@ -1635,5 +1698,5 @@ public class PatientGUI extends JPanel {
             return null;
         }
     }
-
+    
 }// end PatientGUI

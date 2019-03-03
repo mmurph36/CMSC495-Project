@@ -9,7 +9,7 @@ public class patient extends person{
     String address, p_number, city, state;
     boolean policy;
     ArrayList<String> apptPaymentHistory;
-
+    
     public patient(String f_name, String l_name, String m_name, String user_name, String password, String dob,
                    int SSN, int zip, String address, String city, String state, String p_number, boolean policy) {
 
@@ -23,7 +23,7 @@ public class patient extends person{
         this.state = state;
         this.policy = policy;
         apptPaymentHistory = new ArrayList<String>();
-        apptPaymentHistory.add("Appointment & Payment History for: " + l_name + ", " + f_name);
+        apptPaymentHistory.add("Payment & Appointment History for: " + l_name + ", " + f_name);
     }
 
     public String toString() {

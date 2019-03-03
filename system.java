@@ -1,3 +1,4 @@
+
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -107,8 +108,10 @@ public class system {
 
     public boolean patient_exists(String user_name, String password) {
         for (patient p : p_list) {
-            //if (p.user_name.equals(user_name) && p.password.equals(password)) return true;
-            ///////////////////////////////////////////////////////////////////////////////////////////////////////////
+            
+        	if (p.user_name.equals(user_name) && p.password.equals(password)) return true;
+            /*
+        	///////////////////////////////////////////////////////////////////////////////////////////////////////////
             //Michael's Update to Code BEGIN
 
             System.out.println("p = "+p.user_name+ "   and  user_name = "+user_name);
@@ -129,6 +132,7 @@ public class system {
 
             //Michael's Update to Code END
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        	*/
         }
         return false;
     }
@@ -147,10 +151,12 @@ public class system {
 
     public patient setPatientDetails(String user_Name, String password) {
         for (patient p : p_list) {
-            //if (p.user_name.equals(user_Name) && p.password.equals(password)) return p;
+            if (p.user_name.equals(user_Name) && p.password.equals(password)) return p;
+        	
+        	/*
             ///////////////////////////////////////////////////////////////////////////////////////////////////////////
             //Michael's Update to Code BEGIN
-
+        	
             System.out.println("p = "+p.user_name+ "   and  user_name = "+user_Name);
             System.out.println("p = "+p.password+ "   and  password = "+password);
 
@@ -169,7 +175,7 @@ public class system {
 
             //Michael's Update to Code END
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
+*/
         }
 
         return null;
