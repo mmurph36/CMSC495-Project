@@ -107,11 +107,11 @@ public class PatientGUI extends JPanel {
 
         setLayout(new BorderLayout());
         setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
-       // setBackground(MainGUI.backgroundColor);
+        // setBackground(MainGUI.backgroundColor);
 
         initializeMainPanel();
 
-        // mainPanel is first thing to see 
+        // mainPanel is first thing to see
         add(chooseLoginTypePanel);
 
         initializeLoginPanel();
@@ -132,7 +132,7 @@ public class PatientGUI extends JPanel {
 
         // create ActionListeners for all the buttons
 
-        // Choose Login Type Panel 
+        // Choose Login Type Panel
         clt_existingPatientButton.addActionListener(e -> clt_existingPatient());
         clt_newPatientButton.addActionListener(e -> clt_newPatient());
 
@@ -174,13 +174,13 @@ public class PatientGUI extends JPanel {
 
         // create label
         clt_chooseLabel = new JLabel("Choose New or Existing Patient");
-        
+
         clt_chooseLabel.setForeground(MainGUI.fontColor);
 
         // create buttons
         clt_existingPatientButton = new JButton("Existing Patient");
         clt_newPatientButton = new JButton("New Patient");
-        
+
         clt_existingPatientButton.setForeground(MainGUI.fontColor);
         clt_newPatientButton.setForeground(MainGUI.fontColor);
 
@@ -218,7 +218,7 @@ public class PatientGUI extends JPanel {
         // Login Panel
         loginPanel = new JPanel(new GridBagLayout());
         loginConstraints = new GridBagConstraints();
-        
+
         loginPanel.setBackground(MainGUI.backgroundColor);
 
         logInLabel = new JLabel("Patient Login");
@@ -230,13 +230,13 @@ public class PatientGUI extends JPanel {
         logInLabel.setForeground(MainGUI.fontColor);
         login_usernameLabel.setForeground(MainGUI.fontColor);
         login_passwordLabel.setForeground(MainGUI.fontColor);
-        
+
         login_usernameTextField = new JTextField(12);
         login_passwordField = new JPasswordField(12);
 
         loginButton = new JButton("Login");
         login_cancelButton = new JButton("Cancel");
-        
+
         loginButton.setForeground(MainGUI.fontColor);
         login_cancelButton.setForeground(MainGUI.fontColor);
 
@@ -304,7 +304,7 @@ public class PatientGUI extends JPanel {
 
         newPatientLoginPanel = new JPanel(new GridBagLayout());
         newPatientLoginConstraints = new GridBagConstraints();
-        
+
         newPatientLoginPanel.setBackground(MainGUI.backgroundColor);
 
         npLogin_createNewPatientLabel = new JLabel("New Patient");
@@ -317,13 +317,13 @@ public class PatientGUI extends JPanel {
         npLogin_createNewPatientLabel.setForeground(MainGUI.fontColor);
         npLogin_usernameLabel.setForeground(MainGUI.fontColor);
         npLogin_passwordLabel.setForeground(MainGUI.fontColor);
-        
+
         npLogin_usernameTextField = new JTextField(12);
         npLogin_passwordField = new JPasswordField(12);
 
         npLogin_submitButton = new JButton("Submit");
         npLogin_cancelButton = new JButton("Cancel");
-        
+
         npLogin_submitButton.setForeground(MainGUI.fontColor);
         npLogin_cancelButton.setForeground(MainGUI.fontColor);
 
@@ -410,7 +410,7 @@ public class PatientGUI extends JPanel {
         npInfo_stateComboBox = new JComboBox<>(npInfo_states);
         npInfo_submitNewInfoButton = new JButton("Submit Information");
         npInfo_cancelButton = new JButton("Cancel");
-        
+
         npInfo_firstNameLabel.setForeground(MainGUI.fontColor);
         npInfo_middleNameLabel.setForeground(MainGUI.fontColor);
         npInfo_lastNameLabel.setForeground(MainGUI.fontColor);
@@ -421,7 +421,7 @@ public class PatientGUI extends JPanel {
         npInfo_cityLabel.setForeground(MainGUI.fontColor);
         npInfo_stateLabel.setForeground(MainGUI.fontColor);
         npInfo_zipCodeLabel.setForeground(MainGUI.fontColor);
-        
+
         npInfo_submitNewInfoButton.setForeground(MainGUI.fontColor);
         npInfo_cancelButton.setForeground(MainGUI.fontColor);
 
@@ -584,7 +584,7 @@ public class PatientGUI extends JPanel {
 
         pInfo_updateInfoButton = new JButton("Update Information");
 
-        
+
         pInfo_firstNameLabel.setForeground(MainGUI.fontColor);
         pInfo_middleNameLabel.setForeground(MainGUI.fontColor);
         pInfo_lastNameLabel.setForeground(MainGUI.fontColor);
@@ -759,10 +759,10 @@ public class PatientGUI extends JPanel {
         app_requestAppointmentButton = new JButton("Request Appointment");
         app_cancelAppointmentButton = new JButton("Cancel Appointment");
         app_lookUpAppointmentButton = new JButton("Look Up Appointment");
-        
+
         app_chooseDateAndTimeLabel.setForeground(MainGUI.fontColor);
         app_lookUpAppointmentLabel.setForeground(MainGUI.fontColor);
-        
+
         app_requestAppointmentButton.setForeground(MainGUI.fontColor);
         app_cancelAppointmentButton.setForeground(MainGUI.fontColor);
         app_lookUpAppointmentButton.setForeground(MainGUI.fontColor);
@@ -825,9 +825,9 @@ public class PatientGUI extends JPanel {
         appointmentsPanel.add(app_lookUpAppointmentTextField, appointmentConstraints);
 
     } // end initializeAppointmentsTab
-    
+
 /* END initialize() related functions*/
-    
+
 /* START Action Listener related functions*/
 
     // Choose Login Type Panel
@@ -1405,7 +1405,7 @@ public class PatientGUI extends JPanel {
             }
         }
 
-        // throws error if SSN has characters other than numbers, or has less/more than 4 digits 
+        // throws error if SSN has characters other than numbers, or has less/more than 4 digits
         if (pInfo_SSNTextField.getText().length() > 0 && pInfo_SSNTextField.getText().length() != 4) {
 
             JOptionPane.showMessageDialog
@@ -1468,37 +1468,25 @@ public class PatientGUI extends JPanel {
 
         // throws error if city has characters other than letters
         if (pInfo_cityTextField.getText().length() > 0) {
-
             for (int i = 1; i < pInfo_cityTextField.getText().length(); i++) {
-
                 if (!Character.isLetter(pInfo_cityTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "City Must Have Only Letters");
-
                     illegalFields = false;
                     break;
                 }
             }
         }
-
         // throws error if zip code has characters other than numbers, or has less/more than 4 digits
         if (pInfo_zipCodeTextField.getText().length() > 0 && pInfo_zipCodeTextField.getText().length() != 5) {
-
             JOptionPane.showMessageDialog
                     (null, "Zip Code Must Have 5 Characters");
-
             illegalFields = false;
-
         } else if (pInfo_zipCodeTextField.getText().length() == 5) {
-
             for (int i = 0; i < 5; i++) {
-
                 if (!Character.isDigit(pInfo_zipCodeTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "Zip Code Must Have Only Numbers");
-
                     illegalFields = false;
                     break;
                 }
@@ -1698,5 +1686,5 @@ public class PatientGUI extends JPanel {
             return null;
         }
     }
-    
+
 }// end PatientGUI
