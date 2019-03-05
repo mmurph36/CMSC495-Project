@@ -16,17 +16,14 @@ public class PatientDB {
      * @return the Connection object
      */
 
-	// trim all whitespace for every variable and alias it to the parameter 
-    String sql = "SELECT trim(l_name) l_name, trim(f_name) f_name, trim(m_name) m_name, trim(user_name) user_name, trim(password) password, "
-    		+ "trim(dob) dob, trim(SSN) SSN, trim(zip) zip, trim(address) address, trim(city) city, trim(state) state, "
-    		+ "trim(p_number) p_number, trim(policy) policy" +
+    private String sql = "SELECT l_name, f_name, m_name, user_name, password, dob, SSN, zip, address, city, state, p_number, policy" +
             "       FROM patientinfo";
 
-    ArrayList<patient> pat_list;
+    private ArrayList<patient> pat_list;
 
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:/Users/estherho/git/CMSC495-Project/src/patients.db";
+        String url = "jdbc:sqlite:C:\\Users\\Ari\\Downloads\\patients.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -46,7 +43,7 @@ public class PatientDB {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
-            pat_list = new ArrayList<patient>();
+            pat_list = new ArrayList<>();
             // loop through the result set
             while (rs.next()) {
                 System.out.println(rs.getString("l_name") +  "\t" +
@@ -54,11 +51,11 @@ public class PatientDB {
                         rs.getString("m_name"));
 
                 pat_list.add(new patient(rs.getString("f_name"), rs.getString("l_name"),
-                            rs.getString("m_name"), rs.getString("user_name"),
-                            rs.getString("password"), rs.getString("dob"),
-                            rs.getInt("SSN"),rs.getInt("zip"),rs.getString("address"),
-                            rs.getString("city"),rs.getString("state"),rs.getString("p_number"),
-                            rs.getBoolean("policy")));
+                        rs.getString("m_name"), rs.getString("user_name"),
+                        rs.getString("password"), rs.getString("dob"),
+                        rs.getInt("SSN"),rs.getInt("zip"),rs.getString("address"),
+                        rs.getString("city"),rs.getString("state"),rs.getString("p_number"),
+                        rs.getBoolean("policy")));
 
             }
         } catch (SQLException e) {

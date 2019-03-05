@@ -26,38 +26,38 @@ public class PatientGUI extends JPanel {
     patient patient;
 
     // Choose Login Type Panel
-    JPanel chooseLoginTypePanel;
-    GridBagConstraints chooseLoginTypePanelConstraints;
-    JLabel clt_chooseLabel;
-    JButton clt_existingPatientButton;
-    JButton clt_newPatientButton;
+    private JPanel chooseLoginTypePanel;
+    private GridBagConstraints chooseLoginTypePanelConstraints;
+    private JLabel clt_chooseLabel;
+    private JButton clt_existingPatientButton;
+    private JButton clt_newPatientButton;
 
     // Login Panel
-    JPanel loginPanel;
-    GridBagConstraints loginConstraints;
-    JLabel logInLabel, login_usernameLabel, login_passwordLabel;
-    JTextField login_usernameTextField;
-    JPasswordField login_passwordField;
-    JButton loginButton, login_cancelButton;
+    private JPanel loginPanel;
+    private GridBagConstraints loginConstraints;
+    private JLabel logInLabel, login_usernameLabel, login_passwordLabel;
+    private JTextField login_usernameTextField;
+    private JPasswordField login_passwordField;
+    private JButton loginButton, login_cancelButton;
 
     // New Patient Login panel
-    JPanel newPatientLoginPanel;
-    GridBagConstraints newPatientLoginConstraints;
-    JLabel npLogin_createNewPatientLabel, npLogin_usernameLabel, npLogin_passwordLabel;
-    JTextField npLogin_usernameTextField;
-    JPasswordField npLogin_passwordField;
-    JButton npLogin_submitButton, npLogin_cancelButton;
+    private JPanel newPatientLoginPanel;
+    private GridBagConstraints newPatientLoginConstraints;
+    private JLabel npLogin_createNewPatientLabel, npLogin_usernameLabel, npLogin_passwordLabel;
+    private JTextField npLogin_usernameTextField;
+    private JPasswordField npLogin_passwordField;
+    private JButton npLogin_submitButton, npLogin_cancelButton;
 
     // New Patient Info panel
-    JPanel newPatientInfoPanel;
-    GridBagConstraints newPatientInfoPanelConstraints;
-    JLabel npInfo_firstNameLabel, npInfo_middleNameLabel, npInfo_lastNameLabel,
+    private JPanel newPatientInfoPanel;
+    private GridBagConstraints newPatientInfoPanelConstraints;
+    private JLabel npInfo_firstNameLabel, npInfo_middleNameLabel, npInfo_lastNameLabel,
             npInfo_SSNLabel, npInfo_DOBLabel, npInfo_phoneNumberLabel,
             npInfo_addressLabel, npInfo_cityLabel, npInfo_stateLabel, npInfo_zipCodeLabel;
-    JTextField npInfo_firstNameTextField, npInfo_middleNameTextField, npInfo_lastNameTextField,
+    private JTextField npInfo_firstNameTextField, npInfo_middleNameTextField, npInfo_lastNameTextField,
             npInfo_SSNTextField, npInfo_DOBTextField, npInfo_phoneNumberTextField,
             npInfo_addressTextField, npInfo_cityTextField, npInfo_zipCodeTextField;
-    static String[] npInfo_states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
+    private String[] npInfo_states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
             "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
             "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
             "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
@@ -68,34 +68,34 @@ public class PatientGUI extends JPanel {
             "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
             "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
             "Wyoming"};
-    JComboBox<String> npInfo_stateComboBox;
-    JButton npInfo_submitNewInfoButton, npInfo_cancelButton;
+    private JComboBox<String> npInfo_stateComboBox;
+    private JButton npInfo_submitNewInfoButton, npInfo_cancelButton;
 
     // Tabbed Pane
-    JTabbedPane tabbedPane;
+    private JTabbedPane tabbedPane;
 
     // Tab 1: Patient Info
-    JPanel patientInfoPanel;
-    GridBagConstraints patientInfoPanelConstraints;
-    JLabel pInfo_firstNameLabel, pInfo_middleNameLabel, pInfo_lastNameLabel,
+    private JPanel patientInfoPanel;
+    private GridBagConstraints patientInfoPanelConstraints;
+    private JLabel pInfo_firstNameLabel, pInfo_middleNameLabel, pInfo_lastNameLabel,
             pInfo_SSNLabel, pInfo_DOBLabel, pInfo_phoneNumberLabel,
             pInfo_addressLabel, pInfo_cityLabel, pInfo_stateLabel, pInfo_zipCodeLabel,
             pInfo_patient_userLabel, pInfo_patient_pwLabel;
-    JTextField pInfo_firstNameTextField, pInfo_middleNameTextField, pInfo_lastNameTextField,
+    private JTextField pInfo_firstNameTextField, pInfo_middleNameTextField, pInfo_lastNameTextField,
             pInfo_SSNTextField, pInfo_DOBTextField, pInfo_phoneNumberTextField,
             pInfo_addressTextField, pInfo_cityTextField, pInfo_zipCodeTextField,
             pInfo_patient_userField, pInfo_patient_pwField;
-    JComboBox<String> pInfo_stateComboBox;
-    JButton pInfo_updateInfoButton;
+    private JComboBox<String> pInfo_stateComboBox;
+    private JButton pInfo_updateInfoButton;
 
     // Tab 2: Appointments
-    JPanel appointmentsPanel;
-    GridBagConstraints appointmentConstraints;
-    JLabel app_chooseDateAndTimeLabel, app_lookUpAppointmentLabel;
-    DatePicker datePicker;
-    TimePicker timePicker;
-    JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
-    JTextField app_lookUpAppointmentTextField;
+    private JPanel appointmentsPanel;
+    private GridBagConstraints appointmentConstraints;
+    private JLabel app_chooseDateAndTimeLabel, app_lookUpAppointmentLabel;
+    private DatePicker datePicker;
+    private TimePicker timePicker;
+    private JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
+    private JTextField app_lookUpAppointmentTextField;
 
     // constructor
     public PatientGUI() {
@@ -882,18 +882,18 @@ public class PatientGUI extends JPanel {
 
             if (patient != null) {
 
-                pInfo_firstNameTextField.setText(patient.f_name);
-                pInfo_lastNameTextField.setText(patient.l_name);
-                pInfo_middleNameTextField.setText(patient.m_name);
-                pInfo_SSNTextField.setText(String.valueOf(patient.SSN));
-                pInfo_DOBTextField.setText(patient.dob);
-                pInfo_phoneNumberTextField.setText(patient.p_number);
-                pInfo_addressTextField.setText(patient.address);
-                pInfo_cityTextField.setText(patient.city);
-                pInfo_stateComboBox.setSelectedItem(patient.state);
-                pInfo_zipCodeTextField.setText(String.valueOf(patient.zip));
-                pInfo_patient_userField.setText(patient.user_name);
-                pInfo_patient_pwField.setText(patient.password);
+                pInfo_firstNameTextField.setText(patient.getF_name());
+                pInfo_lastNameTextField.setText(patient.getL_name());
+                pInfo_middleNameTextField.setText(patient.getM_name());
+                pInfo_SSNTextField.setText(String.valueOf(patient.getSSN()));
+                pInfo_DOBTextField.setText(patient.getDob());
+                pInfo_phoneNumberTextField.setText(patient.getP_number());
+                pInfo_addressTextField.setText(patient.getAddress());
+                pInfo_cityTextField.setText(patient.getCity());
+                pInfo_stateComboBox.setSelectedItem(patient.getState());
+                pInfo_zipCodeTextField.setText(String.valueOf(patient.getZip()));
+                pInfo_patient_userField.setText(patient.getUser_name());
+                pInfo_patient_pwField.setText(patient.getPassword());
 
             } else
                 JOptionPane.showMessageDialog(null, "Error");
@@ -939,16 +939,12 @@ public class PatientGUI extends JPanel {
 
         else if (!MainGUI.pimsSystem.patient_exists
                 (npLogin_usernameTextField.getText(), String.valueOf(npLogin_passwordField.getPassword()))) {
-
             remove(newPatientLoginPanel);
             add(newPatientInfoPanel);
-
             JOptionPane.showMessageDialog
                     (null, "Submission Successful");
-
             repaint();
             revalidate();
-
         } else
             JOptionPane.showMessageDialog
                     (null, "This Username and Password are Already Taken");
@@ -956,17 +952,13 @@ public class PatientGUI extends JPanel {
     } // end npl_submit
 
     private void npl_cancel(){
-
         remove(newPatientLoginPanel);
         add(chooseLoginTypePanel);
-
         repaint();
         revalidate();
-
         // reset username and password fields
         npLogin_usernameTextField.setText("");
         npLogin_passwordField.setText("");
-
     } // end npl_cancel
 
     // New Patient Info Panel
@@ -1137,40 +1129,25 @@ public class PatientGUI extends JPanel {
 
             }
         }
-
-
         // throws error if phone number isn't formatted correctly - "###-###-####"
         if (npInfo_phoneNumberTextField.getText().length() > 0 && npInfo_phoneNumberTextField.getText().length() != 12) {
-
             JOptionPane.showMessageDialog
                     (null, "Phone Number Must be formatted \"###-###-####\"");
-
             illegalFields = false;
-
         } else if (npInfo_phoneNumberTextField.getText().length() == 12) {
-
             if (!phoneNumberParser(npInfo_phoneNumberTextField.getText())) {
-
                 JOptionPane.showMessageDialog
                         (null, "Phone Number Must be formatted \"###-###-####\"");
-
                 illegalFields = false;
-
             }
         }
-
-
         // throws error if address has characters other than letters and numbers
         if (npInfo_addressTextField.getText().length() > 0) {
-
             for (int i = 0; i < npInfo_addressTextField.getText().length(); i++) {
-
                 if (!Character.isLetter(npInfo_addressTextField.getText().charAt(i)) &&
                         !Character.isDigit(npInfo_addressTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "Address Must Have Only Numbers and Letters");
-
                     illegalFields = false;
                 }
             }
@@ -1178,61 +1155,41 @@ public class PatientGUI extends JPanel {
 
         // throws error if city has characters other than letters
         if (npInfo_cityTextField.getText().length() > 0) {
-
             for (int i = 1; i < npInfo_cityTextField.getText().length(); i++) {
-
                 if (!Character.isLetter(npInfo_cityTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "City Must Have Only Letters");
-
                     illegalFields = false;
                     break;
-
                 }
             }
         }
-
-
         // throws error if zip code has characters other than numbers, or has less/more than 4 digits
         if (npInfo_zipCodeTextField.getText().length() > 0 && npInfo_zipCodeTextField.getText().length() != 5) {
-
             JOptionPane.showMessageDialog
                     (null, "Zip Code Must Have 5 Characters");
-
             illegalFields = false;
-
         } else if (npInfo_zipCodeTextField.getText().length() == 5) {
-
             for (int i = 0; i < 5; i++) {
-
                 if (!Character.isDigit(npInfo_zipCodeTextField.getText().charAt(i))) {
-
                     JOptionPane.showMessageDialog
                             (null, "Zip Code Must Have Only Numbers");
-
                     illegalFields = false;
                     break;
-
                 }
             }
         }
-
-
         // checks if there are no input errors
         if (emptyFields && illegalFields) {
-
             if (!MainGUI.pimsSystem.add_patient(npInfo_firstNameTextField.getText(),
                     npInfo_lastNameTextField.getText(), middleName, npLogin_usernameTextField.getText(),
                     String.valueOf(npLogin_passwordField.getPassword()), npInfo_DOBTextField.getText(),
                     Integer.parseInt(npInfo_SSNTextField.getText()), Integer.parseInt(npInfo_zipCodeTextField.getText()),
                     npInfo_addressTextField.getText(), npInfo_cityTextField.getText(),
                     String.valueOf(npInfo_stateComboBox.getSelectedItem()), npInfo_phoneNumberTextField.getText(), true))
-
                 JOptionPane.showMessageDialog
                         (null, "This Patient Is Already In System");
             else {
-
                 // set the patient info panel in the tabbed pane to
                 // to info from the create new info patient panel
                 pInfo_firstNameTextField.setText(npInfo_firstNameTextField.getText());
@@ -1247,13 +1204,10 @@ public class PatientGUI extends JPanel {
                 pInfo_stateComboBox.setSelectedItem(npInfo_stateComboBox.getSelectedItem());
                 pInfo_patient_userField.setText(npLogin_usernameTextField.getText());
                 pInfo_patient_pwField.setText(String.valueOf(npLogin_passwordField.getPassword()));
-
                 remove(newPatientInfoPanel);
                 add(tabbedPane);
-
                 JOptionPane.showMessageDialog
                         (null, "Submission Successful");
-
                 repaint();
                 revalidate();
             }
@@ -1498,31 +1452,24 @@ public class PatientGUI extends JPanel {
                 (pInfo_lastNameTextField.getText(), Integer.parseInt(pInfo_SSNTextField.getText()));
 
         if (emptyFields && illegalFields && patient != null) {
-
             JOptionPane.showMessageDialog
                     (null, "Information Updated");
-
-            patient.l_name = pInfo_lastNameTextField.getText();
-            patient.f_name = pInfo_firstNameTextField.getText();
-            patient.m_name = middleName;
-            patient.SSN = Integer.parseInt(pInfo_SSNTextField.getText());
-            patient.dob = pInfo_DOBTextField.getText();
-            patient.p_number = pInfo_phoneNumberTextField.getText();
-            patient.address = pInfo_addressTextField.getText();
-            patient.city = pInfo_cityTextField.getText();
-            patient.state = String.valueOf(pInfo_stateComboBox.getSelectedItem());
-            patient.zip = Integer.parseInt(pInfo_zipCodeTextField.getText());
-            patient.user_name = pInfo_patient_userField.getText();
-            patient.password = pInfo_patient_pwField.getText();
-
+            patient.setL_name(pInfo_lastNameTextField.getText());
+            patient.setF_name(pInfo_firstNameTextField.getText());
+            patient.setM_name(middleName);
+            patient.setSSN(Integer.parseInt(pInfo_SSNTextField.getText()));
+            patient.setDob(pInfo_DOBTextField.getText());
+            patient.setP_number(pInfo_phoneNumberTextField.getText());
+            patient.setAddress(pInfo_addressTextField.getText());
+            patient.setCity(pInfo_cityTextField.getText());
+            patient.setState(String.valueOf(pInfo_stateComboBox.getSelectedItem()));
+            patient.setZip(Integer.parseInt(pInfo_zipCodeTextField.getText()));
+            patient.setUser_name(pInfo_patient_userField.getText());
+            patient.setPassword(pInfo_patient_pwField.getText());
         } else if (!String.valueOf(errorMessage).equals("Must Enter"))
-
             JOptionPane.showMessageDialog(null, errorMessage);
-
         else if (patient == null)
-
             JOptionPane.showMessageDialog(null, "Error");
-
     } // end pInfo_updateInfo
 
     // Appointments Tab listeners

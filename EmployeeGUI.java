@@ -32,47 +32,47 @@ public class EmployeeGUI extends JPanel {
     private patient patient; // for search
 
     // EmployeeGUI title
-    String employeeGUItitle;
+    private String employeeGUItitle;
 
     // Login panel
-    JPanel loginPanel;
-    GridBagConstraints loginConstraints;
-    JLabel login_directionLabel, login_usernameLabel, login_passwordLabel;
-    JTextField login_usernameTextField;
-    JPasswordField login_passwordField;
-    JButton loginButton;
+    private JPanel loginPanel;
+    private GridBagConstraints loginConstraints;
+    private JLabel login_directionLabel, login_usernameLabel, login_passwordLabel;
+    private JTextField login_usernameTextField;
+    private JPasswordField login_passwordField;
+    private JButton loginButton;
 
     /* Employee Window (Tabbed Pane) */
     // 5 Tabs: Appointments, Patient Information, Billing, Search, Calendar
-    JTabbedPane tabbedPane;
+    private JTabbedPane tabbedPane;
 
     // TAB 1: Appointments
-    JPanel appTab;
-    GridBagConstraints appointmentConstraints;
-    JLabel app_chooseDateAndTimeLabel, cal_currentAppointmentLabel,
+    private JPanel appTab;
+    private GridBagConstraints appointmentConstraints;
+    private JLabel app_chooseDateAndTimeLabel, cal_currentAppointmentLabel,
             cal_patientSSNLabel, app_patientNameLabel, app_lookUpAppointmentLabel,
             cal_currentPatientLabel;
-    JTextField cal_currentAppointmentTextField, cal_SSNTextField,
+    private JTextField cal_currentAppointmentTextField, cal_SSNTextField,
             app_patientNameTextField, app_lookUpAppointmentTextField,
             cal_currentPatientTextField;
-    DatePicker datePicker;
-    TimePicker timePicker;
-    JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
+    private DatePicker datePicker;
+    private TimePicker timePicker;
+    private JButton app_requestAppointmentButton, app_cancelAppointmentButton, app_lookUpAppointmentButton;
 
 
     // TAB 2: Patient Information
-    JPanel patientTab;
-    GridBagConstraints patientTabConstraints;
-    JLabel pInfo_lastNameLabel, pInfo_firstNameLabel, pInfo_middleNameLabel,
+    private JPanel patientTab;
+    private GridBagConstraints patientTabConstraints;
+    private JLabel pInfo_lastNameLabel, pInfo_firstNameLabel, pInfo_middleNameLabel,
             pInfo_ssnLabel, pInfo_dobLabel, pInfo_phoneNumberLabel,
             pInfo_streetLabel, pInfo_cityLabel, pInfo_stateLabel, pInfo_zipCodeLabel,
             pInfo_userLabel, pInfo_pwLabel, pInfo_policyLabel;
-    JTextField pInfo_lastNameTextField, pInfo_firstNameTextField, pInfo_middleNameTextField,
+    private JTextField pInfo_lastNameTextField, pInfo_firstNameTextField, pInfo_middleNameTextField,
             pInfo_ssnTextField, pInfo_dobTextField, pInfo_phoneNumberTextField,
             pInfo_addressTextField, pInfo_cityTextField, pInfo_zipCodeTextField,
             pInfo_userField, pInfo_pwField;
-    JComboBox<String> pInfo_stateComboBox, pInfo_policyComboBox;
-    static String[] pInfo_states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
+    private JComboBox<String> pInfo_stateComboBox, pInfo_policyComboBox;
+    private String[] pInfo_states = {"Alabama", "Alaska", "Arizona", "Arkansas", "California",
             "Colorado", "Connecticut", "Delaware", "District of Columbia", "Florida",
             "Georgia", "Hawaii", "Idaho", "Illinois", "Indiana",
             "Iowa", "Kansas", "Kentucky", "Louisiana", "Maine",
@@ -83,38 +83,38 @@ public class EmployeeGUI extends JPanel {
             "South Carolina", "South Dakota", "Tennessee", "Texas", "Utah",
             "Vermont", "Virginia", "Washington", "West Virginia", "Wisconsin",
             "Wyoming"};
-    JButton pInfo_updateInfoButton, pInfo_submitNewInfoButton;
+    private JButton pInfo_updateInfoButton, pInfo_submitNewInfoButton;
 
     // TAB 3: Billing
-    JPanel billingTab;
-    GridBagConstraints billingTabConstraints;
-    JLabel billing_patientBillingLabel, billing_fullNameLabel, billing_ssnLabel,
+    private JPanel billingTab;
+    private GridBagConstraints billingTabConstraints;
+    private JLabel billing_patientBillingLabel, billing_fullNameLabel, billing_ssnLabel,
             billing_billCodeLabel, billing_policyLabel, billing_amtDueLabel,
             billing_historyLabel;
-    JTextField billing_fullNameField, billing_ssnField, billing_policyField, billing_amtDueField;
-    JComboBox<String> billing_codeCB;
-    JScrollPane billing_historyScrollPane;
-    JTextArea billing_patientHistoryTextArea;
-    JButton billing_calculateButton;
+    private JTextField billing_fullNameField, billing_ssnField, billing_policyField, billing_amtDueField;
+    private JComboBox<String> billing_codeCB;
+    private JScrollPane billing_historyScrollPane;
+    private JTextArea billing_patientHistoryTextArea;
+    private JButton billing_calculateButton;
 
     // TAB 4: Search
-    JPanel searchTab;
-    GridBagConstraints searchTabConstraints;
-    JLabel search_lNameLabel, search_fNameLabel,
+    private JPanel searchTab;
+    private GridBagConstraints searchTabConstraints;
+    private JLabel search_lNameLabel, search_fNameLabel,
             search_searchDirectionLabel, search_searchResultLabel;
-    JTextField search_lNameField, search_fNameField;
-    JButton search_searchButton, search_selectPatientFoundButton;
-    JComboBox<String> search_choosePatientCB;
-    ArrayList<patient> patientsFound;
+    private JTextField search_lNameField, search_fNameField;
+    private JButton search_searchButton, search_selectPatientFoundButton;
+    private JComboBox<String> search_choosePatientCB;
+    private ArrayList<patient> patientsFound;
 
     // TAB 5: Calendar
-    JPanel calTab;
-    GridBagConstraints calendarConstraints;
-    JLabel cal_calendarLabel, cal_chooseDateLabel, cal_calendarDisplayLabel;
-    JButton cal_chooseDateButton;
-    DatePicker cal_datePicker;
-    JTable cal_table;
-    JScrollPane cal_scrollPane;
+    private JPanel calTab;
+    private GridBagConstraints calendarConstraints;
+    private JLabel cal_calendarLabel, cal_chooseDateLabel, cal_calendarDisplayLabel;
+    private JButton cal_chooseDateButton;
+    private DatePicker cal_datePicker;
+    private JTable cal_table;
+    private JScrollPane cal_scrollPane;
 
     // Constructor
     public EmployeeGUI() {
@@ -1143,26 +1143,25 @@ public class EmployeeGUI extends JPanel {
         if (emptyFields && illegalFields && patient != null) {
             JOptionPane.showMessageDialog
                     (null, "Information Updated");
-            patient.l_name = pInfo_lastNameTextField.getText();
-            patient.f_name = pInfo_firstNameTextField.getText();
-            patient.m_name = middleName;
-            patient.SSN = Integer.parseInt(pInfo_ssnTextField.getText());
-            patient.dob = pInfo_dobTextField.getText();
-            patient.p_number = pInfo_phoneNumberTextField.getText();
-            patient.address = pInfo_addressTextField.getText();
-            patient.city = pInfo_cityTextField.getText();
-            patient.state = String.valueOf(pInfo_stateComboBox.getSelectedItem());
-            patient.zip = Integer.parseInt(pInfo_zipCodeTextField.getText());
-            patient.user_name = pInfo_userField.getText();
-            patient.password = pInfo_pwField.getText();
-
+            patient.setL_name(pInfo_lastNameTextField.getText());
+            patient.setF_name(pInfo_firstNameTextField.getText());
+            patient.setM_name(middleName);
+            patient.setSSN(Integer.parseInt(pInfo_ssnTextField.getText()));
+            patient.setDob(pInfo_dobTextField.getText());
+            patient.setP_number(pInfo_phoneNumberTextField.getText());
+            patient.setAddress(pInfo_addressTextField.getText());
+            patient.setCity(pInfo_cityTextField.getText());
+            patient.setState(String.valueOf(pInfo_stateComboBox.getSelectedItem()));
+            patient.setZip(Integer.parseInt(pInfo_zipCodeTextField.getText()));
+            patient.setUser_name(pInfo_userField.getText());
+            patient.setPassword(pInfo_pwField.getText());
 
             String policy = (String) pInfo_policyComboBox.getSelectedItem();
 
             if (policy.equals("Yes"))
-                patient.policy = true;
+                patient.setPolicy(true);
             else
-                patient.policy = true;
+                patient.setPolicy(true);
 
 
         } else if (!String.valueOf(errorMessage).equals("Must Enter"))
@@ -1435,7 +1434,7 @@ public class EmployeeGUI extends JPanel {
             String toAdd = "";
             // use patient data to make patient options to display
             for (patient p : patientsFound) {
-                toAdd = p.l_name + ", " + p.f_name + " (" + p.dob + ")";
+                toAdd = p.getL_name() + ", " + p.getF_name() + " (" + p.getDob() + ")";
                 foundList.add(toAdd);
             }
             int length;
@@ -1499,33 +1498,33 @@ public class EmployeeGUI extends JPanel {
 
             // true = yes, false = no policy
             String policy;
-            if (toDisplay.policy)
+            if (toDisplay.isPolicy())
                 policy = "Yes";
             else
                 policy = "No";
 
             // Appointment Tab
             app_lookUpAppointmentTextField.setText(MainGUI.pimsSystem.lookUpAppointmentDate(toDisplay));
-            app_patientNameTextField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
+            app_patientNameTextField.setText(toDisplay.getL_name() + ", " + toDisplay.getL_name());
 
             // Patient Info Tab
-            pInfo_lastNameTextField.setText(toDisplay.l_name);
-            pInfo_firstNameTextField.setText(toDisplay.f_name);
-            pInfo_middleNameTextField.setText(toDisplay.m_name);
-            pInfo_ssnTextField.setText(Integer.toString(toDisplay.SSN));
-            pInfo_dobTextField.setText(toDisplay.dob);
-            pInfo_phoneNumberTextField.setText(toDisplay.p_number);
-            pInfo_addressTextField.setText(toDisplay.address);
-            pInfo_cityTextField.setText(toDisplay.city);
-            pInfo_zipCodeTextField.setText(Integer.toString(toDisplay.zip));
-            pInfo_stateComboBox.setSelectedItem(toDisplay.state);
-            pInfo_userField.setText(toDisplay.user_name);
-            pInfo_pwField.setText(toDisplay.password);
+            pInfo_lastNameTextField.setText(toDisplay.getL_name());
+            pInfo_firstNameTextField.setText(toDisplay.getF_name());
+            pInfo_middleNameTextField.setText(toDisplay.getM_name());
+            pInfo_ssnTextField.setText(Integer.toString(toDisplay.getSSN()));
+            pInfo_dobTextField.setText(toDisplay.getDob());
+            pInfo_phoneNumberTextField.setText(toDisplay.getP_number());
+            pInfo_addressTextField.setText(toDisplay.getAddress());
+            pInfo_cityTextField.setText(toDisplay.getCity());
+            pInfo_zipCodeTextField.setText(Integer.toString(toDisplay.getZip()));
+            pInfo_stateComboBox.setSelectedItem(toDisplay.getState());
+            pInfo_userField.setText(toDisplay.getUser_name());
+            pInfo_pwField.setText(toDisplay.getPassword());
             pInfo_policyComboBox.setSelectedItem(policy);
 
             // Billing Tab
-            billing_fullNameField.setText(toDisplay.l_name + ", " + toDisplay.f_name);
-            billing_ssnField.setText(Integer.toString(toDisplay.SSN));
+            billing_fullNameField.setText(toDisplay.getL_name() + ", " + toDisplay.getF_name());
+            billing_ssnField.setText(Integer.toString(toDisplay.getSSN()));
             billing_policyField.setText(policy);
             billing_policyField.setEditable(false);
             printHistory(toDisplay);
@@ -1583,7 +1582,7 @@ public class EmployeeGUI extends JPanel {
                     (null, "No Patient to print");
         else{
             String history = "";
-            for (String s: toPrint.apptPaymentHistory){
+            for (String s: toPrint.getApptPaymentHistory()){
                 history += s + "\n";
             }
             billing_patientHistoryTextArea.setText(history);
@@ -1610,42 +1609,42 @@ public class EmployeeGUI extends JPanel {
             patient[] tempArray = tempMap.get(date);
             if (tempArray[0] != null) {
                 patient = tempArray[0];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 1, 1);
             } else cal_table.setValueAt("No Appointment", 1, 1);
             if (tempArray[1] != null) {
                 patient = tempArray[1];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 2, 1);
             } else cal_table.setValueAt("No Appointment", 2, 1);
             if (tempArray[2] != null) {
                 patient = tempArray[2];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 3, 1);
             } else cal_table.setValueAt("No Appointment", 3, 1);
             if (tempArray[3] != null) {
                 patient = tempArray[3];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 4, 1);
             } else cal_table.setValueAt("No Appointment", 4, 1);
             if (tempArray[4] != null) {
                 patient = tempArray[4];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 5, 1);
             } else cal_table.setValueAt("No Appointment", 5, 1);
             if (tempArray[5] != null) {
                 patient = tempArray[5];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 6, 1);
             } else cal_table.setValueAt("No Appointment", 6, 1);
             if (tempArray[6] != null) {
                 patient = tempArray[6];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 7, 1);
             } else cal_table.setValueAt("No Appointment", 7, 1);
             if (tempArray[7] != null) {
                 patient = tempArray[7];
-                temp = patient.f_name + " " + patient.l_name;
+                temp = patient.getF_name() + " " + patient.getL_name();
                 cal_table.setValueAt(temp, 8, 1);
             } else cal_table.setValueAt("No Appointment", 8, 1);
         }
