@@ -382,9 +382,10 @@ public class system {
     }
 
     public boolean recordApptPayment(patient patient, String charge) {
+    	
         String appt = lookUpAppointmentDate(patient);
         if (patient != null & !appt.equals("")) {
-            patient.getApptPaymentHistory().add("Paid: $" + charge + " for the appointment on: " + appt);
+            patient.getApptPaymentHistory().add("Paid: " + charge + " for the appointment on: " + appt);
             return true;
         } else return false;
     }

@@ -23,7 +23,7 @@ public class PatientDB {
 
     private Connection connect() {
         // SQLite connection string
-        String url = "jdbc:sqlite:C:\\Users\\Ari\\Downloads\\patients.db";
+        String url = "jdbc:sqlite:/Users/estherho/git/CMSC495-Project/src/patients.db";
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);

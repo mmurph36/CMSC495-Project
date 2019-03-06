@@ -96,6 +96,16 @@ public class EmployeeGUI extends JPanel {
     private JScrollPane billing_historyScrollPane;
     private JTextArea billing_patientHistoryTextArea;
     private JButton billing_calculateButton;
+    
+    // JDialog "pop up" payment tab
+    private JDialog paymentDialog; 
+    private JPanel paymentPanel;
+    private GridBagConstraints paymentPanelConstraints;
+    private JLabel payment_instructionLabel, payment_nameLabel, payment_cardNumberLabel, payment_cardCodeLabel,
+    		payment_cardExpMonthLabel, payment_cardExpYearLabel;
+    private JTextField payment_nameField, payment_cardNumberField, payment_cardCodeField, payment_amtDueField;
+	private JComboBox<String> payment_monthCB, payment_yearCB;
+    private JButton payment_payButton;
 
     // TAB 4: Search
     private JPanel searchTab;
@@ -144,6 +154,9 @@ public class EmployeeGUI extends JPanel {
         initializeBillingTab();
         initializeSearchTab();
         initializeCalendarTab();
+        
+        // NEW payment JDialog
+        initializePaymentDialog();
 
         // add panels to tabbed pane
         tabbedPane.add("Appointments", appTab);
@@ -180,6 +193,9 @@ public class EmployeeGUI extends JPanel {
 
         // Calendar Tab Listeners
         cal_chooseDateButton.addActionListener(e -> search_date());
+        
+        // Payment Dialog Listeners
+        payment_payButton.addActionListener(e -> payment_pay());
 
     }// end initialize()
 
@@ -889,6 +905,125 @@ public class EmployeeGUI extends JPanel {
         calTab.add(cal_scrollPane, calendarConstraints);
     }
 
+    private void initializePaymentDialog(){
+    	
+    	paymentDialog = new JDialog(); 
+    	paymentDialog.setTitle("PIMS Payment Form");
+    	
+    	
+        paymentPanel = new JPanel(new GridBagLayout());
+        paymentPanelConstraints = new GridBagConstraints();
+        
+        payment_instructionLabel = new JLabel("Enter Payment Information");
+        payment_nameLabel = new JLabel("Cardholder Name:");
+        payment_cardNumberLabel = new JLabel("Credit Card Number:"); 
+        payment_cardCodeLabel = new JLabel("Security Code");
+        payment_cardExpMonthLabel  = new JLabel("Expiration Month:");
+        payment_cardExpYearLabel = new JLabel("Expiration Year:");
+        
+        payment_instructionLabel.setFont(new java.awt.Font(payment_instructionLabel.getFont().getFontName(), Font.PLAIN, 30));
+        payment_instructionLabel.setForeground(MainGUI.fontColor);
+        payment_nameLabel.setForeground(MainGUI.fontColor);
+        payment_cardNumberLabel.setForeground(MainGUI.fontColor);
+        payment_cardCodeLabel.setForeground(MainGUI.fontColor);
+        payment_cardExpMonthLabel.setForeground(MainGUI.fontColor);
+        payment_cardExpYearLabel.setForeground(MainGUI.fontColor);
+        
+        payment_nameField = new JTextField(12);
+        payment_cardNumberField = new JTextField(12);
+        payment_cardCodeField = new JTextField(12);
+        payment_amtDueField = new JTextField(12);
+        payment_amtDueField.setEditable(false);
+        payment_amtDueField.setText(billing_amtDueField.getText());
+        
+        
+        String[] monthOptions = {"01", "02", "03", "04", "05", "06",
+        		"07", "08", "09", "10", "11", "12"};
+        payment_monthCB = new JComboBox<String>(monthOptions);
+        
+        String[] yearOptions = {"2019", "2020", "2021", "2022", "2023", "2024", "2025"};
+        
+        payment_yearCB = new JComboBox<String>(yearOptions);
+        payment_payButton = new JButton("Pay");
+        
+        payment_payButton.setForeground(MainGUI.fontColor);
+        
+        
+        //add components to payment panel
+        
+        // instruction label
+        paymentPanelConstraints.gridwidth = 40;
+        paymentPanelConstraints.weighty = 0.2;
+        paymentPanelConstraints.anchor = GridBagConstraints.NORTH;
+        paymentPanelConstraints.insets = new Insets(20, 0, 0, 0);
+        paymentPanel.add(payment_instructionLabel, paymentPanelConstraints);
+        
+        // card name label
+        paymentPanelConstraints.gridy = 20;
+        paymentPanelConstraints.weightx = 0.2;
+        paymentPanelConstraints.gridwidth = 10;
+        paymentPanelConstraints.anchor = GridBagConstraints.EAST;
+        paymentPanelConstraints.insets = new Insets(0, 0, 0, 20);
+        paymentPanel.add(payment_nameLabel, paymentPanelConstraints);
+        
+        // card number label
+        paymentPanelConstraints.gridy = 30;
+        paymentPanel.add(payment_cardNumberLabel, paymentPanelConstraints);
+        
+        // expiration month label
+        paymentPanelConstraints.gridy = 40;
+        paymentPanel.add(payment_cardExpMonthLabel, paymentPanelConstraints);
+        
+        // security code label
+        paymentPanelConstraints.gridx = 30;
+        paymentPanelConstraints.gridy = 20;
+        paymentPanel.add(payment_cardCodeLabel, paymentPanelConstraints);
+        
+        // expiration year label
+        paymentPanelConstraints.gridy = 30;
+        paymentPanel.add(payment_cardExpYearLabel, paymentPanelConstraints);
+        
+        // card name field
+        paymentPanelConstraints.gridx = 20;
+        paymentPanelConstraints.gridy = 20;
+        //paymentPanelConstraints.insets = new Insets(10, 10, 10, 10);
+        paymentPanel.add(payment_nameField, paymentPanelConstraints);
+        
+        // card number field
+        paymentPanelConstraints.gridy = 30;
+        paymentPanel.add(payment_cardNumberField, paymentPanelConstraints);
+        
+        // expiration month combo box
+        paymentPanelConstraints.gridy = 40;
+        paymentPanelConstraints.anchor = GridBagConstraints.WEST;
+        paymentPanel.add(payment_monthCB, paymentPanelConstraints);
+        
+        // security code field
+        paymentPanelConstraints.gridx = 40;
+        paymentPanelConstraints.gridy = 20;
+        paymentPanelConstraints.anchor = GridBagConstraints.EAST;
+        paymentPanel.add(payment_cardCodeField, paymentPanelConstraints);
+        
+        // expiration year combo box
+        paymentPanelConstraints.gridy = 30;
+        paymentPanelConstraints.anchor = GridBagConstraints.WEST;
+        paymentPanel.add(payment_yearCB, paymentPanelConstraints);
+        
+        // payment button
+        paymentPanelConstraints.gridx = 30;
+        paymentPanelConstraints.gridy = 50;
+        paymentPanel.add(payment_payButton, paymentPanelConstraints);
+        
+        
+        // add panel to dialog
+        paymentDialog.add(paymentPanel);
+        paymentDialog.setSize(700, 400);
+        paymentDialog.setLocationRelativeTo(null);
+        //paymentDialog.setVisible(true);
+        
+        
+    }// end initializePaymentDialog
+    
     /* END initialize() related functions*/
 
     /* START Action Listener related Functions */
@@ -1401,10 +1536,10 @@ public class EmployeeGUI extends JPanel {
             // patient has a policy, amount due is copay: $50
             // no policy, amount due is cost amount
             double toPay = MainGUI.pimsSystem.charge(patient, billing_codeCB.getSelectedItem().toString());
-            billing_amtDueField.setText(doubleToDecimalString(toPay));
+            billing_amtDueField.setText("$" + doubleToDecimalString(toPay));
 
 
-            JOptionPane.showMessageDialog(this, "Amount Due Calculated.",
+            JOptionPane.showMessageDialog(this, "Amount Due Calculated. Click \"Ok\" to go to Payment Form",
                     "Calculate", JOptionPane.DEFAULT_OPTION);
 
             // returns true if appointment payed & recorded
@@ -1412,8 +1547,8 @@ public class EmployeeGUI extends JPanel {
                 JOptionPane.showMessageDialog
                         (null, "This Patient Doesn't Have An Appointment Scheduled");
             else {
-                clearHistory();
-                printHistory(patient);
+            	
+            	paymentDialog.setVisible(true);
             }
         }
 
@@ -1537,6 +1672,17 @@ public class EmployeeGUI extends JPanel {
                     "Filling in Info", JOptionPane.DEFAULT_OPTION);
 
     }// end fillPatientData()
+    
+    // Payment dialog Listeners
+    
+    private void payment_pay(){
+    	
+    	// only pay if all fields are filled out
+    	
+    	// update patient history
+    	clearHistory();
+        printHistory(patient);
+    }
 
     /* END Action Listener related functions*/
 
@@ -1762,7 +1908,7 @@ public class EmployeeGUI extends JPanel {
             return null;
         }
     }
-
+/*
     // main for just employeeGUI
     @SuppressWarnings("unused")
     public static void main(String[] args) {
@@ -1777,6 +1923,7 @@ public class EmployeeGUI extends JPanel {
         mainGUI.setLocationRelativeTo(null); // GUI appear in center
         mainGUI.setVisible(true);
 
-    }// end main
+    }// end main 
+    */
 
 }// end EmployeeGUI class
